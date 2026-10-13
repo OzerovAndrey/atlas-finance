@@ -21,19 +21,13 @@ Hierarchy `Components → Theme → Brand → Base`. WEB code syntax on every va
 
 `typography/display/d1–d3`, `title/t1–t5`, `body/{lg,md,sm}/{regular,strong}`, `label/{md,sm,overline}`, `caption/regular`, `numeric/{balance,amountLg,amountMd,amountSm}` — created by Tokens Studio, `fontFamily` bound to `Brand/fontFamily/display|base`, size / line height / weight bound to `Base`.
 
-## Pages
+## Pages (in order)
 
-- `Components` — organised in Sections by family:
-  - **Icons** — Icon (21 stroke icons)
-  - **Actions** — Button (48 variants), Icon Button, Link
-  - **Forms** — Input, Select, Checkbox, Radio, Switch
-  - **Navigation** — Nav Item, Tab Item, Breadcrumbs, Segmented Item (brand / theme switcher)
-  - **Data** — Table Header, Table Row, Badge, Transaction Row, Section Header, Skeleton
-  - **Finance** — Account Card, Bank Card, Balance Card
-  - **Feedback** — Alert, Toast, Dialog
-  - **Visualization** — Spending Chart, Category Chart
-- `Overview`, `Transactions`, `Transfers` — screens composed from those components, each in 8 frames (4 brands × 2 themes, explicit modes per frame).
-- `Foundations` — reserved for token specimens (not built yet).
+`Foundations` (empty, reserved) · `Components` · `Overview` · `Accounts` · `Transactions` · `Transaction detail` · `Transactions loading` · `Transactions empty` · `Transfer 1 Recipient` · `Transfer 2 Amount` · `Transfer 2 Amount (error)` · `Transfer 3 Review` · `Transfer 4 Result` · `Cards` · `Cards (frozen)` · `Analytics` · `Settings` · `Mobile Overview` · `Mobile Overview 320` · `Mobile Transactions` · `Mobile Transfer` · `Mobile Cards`.
+
+Every screen page holds 8 frames: row 1 Light, row 2 Dark; columns VANTA · PULSE · NORTH · FLOW; explicit `Brand` + `Theme` modes per frame. Routes, flows and states are described in [layouts.md](layouts.md).
+
+`Components` sections: **Icons**, **Actions** (Button, Icon Button, Link), **Forms** (Input, Select, Checkbox, Radio, Switch), **Navigation** (Nav Item, Tab Item, Breadcrumbs, Segmented Item), **Data** (Table Header, Table Row, Badge, Transaction Row, Section Header, Skeleton), **Finance** (Account Card, Bank Card, Balance Card), **Feedback** (Alert, Toast, Dialog), **Visualization** (Spending Chart, Category Chart), **Shell** (Sidebar, Switchers, Page Header, Bottom Nav, Top Bar).
 
 ## Known rules / gotchas
 
@@ -44,4 +38,4 @@ Hierarchy `Components → Theme → Brand → Base`. WEB code syntax on every va
 
 ## Not yet built
 
-Account / Cards / Analytics / Settings screens, Foundations specimen page, component descriptions for Code Connect, interaction prototypes.
+Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows, component descriptions for Code Connect, interaction prototypes.

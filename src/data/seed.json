@@ -1,0 +1,751 @@
+{
+  "meta": {
+    "currency": "EUR",
+    "locale": "en-IE",
+    "today": "2026-10-12",
+    "balanceChangePct": 8.2,
+    "note": "Entirely fictional demo data. USD account is shown at a fixed demo rate of 1 USD = 1.00 EUR in the total balance."
+  },
+  "accounts": [
+    {
+      "id": "acc-everyday",
+      "name": "Everyday EUR",
+      "currency": "EUR",
+      "type": "Current account",
+      "number": "ATLAS DEMO 0000 4821",
+      "last4": "4821",
+      "bankCode": "ATLASDEMO",
+      "openedAt": "2024-01-15",
+      "balanceMinor": 842015
+    },
+    {
+      "id": "acc-savings",
+      "name": "Savings EUR",
+      "currency": "EUR",
+      "type": "Savings account",
+      "number": "ATLAS DEMO 0000 7730",
+      "last4": "7730",
+      "bankCode": "ATLASDEMO",
+      "openedAt": "2024-01-15",
+      "balanceMinor": 1210000
+    },
+    {
+      "id": "acc-usd",
+      "name": "USD Account",
+      "currency": "USD",
+      "type": "Current account",
+      "number": "ATLAS DEMO 0000 2095",
+      "last4": "2095",
+      "bankCode": "ATLASDEMO",
+      "openedAt": "2024-06-02",
+      "balanceMinor": 406035
+    }
+  ],
+  "fx": {
+    "USD": 1
+  },
+  "cards": [
+    {
+      "id": "card-physical",
+      "kind": "physical",
+      "name": "Everyday card",
+      "accountId": "acc-everyday",
+      "last4": "4829",
+      "expires": "12/29",
+      "monthlyLimitMinor": 200000,
+      "status": "active",
+      "contactless": true
+    },
+    {
+      "id": "card-virtual",
+      "kind": "virtual",
+      "name": "Online card",
+      "accountId": "acc-everyday",
+      "last4": "1163",
+      "expires": "09/28",
+      "monthlyLimitMinor": 80000,
+      "status": "active",
+      "contactless": false
+    }
+  ],
+  "recipients": [
+    {
+      "id": "rcp-maria",
+      "name": "Maria Keller",
+      "number": "ATLAS DEMO 0000 3000",
+      "last4": "3000"
+    },
+    {
+      "id": "rcp-daniel",
+      "name": "Daniel Ortiz",
+      "number": "ATLAS DEMO 0000 1182",
+      "last4": "1182"
+    },
+    {
+      "id": "rcp-aiko",
+      "name": "Aiko Tanaka",
+      "number": "ATLAS DEMO 0000 9046",
+      "last4": "9046"
+    },
+    {
+      "id": "rcp-lena",
+      "name": "Lena Fischer",
+      "number": "ATLAS DEMO 0000 5521",
+      "last4": "5521"
+    },
+    {
+      "id": "rcp-omar",
+      "name": "Omar Haddad",
+      "number": "ATLAS DEMO 0000 7713",
+      "last4": "7713"
+    }
+  ],
+  "categories": [
+    {
+      "id": "income",
+      "name": "Income",
+      "group": "income"
+    },
+    {
+      "id": "groceries",
+      "name": "Groceries",
+      "group": "groceries"
+    },
+    {
+      "id": "transport",
+      "name": "Transport",
+      "group": "transport"
+    },
+    {
+      "id": "dining",
+      "name": "Dining",
+      "group": "dining"
+    },
+    {
+      "id": "bills",
+      "name": "Bills",
+      "group": "bills"
+    },
+    {
+      "id": "shopping",
+      "name": "Shopping",
+      "group": "other"
+    },
+    {
+      "id": "health",
+      "name": "Health",
+      "group": "other"
+    },
+    {
+      "id": "entertainment",
+      "name": "Entertainment",
+      "group": "other"
+    }
+  ],
+  "monthlySpendingMinor": {
+    "2026-05": 98040,
+    "2026-06": 112075
+  },
+  "transactions": [
+    {
+      "id": "tx-001",
+      "date": "2026-10-12T08:41:00",
+      "merchant": "Coffee & Co",
+      "categoryId": "dining",
+      "amountMinor": -1250,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1001"
+    },
+    {
+      "id": "tx-002",
+      "date": "2026-10-12T07:55:00",
+      "merchant": "Spotify",
+      "categoryId": "entertainment",
+      "amountMinor": -999,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "pending",
+      "reference": "ATLAS-DEMO-TX-1002"
+    },
+    {
+      "id": "tx-003",
+      "date": "2026-10-12T06:00:00",
+      "merchant": "Salary",
+      "categoryId": "income",
+      "amountMinor": 345000,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1003"
+    },
+    {
+      "id": "tx-004",
+      "date": "2026-10-11T18:20:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -6820,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1004"
+    },
+    {
+      "id": "tx-005",
+      "date": "2026-10-11T13:05:00",
+      "merchant": "Sushi Bar",
+      "categoryId": "dining",
+      "amountMinor": -9770,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1005"
+    },
+    {
+      "id": "tx-006",
+      "date": "2026-10-10T17:40:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -10000,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1006"
+    },
+    {
+      "id": "tx-007",
+      "date": "2026-10-10T08:12:00",
+      "merchant": "Metro card",
+      "categoryId": "transport",
+      "amountMinor": -2400,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1007"
+    },
+    {
+      "id": "tx-008",
+      "date": "2026-10-09T09:00:00",
+      "merchant": "Electricity",
+      "categoryId": "bills",
+      "amountMinor": -8400,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1008"
+    },
+    {
+      "id": "tx-009",
+      "date": "2026-10-08T19:10:00",
+      "merchant": "Taxi",
+      "categoryId": "transport",
+      "amountMinor": -1850,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1009"
+    },
+    {
+      "id": "tx-010",
+      "date": "2026-10-08T11:30:00",
+      "merchant": "Refund · Zalando",
+      "categoryId": "shopping",
+      "amountMinor": 3990,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1010"
+    },
+    {
+      "id": "tx-011",
+      "date": "2026-10-07T12:45:00",
+      "merchant": "Trattoria Sole",
+      "categoryId": "dining",
+      "amountMinor": -4640,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1011"
+    },
+    {
+      "id": "tx-012",
+      "date": "2026-10-07T10:15:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -9210,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1012"
+    },
+    {
+      "id": "tx-013",
+      "date": "2026-10-06T15:20:00",
+      "merchant": "Zalando",
+      "categoryId": "shopping",
+      "amountMinor": -8990,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-virtual",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1013"
+    },
+    {
+      "id": "tx-014",
+      "date": "2026-10-05T16:35:00",
+      "merchant": "Fuel",
+      "categoryId": "transport",
+      "amountMinor": -5200,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1014"
+    },
+    {
+      "id": "tx-015",
+      "date": "2026-10-05T10:00:00",
+      "merchant": "Freelance invoice",
+      "categoryId": "income",
+      "amountMinor": 63010,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1015"
+    },
+    {
+      "id": "tx-016",
+      "date": "2026-10-04T18:05:00",
+      "merchant": "Bakery Lindner",
+      "categoryId": "groceries",
+      "amountMinor": -1875,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1016"
+    },
+    {
+      "id": "tx-017",
+      "date": "2026-10-04T09:30:00",
+      "merchant": "Internet",
+      "categoryId": "bills",
+      "amountMinor": -3900,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1017"
+    },
+    {
+      "id": "tx-018",
+      "date": "2026-10-03T14:00:00",
+      "merchant": "Phone plan",
+      "categoryId": "bills",
+      "amountMinor": -2900,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1018"
+    },
+    {
+      "id": "tx-019",
+      "date": "2026-10-03T08:20:00",
+      "merchant": "Coffee & Co",
+      "categoryId": "dining",
+      "amountMinor": -640,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1019"
+    },
+    {
+      "id": "tx-020",
+      "date": "2026-10-02T17:15:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -5435,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1020"
+    },
+    {
+      "id": "tx-021",
+      "date": "2026-10-02T10:40:00",
+      "merchant": "Coffee & Co",
+      "categoryId": "dining",
+      "amountMinor": -980,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1021"
+    },
+    {
+      "id": "tx-022",
+      "date": "2026-10-01T20:10:00",
+      "merchant": "Pharmacy",
+      "categoryId": "health",
+      "amountMinor": -1840,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1022"
+    },
+    {
+      "id": "tx-023",
+      "date": "2026-10-01T18:30:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -7860,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1023"
+    },
+    {
+      "id": "tx-024",
+      "date": "2026-10-01T12:00:00",
+      "merchant": "Train pass",
+      "categoryId": "transport",
+      "amountMinor": -13350,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1024"
+    },
+    {
+      "id": "tx-025",
+      "date": "2026-10-01T08:05:00",
+      "merchant": "Coffee & Co",
+      "categoryId": "dining",
+      "amountMinor": -1120,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1025"
+    },
+    {
+      "id": "tx-026",
+      "date": "2026-09-28T06:00:00",
+      "merchant": "Salary",
+      "categoryId": "income",
+      "amountMinor": 345000,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1026"
+    },
+    {
+      "id": "tx-027",
+      "date": "2026-09-26T12:00:00",
+      "merchant": "Refund · Bookstore",
+      "categoryId": "income",
+      "amountMinor": 21550,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1027"
+    },
+    {
+      "id": "tx-028",
+      "date": "2026-09-25T18:10:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -19840,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1028"
+    },
+    {
+      "id": "tx-029",
+      "date": "2026-09-24T08:00:00",
+      "merchant": "Train pass",
+      "categoryId": "transport",
+      "amountMinor": -13350,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1029"
+    },
+    {
+      "id": "tx-030",
+      "date": "2026-09-21T20:00:00",
+      "merchant": "Trattoria Sole",
+      "categoryId": "dining",
+      "amountMinor": -5200,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1030"
+    },
+    {
+      "id": "tx-031",
+      "date": "2026-09-16T22:15:00",
+      "merchant": "Taxi & fuel",
+      "categoryId": "transport",
+      "amountMinor": -8750,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1031"
+    },
+    {
+      "id": "tx-032",
+      "date": "2026-09-15T13:10:00",
+      "merchant": "Pharmacy",
+      "categoryId": "health",
+      "amountMinor": -2600,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1032"
+    },
+    {
+      "id": "tx-033",
+      "date": "2026-09-14T17:55:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -20000,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1033"
+    },
+    {
+      "id": "tx-034",
+      "date": "2026-09-11T15:45:00",
+      "merchant": "Bookstore",
+      "categoryId": "shopping",
+      "amountMinor": -7800,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-virtual",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1034"
+    },
+    {
+      "id": "tx-035",
+      "date": "2026-09-05T19:40:00",
+      "merchant": "Bistro Nord",
+      "categoryId": "dining",
+      "amountMinor": -12430,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1035"
+    },
+    {
+      "id": "tx-036",
+      "date": "2026-09-04T09:00:00",
+      "merchant": "Utilities & phone",
+      "categoryId": "bills",
+      "amountMinor": -15200,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1036"
+    },
+    {
+      "id": "tx-037",
+      "date": "2026-08-28T06:00:00",
+      "merchant": "Salary",
+      "categoryId": "income",
+      "amountMinor": 345000,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1037"
+    },
+    {
+      "id": "tx-038",
+      "date": "2026-08-26T18:00:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -30040,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1038"
+    },
+    {
+      "id": "tx-039",
+      "date": "2026-08-24T08:00:00",
+      "merchant": "Train pass & fuel",
+      "categoryId": "transport",
+      "amountMinor": -18150,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1039"
+    },
+    {
+      "id": "tx-040",
+      "date": "2026-08-22T20:10:00",
+      "merchant": "Trattoria Sole",
+      "categoryId": "dining",
+      "amountMinor": -16090,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1040"
+    },
+    {
+      "id": "tx-041",
+      "date": "2026-08-18T21:00:00",
+      "merchant": "Concert & pharmacy",
+      "categoryId": "entertainment",
+      "amountMinor": -14200,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-virtual",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1041"
+    },
+    {
+      "id": "tx-042",
+      "date": "2026-08-15T14:20:00",
+      "merchant": "Zalando",
+      "categoryId": "shopping",
+      "amountMinor": -21210,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-virtual",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1042"
+    },
+    {
+      "id": "tx-043",
+      "date": "2026-08-09T09:00:00",
+      "merchant": "Utilities & phone",
+      "categoryId": "bills",
+      "amountMinor": -16400,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1043"
+    },
+    {
+      "id": "tx-044",
+      "date": "2026-07-28T06:00:00",
+      "merchant": "Salary",
+      "categoryId": "income",
+      "amountMinor": 345000,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1044"
+    },
+    {
+      "id": "tx-045",
+      "date": "2026-07-27T18:10:00",
+      "merchant": "Market",
+      "categoryId": "groceries",
+      "amountMinor": -26830,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1045"
+    },
+    {
+      "id": "tx-046",
+      "date": "2026-07-24T08:00:00",
+      "merchant": "Train pass & taxi",
+      "categoryId": "transport",
+      "amountMinor": -16050,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1046"
+    },
+    {
+      "id": "tx-047",
+      "date": "2026-07-21T20:00:00",
+      "merchant": "Trattoria Sole",
+      "categoryId": "dining",
+      "amountMinor": -15570,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-physical",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1047"
+    },
+    {
+      "id": "tx-048",
+      "date": "2026-07-19T20:30:00",
+      "merchant": "Cinema & pharmacy",
+      "categoryId": "entertainment",
+      "amountMinor": -9800,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-virtual",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1048"
+    },
+    {
+      "id": "tx-049",
+      "date": "2026-07-14T15:00:00",
+      "merchant": "Zalando",
+      "categoryId": "shopping",
+      "amountMinor": -19880,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": "card-virtual",
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1049"
+    },
+    {
+      "id": "tx-050",
+      "date": "2026-07-09T09:00:00",
+      "merchant": "Utilities & phone",
+      "categoryId": "bills",
+      "amountMinor": -12900,
+      "currency": "EUR",
+      "accountId": "acc-everyday",
+      "cardId": null,
+      "status": "completed",
+      "reference": "ATLAS-DEMO-TX-1050"
+    }
+  ]
+}

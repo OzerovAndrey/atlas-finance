@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "description": "ATLAS Finance — fictional multi-brand banking demo and design-system showcase. Demo only, no real banking.",
+  "description": "ATLAS Finance \u2014 fictional multi-brand banking demo and design-system showcase. Demo only, no real banking.",
   "engines": {
     "node": ">=22"
   },
@@ -15,7 +15,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "tokens:check": "node scripts/check-tokens.mjs",
-    "tokens:bundle": "node scripts/tokens-bundle.mjs"
+    "tokens:bundle": "node scripts/tokens-bundle.mjs",
+    "seed:check": "node scripts/check-seed.mjs"
   },
   "dependencies": {
     "react": "^19.3.0",
