@@ -8,15 +8,16 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/build-css.mjs && vite",
+    "build": "node scripts/build-css.mjs && tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
     "tokens:check": "node scripts/check-tokens.mjs",
     "tokens:bundle": "node scripts/tokens-bundle.mjs",
-    "seed:check": "node scripts/check-seed.mjs"
+    "seed:check": "node scripts/check-seed.mjs",
+    "tokens:css": "node scripts/build-css.mjs"
   },
   "dependencies": {
     "react": "^19.3.0",
