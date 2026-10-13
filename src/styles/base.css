@@ -441,11 +441,12 @@ select {
   min-width: 0;
   padding: var(--space-padding-md);
   border-radius: var(--tile-border-radius);
-  background: var(--color-bg-tertiary);
+  background: var(--color-bg-secondary);
+  border: var(--border-width-control) solid var(--color-status-warning-border);
   color: var(--color-text-primary);
 }
 .pending:hover {
-  background: var(--color-fill-secondary-hover);
+  background: var(--color-bg-tertiary);
 }
 .pending__icon {
   display: grid;
