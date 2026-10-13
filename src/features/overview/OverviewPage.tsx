@@ -5,7 +5,7 @@ import { formatDay, formatMoney, formatMonth, formatPercent } from "../../lib/fo
 
 const initials = (s: string) =>
   s
-    .split(/[\s&]+/)
+    .split(/[\s&·]+/)
     .filter(Boolean)
     .slice(0, 2)
     .map((w) => w.charAt(0).toUpperCase())
