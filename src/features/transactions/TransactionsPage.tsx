@@ -157,9 +157,13 @@ function TransactionsView({
             <table className="table">
               <thead>
                 <tr>
-                  <th scope="col">Date</th>
+                  <th scope="col" className="col-date">
+                    Date
+                  </th>
                   <th scope="col">Description</th>
-                  <th scope="col">Category</th>
+                  <th scope="col" className="col-cat">
+                    Category
+                  </th>
                   <th scope="col" className="num">
                     Amount
                   </th>
@@ -168,7 +172,7 @@ function TransactionsView({
               <tbody>
                 {rows.map((t) => (
                   <tr key={t.id} aria-selected={t.id === selected}>
-                    <td className="muted">{formatDay(t.date)}</td>
+                    <td className="muted col-date">{formatDay(t.date)}</td>
                     <td>
                       <button
                         type="button"
@@ -179,13 +183,18 @@ function TransactionsView({
                         <span className="avatar avatar--sm" aria-hidden="true">
                           {initials(t.merchant)}
                         </span>
-                        <span className="ts-body-md-strong">{t.merchant}</span>
+                        <span className="table__name">
+                          <span className="ts-body-md-strong">{t.merchant}</span>
+                          <span className="table__sub ts-caption-regular">
+                            {formatDay(t.date)} · {categoryName(t.categoryId)}
+                          </span>
+                        </span>
                         {t.status === "pending" && (
                           <span className="badge badge--warning">Pending</span>
                         )}
                       </button>
                     </td>
-                    <td>
+                    <td className="col-cat">
                       <span
                         className={`badge ${t.categoryId === "income" ? "badge--success" : "badge--neutral"}`}
                       >

@@ -799,6 +799,15 @@ select {
 .table-wrap {
   overflow-x: auto;
 }
+.table__name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.table__sub {
+  display: none;
+  color: var(--color-text-secondary);
+}
 .empty {
   display: grid;
   gap: var(--space-gap-sm);
@@ -1371,6 +1380,25 @@ select {
   }
   .split-cats__list li .muted {
     display: none;
+  }
+  .col-date,
+  .col-cat {
+    display: none;
+  }
+  .table td:nth-child(2) {
+    width: 100%;
+    max-width: 0;
+  }
+  .table__merchant {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+  .table th,
+  .table td {
+    padding-inline: var(--space-gap-sm);
+  }
+  .table__sub {
+    display: block;
   }
   .table-wrap {
     margin-inline: calc(var(--tile-padding-h) * -1);
