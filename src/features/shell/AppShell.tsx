@@ -1,11 +1,9 @@
 import type { ReactNode } from "react";
 import { Icon } from "../../components/Icon";
+import { DemoBar } from "../../components/DemoBar";
 import { Logo } from "../../components/Logo";
 import { ROUTES, type RoutePath } from "../../lib/router";
-import { BRANDS, useTheme, type Brand, type Mode } from "../../lib/theme";
-
-const MODES: Mode[] = ["light", "dark"];
-const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+import { useTheme } from "../../lib/theme";
 
 export function AppShell({
   route,
@@ -16,7 +14,7 @@ export function AppShell({
   title: string;
   children: ReactNode;
 }) {
-  const { brand, mode, setBrand, setMode } = useTheme();
+  const { brand } = useTheme();
   return (
     <div className="shell">
       <aside className="sidebar">
@@ -48,32 +46,13 @@ export function AppShell({
               <Icon name="search" size="var(--search-bar-icon-size, var(--icon-size-md))" />
               <input type="search" placeholder="Search…" aria-label="Search" />
             </label>
-            <div className="segmented" role="group" aria-label="Brand">
-              {BRANDS.map((b: Brand) => (
-                <button
-                  key={b}
-                  type="button"
-                  aria-pressed={b === brand}
-                  onClick={() => setBrand(b)}
-                  data-event={`brand_${b}`}
-                >
-                  {b.toUpperCase()}
-                </button>
-              ))}
-            </div>
-            <div className="segmented" role="group" aria-label="Theme">
-              {MODES.map((m) => (
-                <button key={m} type="button" aria-pressed={m === mode} onClick={() => setMode(m)}>
-                  {cap(m)}
-                </button>
-              ))}
-            </div>
           </div>
         </header>
         <main className="content" id="content">
           {children}
         </main>
       </div>
+      <DemoBar />
     </div>
   );
 }
