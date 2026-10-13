@@ -44,7 +44,7 @@ Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows,
 
 ## Logo component
 
-`Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks: VANTA circle + serif "V", PULSE rounded square + pulse line, NORTH square + arrow, FLOW squircle + waves. Colors from `Brand:color/product1/500` and `onProduct1`; wordmark uses `Brand:fontFamily/display`. Used in Sidebar and Top Bar.
+`Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks are bold two-tone geometric symbols without a container, filled with `Brand:color/product1/500` and `product2/500`: VANTA faceted "V" (two legs), PULSE three rising slanted bars, NORTH two-tone north arrow, FLOW two overlapping wave ribbons. Wordmark uses `Brand:fontFamily/display`. Used in Sidebar and Top Bar.
 
 ## Gradients (visual refresh v3)
 
