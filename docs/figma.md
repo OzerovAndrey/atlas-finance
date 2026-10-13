@@ -46,12 +46,14 @@ Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows,
 
 `Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks are bold two-tone geometric symbols without a container, filled with `Brand:color/product1/500` and `product2/500`: VANTA faceted "V" (two legs), PULSE three rising slanted bars, NORTH two-tone north arrow, FLOW two overlapping wave ribbons. Wordmark uses `Brand:fontFamily/display`. Used in Sidebar and Top Bar.
 
-## Gradients (visual refresh v3)
+## No gradients (visual refresh v3)
 
-Primary buttons (default/hover/active) and all Stat Card tones use a soft 135° two-stop gradient: start = the existing component background token, end = `*/bgTo` component tokens (`button/primary/bgTo`, `statCard/<tone>/bgTo`) aliasing Theme `color/gradient/<primary|soft1|soft2|soft3|neutral|inverse>/to`. Soft and neutral Stat Cards also get a 1px `statCard/soft/br` border (Theme `color/border/secondary`) and the Tile shadow so they stay visible on the page background. The decorative sparkline was removed from Stat Card.
-
-These tokens currently exist in Figma only; adding them to `tokens/` (Theme + Components sets, gradient stops via `linear-gradient({from}, {to})`) is a follow-up before the coded demo.
+Gradients were tried on primary buttons and Stat Cards and removed: all fills are solid, bound to component tokens. The temporary `color/gradient/*` and `*/bgTo` variables no longer exist.
 
 ## No decorative borders (visual refresh v3)
 
-Component and screen frames no longer use border strokes: surfaces are separated by fills, gradients and the Tile shadow (the `statCard/soft/br` border from the first v3 pass is no longer applied; light soft tones use the 200 ramp step as background and 300 as gradient end so they read against the page). Strokes remain only where they carry meaning: focus rings, error state, and the unchecked outline of Checkbox / Radio / Switch.
+Component and screen frames no longer use border strokes: surfaces are separated by fills, gradients and the Tile shadow (light soft tones use the 200 ramp step as background so they read against the page). Strokes remain only where they carry meaning: focus rings, error state, and the unchecked outline of Checkbox / Radio / Switch.
+
+## Demo Bar
+
+`Demo Bar` (Components page): the floating bottom control of the coded demo, replacing brand/theme switchers in page headers. Variants: `Brand` (active pill) × `Theme` (switch state) × `Size=desktop|mobile` (mobile shows only the active label). Colors come from Theme variables; each brand dot pins its own Brand mode so it always shows that brand's colors. One instance sits absolutely positioned at the bottom centre of every screen frame (mobile frames: above the bottom nav). Settings → Appearance keeps its own switchers.
