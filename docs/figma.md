@@ -25,7 +25,7 @@ Hierarchy `Components → Theme → Brand → Base`. WEB code syntax on every va
 
 `Foundations` (empty, reserved) · `Components` · `Overview` · `Accounts` · `Transactions` · `Transaction detail` · `Transactions loading` · `Transactions empty` · `Transfer 1 Recipient` · `Transfer 2 Amount` · `Transfer 2 Amount (error)` · `Transfer 3 Review` · `Transfer 4 Result` · `Cards` · `Cards (frozen)` · `Analytics` · `Settings` · `Mobile Overview` · `Mobile Overview 320` · `Mobile Transactions` · `Mobile Transfer` · `Mobile Cards`.
 
-v2 additions (see [visual-direction.md](visual-direction.md)): Stat Card, Delta Chip, Avatar, Avatar Stack, Round Button, Search Bar, Tile, Bar / Donut / Tick charts, Promo Card, Profile; Balance Card, Bank Card, Account Card, Sidebar, Nav Item and Page Header were rebuilt. Desktop frames are 1440 wide.
+v2 additions (see [visual-direction.md](visual-direction.md)): Stat Card, Delta Chip, Avatar, Avatar Stack, Round Button, Search Bar, Tile, Bar / Donut / Tick charts, Promo Card, Profile; Balance Card, Bank Card, Account Card, Sidebar, Nav Item and Page Header were rebuilt. Desktop frames are 1440 wide. Overview, Analytics and Transactions are full bento compositions; the other desktop pages keep their v1 composition but inherit the new shell, radii, rows and cards through shared components.
 
 Every screen page holds 8 frames: row 1 Light, row 2 Dark; columns VANTA · PULSE · NORTH · FLOW; explicit `Brand` + `Theme` modes per frame. Routes, flows and states are described in [layouts.md](layouts.md).
 
