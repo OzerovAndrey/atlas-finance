@@ -51,3 +51,7 @@ Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows,
 Primary buttons (default/hover/active) and all Stat Card tones use a soft 135° two-stop gradient: start = the existing component background token, end = `*/bgTo` component tokens (`button/primary/bgTo`, `statCard/<tone>/bgTo`) aliasing Theme `color/gradient/<primary|soft1|soft2|soft3|neutral|inverse>/to`. Soft and neutral Stat Cards also get a 1px `statCard/soft/br` border (Theme `color/border/secondary`) and the Tile shadow so they stay visible on the page background. The decorative sparkline was removed from Stat Card.
 
 These tokens currently exist in Figma only; adding them to `tokens/` (Theme + Components sets, gradient stops via `linear-gradient({from}, {to})`) is a follow-up before the coded demo.
+
+## No decorative borders (visual refresh v3)
+
+Component and screen frames no longer use border strokes: surfaces are separated by fills, gradients and the Tile shadow (the `statCard/soft/br` border from the first v3 pass is no longer applied). Strokes remain only where they carry meaning: focus rings, error state, and the unchecked outline of Checkbox / Radio / Switch.
