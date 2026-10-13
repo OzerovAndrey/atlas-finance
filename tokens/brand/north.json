@@ -119,6 +119,28 @@
       "type": "fontFamilies"
     }
   },
+  "logo": {
+    "vanta": {
+      "value": "false",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    },
+    "pulse": {
+      "value": "false",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    },
+    "north": {
+      "value": "true",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    },
+    "flow": {
+      "value": "false",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    }
+  },
   "space": {
     "padding": {
       "xs": {

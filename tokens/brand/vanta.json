@@ -111,12 +111,34 @@
   },
   "fontFamily": {
     "display": {
-      "value": "Playfair Display",
+      "value": "Source Serif 4",
       "type": "fontFamilies"
     },
     "base": {
       "value": "Inter",
       "type": "fontFamilies"
+    }
+  },
+  "logo": {
+    "vanta": {
+      "value": "true",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    },
+    "pulse": {
+      "value": "false",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    },
+    "north": {
+      "value": "false",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
+    },
+    "flow": {
+      "value": "false",
+      "type": "boolean",
+      "description": "visibility switch: the layer for this brand's logo is shown only in its own Brand mode"
     }
   },
   "space": {

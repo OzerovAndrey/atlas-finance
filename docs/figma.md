@@ -41,3 +41,7 @@ Every screen page holds 8 frames: row 1 Light, row 2 Dark; columns VANTA · PULS
 ## Not yet built
 
 Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows, component descriptions for Code Connect, interaction prototypes.
+
+## Logo component
+
+`Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks: VANTA circle + serif "V", PULSE rounded square + pulse line, NORTH square + arrow, FLOW squircle + waves. Colors from `Brand:color/product1/500` and `onProduct1`; wordmark uses `Brand:fontFamily/display`. Used in Sidebar and Top Bar.

@@ -110,5 +110,9 @@ Workflow: edit in code → `tokens-bundle` → import into the plugin to inspect
 
 1. **Tokens Studio import:** open the plugin → _Settings → Import / Load from file or JSON_ with `dist/tokens-studio.json`; confirm the `$extensions["studio.tokens"].modify` ramps (`lighten`/`darken`, `hsl`) show the same values as the Figma `Brand` collection. If anything differs, tell me and the JSON is corrected (not the Figma file).
 2. **Pro / theme groups:** the layout needs theme _groups_ (as in your existing projects). Unverified against the live docs (not reachable from the sandbox) — expected to work since the Portfolio project already uses it.
-3. **Typefaces:** VANTA Playfair Display + Inter, PULSE Sora + DM Sans, NORTH IBM Plex Sans, FLOW Nunito + DM Sans (all open-source; self-hosting to decide).
+3. **Typefaces:** VANTA Source Serif 4 + Inter (lining numerals for finance), PULSE Sora + DM Sans, NORTH IBM Plex Sans, FLOW Nunito + DM Sans (all open-source; self-hosting to decide).
 4. **Light-theme palettes** are derived by me, not from the reference PDF (it shows dark only) — review the Figma `Overview` page.
+
+## Brand logos
+
+Each `brand/*` set carries `logo.vanta|pulse|north|flow` boolean tokens (`true` only for the brand's own set). In Figma they are BOOLEAN variables in the Brand collection bound to the `visible` property of the `Logo` component layers, so the logo follows the Brand mode. Boolean tokens in Tokens Studio: to verify on import. In code the same switch is a plain brand → logo component map.
