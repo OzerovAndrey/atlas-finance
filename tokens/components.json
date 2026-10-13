@@ -2562,6 +2562,10 @@
     }
   },
   "tile": {
+    "actionGap": {
+      "value": "{space.section}",
+      "type": "spacing"
+    },
     "bg": {
       "value": "{color.bg.secondary}",
       "type": "color"

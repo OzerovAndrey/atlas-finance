@@ -501,6 +501,9 @@ select {
   font-size: var(--tile-subtitle-text-font-size);
   line-height: var(--tile-subtitle-text-line-height);
 }
+.tile > .btn {
+  margin-top: calc(var(--tile-action-gap) - var(--tile-gap));
+}
 .balance {
   color: var(--balance-value);
 }

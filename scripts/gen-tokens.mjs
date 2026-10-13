@@ -249,6 +249,11 @@ for (const [k, b] of Object.entries(B)) {
         xs.map((s, i) => [s, t(ref(`dimension.${b.pad[i]}`), "spacing")]),
       ),
       gap: Object.fromEntries(xs.map((s, i) => [s, t(ref(`dimension.${b.gap[i]}`), "spacing")])),
+      section: t(
+        ref("dimension.32"),
+        "spacing",
+        "gap between a tile's content and its action row (32)",
+      ),
     },
     borderRadius: {
       control: t(ref(`borderRadius.${b.ctl}`), "borderRadius"),
@@ -1242,6 +1247,7 @@ comp.roundButton = {
   borderWidth: t(ref("borderWidth.control"), "borderWidth"),
 };
 comp.tile = {
+  actionGap: sp("space.section"),
   bg: col("color.bg.secondary"),
   br: col("color.border.tertiary"),
   title: col("color.text.primary"),

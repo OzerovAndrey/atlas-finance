@@ -205,6 +205,11 @@
         "value": "{dimension.16}",
         "type": "spacing"
       }
+    },
+    "section": {
+      "value": "{dimension.32}",
+      "type": "spacing",
+      "description": "gap between a tile's content and its action row (32)"
     }
   },
   "borderRadius": {
