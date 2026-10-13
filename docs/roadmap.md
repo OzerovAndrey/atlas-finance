@@ -7,7 +7,7 @@ Work proceeds one step at a time; each step is reviewed before the next. After e
 1. **Project setup**, structure and architecture docs — _STEP 01, done: scaffold + docs, local commit_.
 2. Core tokens in Tokens Studio-compatible JSON. — _done: `tokens/core.json`_
 3. Brand tokens, map, light/dark themes and typography. — _done, validated by `npm run tokens:check`_
-4. Component tokens and reusable component library. — _tokens + Figma library for the first wave done (see docs/figma.md); React components not started_
+4. Component tokens and reusable component library. — _tokens + Figma library (≈30 components, 3 composed screens × 8 configurations) done, see docs/figma.md; React components not started_
 5. Interactive component playground: four brands × two themes, states and variants.
    5a. **Generate a `skill/` for Claude from `tokens/`** (token reference so Claude can build against the system correctly).
 

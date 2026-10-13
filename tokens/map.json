@@ -425,6 +425,77 @@
           }
         }
       }
+    },
+    "info": {
+      "100": {
+        "value": "{color.info}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "lighten",
+              "value": "0.85",
+              "space": "hsl"
+            }
+          }
+        }
+      },
+      "200": {
+        "value": "{color.info}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "lighten",
+              "value": "0.7",
+              "space": "hsl"
+            }
+          }
+        }
+      },
+      "300": {
+        "value": "{color.info}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "lighten",
+              "value": "0.5",
+              "space": "hsl"
+            }
+          }
+        }
+      },
+      "500": {
+        "value": "{color.info}",
+        "type": "color"
+      },
+      "700": {
+        "value": "{color.info}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "darken",
+              "value": "0.25",
+              "space": "hsl"
+            }
+          }
+        }
+      },
+      "900": {
+        "value": "{color.info}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "darken",
+              "value": "0.55",
+              "space": "hsl"
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -139,11 +139,11 @@
       },
       "info": {
         "default": {
-          "value": "{color.product3.500}",
+          "value": "{color.info.500}",
           "type": "color"
         },
         "subtle": {
-          "value": "{color.product3.900}",
+          "value": "{color.info.900}",
           "type": "color"
         }
       }
@@ -190,7 +190,7 @@
         "type": "color"
       },
       "info": {
-        "value": "{color.product3.200}",
+        "value": "{color.info.100}",
         "type": "color"
       },
       "onDanger": {
@@ -297,15 +297,15 @@
       },
       "info": {
         "fg": {
-          "value": "{color.product3.200}",
+          "value": "{color.info.100}",
           "type": "color"
         },
         "bg": {
-          "value": "{color.product3.900}",
+          "value": "{color.info.900}",
           "type": "color"
         },
         "border": {
-          "value": "{color.product3.500}",
+          "value": "{color.info.500}",
           "type": "color"
         }
       }

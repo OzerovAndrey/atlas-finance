@@ -262,6 +262,13 @@ const PAIRS = [
     "chart series",
   ]),
   ["color.chart.axis", "color.bg.secondary", 4.5, "chart text"],
+  ["color.text.secondary", "color.fill.secondary.default", 3, "switch thumb off"],
+  ["color.text.onPrimary", "color.fill.primary.default", 3, "switch thumb on / checkmark"],
+  ["color.text.primary", "color.bg.tertiary", 4.5, "table"],
+  ["color.text.secondary", "color.bg.tertiary", 4.5, "table header"],
+  ["color.text.accent", "color.bg.secondary", 4.5, "link"],
+  ["color.text.primary", "color.fill.ghost.hover", 4.5, "tab / row hover"],
+  ["color.text.accent", "color.fill.ghost.hover", 4.5, "link hover row"],
 ];
 
 let configs = 0,

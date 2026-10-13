@@ -33,6 +33,11 @@
       "value": "#D23B34",
       "type": "color"
     },
+    "info": {
+      "value": "#3B82C4",
+      "type": "color",
+      "description": "informational blue — identical in every brand (never a brand colour, so it cannot read as warning)"
+    },
     "ink": {
       "value": "#151719",
       "type": "color",
