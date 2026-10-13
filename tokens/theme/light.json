@@ -2,7 +2,7 @@
   "color": {
     "bg": {
       "primary": {
-        "value": "{color.paper}",
+        "value": "{color.neutral.50}",
         "type": "color"
       },
       "secondary": {
@@ -10,7 +10,7 @@
         "type": "color"
       },
       "tertiary": {
-        "value": "{color.neutral.50}",
+        "value": "{color.neutral.100}",
         "type": "color"
       },
       "sidebar": {
@@ -29,11 +29,11 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.product1.300}",
+          "value": "{color.product1Hover}",
           "type": "color"
         },
         "active": {
-          "value": "{color.product1.700}",
+          "value": "{color.product1Active}",
           "type": "color"
         },
         "disabled": {
@@ -154,11 +154,11 @@
         "type": "color"
       },
       "secondary": {
-        "value": "{color.neutral.700}",
+        "value": "{color.neutral.600}",
         "type": "color"
       },
       "tertiary": {
-        "value": "{color.neutral.600}",
+        "value": "{color.neutral.500}",
         "type": "color"
       },
       "quaternary": {
@@ -212,11 +212,11 @@
         "type": "color"
       },
       "tertiary": {
-        "value": "{color.neutral.100}",
+        "value": "{color.neutral.200}",
         "type": "color"
       },
       "secondary": {
-        "value": "{color.neutral.200}",
+        "value": "{color.neutral.300}",
         "type": "color"
       },
       "primary": {
@@ -224,7 +224,7 @@
         "type": "color"
       },
       "accent": {
-        "value": "{color.product1.900}",
+        "value": "{color.chartAccent}",
         "type": "color"
       },
       "danger": {
@@ -234,7 +234,7 @@
     },
     "outline": {
       "focus": {
-        "value": "{color.product1.900}",
+        "value": "{color.chartAccent}",
         "type": "color"
       }
     },
@@ -335,7 +335,7 @@
           "type": "color"
         },
         "muted": {
-          "value": "{color.neutral.900}",
+          "value": "{color.onProduct1Muted}",
           "type": "color"
         },
         "iconBg": {
@@ -344,6 +344,14 @@
         },
         "icon": {
           "value": "{color.product1.500}",
+          "type": "color"
+        },
+        "cta": {
+          "value": "{color.neutral.900}",
+          "type": "color"
+        },
+        "ctaFg": {
+          "value": "{color.neutral.0}",
           "type": "color"
         }
       },
@@ -371,7 +379,7 @@
       },
       "soft1": {
         "bg": {
-          "value": "{color.product1.200}",
+          "value": "{color.product1.100}",
           "type": "color"
         },
         "fg": {
@@ -393,7 +401,7 @@
       },
       "soft2": {
         "bg": {
-          "value": "{color.product2.200}",
+          "value": "{color.product2.100}",
           "type": "color"
         },
         "fg": {
@@ -415,7 +423,7 @@
       },
       "soft3": {
         "bg": {
-          "value": "{color.product3.200}",
+          "value": "{color.product3.100}",
           "type": "color"
         },
         "fg": {
@@ -443,11 +451,25 @@
           "type": "color"
         },
         "fill": {
-          "value": "{color.neutral.900}",
+          "value": "{color.neutral.500}",
           "type": "color"
         },
         "highlight": {
-          "value": "{color.product1.900}",
+          "value": "{color.chartAccent}",
+          "type": "color"
+        }
+      },
+      "accent": {
+        "value": "{color.chartAccent}",
+        "type": "color"
+      },
+      "series": {
+        "income": {
+          "value": "{color.chartAccent}",
+          "type": "color"
+        },
+        "expense": {
+          "value": "{color.neutral.900}",
           "type": "color"
         }
       },
@@ -490,7 +512,7 @@
         "type": "color"
       },
       "axis": {
-        "value": "{color.neutral.600}",
+        "value": "{color.neutral.500}",
         "type": "color"
       }
     }
@@ -502,7 +524,7 @@
         "y": "1",
         "blur": "2",
         "spread": "0",
-        "color": "rgba(21, 23, 25, 0.08)",
+        "color": "rgba(21, 23, 25, 0.04)",
         "type": "dropShadow"
       },
       "type": "boxShadow"
@@ -513,7 +535,7 @@
         "y": "4",
         "blur": "12",
         "spread": "0",
-        "color": "rgba(21, 23, 25, 0.12)",
+        "color": "rgba(21, 23, 25, 0.06)",
         "type": "dropShadow"
       },
       "type": "boxShadow"
@@ -524,7 +546,7 @@
         "y": "12",
         "blur": "32",
         "spread": "0",
-        "color": "rgba(21, 23, 25, 0.16)",
+        "color": "rgba(21, 23, 25, 0.10)",
         "type": "dropShadow"
       },
       "type": "boxShadow"

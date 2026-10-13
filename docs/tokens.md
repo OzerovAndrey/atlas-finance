@@ -116,3 +116,7 @@ Workflow: edit in code → `tokens-bundle` → import into the plugin to inspect
 ## Brand logos
 
 Each `brand/*` set carries `logo.vanta|pulse|north|flow` boolean tokens (`true` only for the brand's own set). In Figma they are BOOLEAN variables in the Brand collection bound to the `visible` property of the `Logo` component layers, so the logo follows the Brand mode. Boolean tokens in Tokens Studio: to verify on import. In code the same switch is a plain brand → logo component map.
+
+## Generator (v3)
+
+`tokens/` is produced by `scripts/gen-tokens.mjs` (`node scripts/gen-tokens.mjs`), then validated by `npm run tokens:check` (parity, layering, reserved names, 8 configurations × WCAG pairs). `scripts/build-css.mjs` turns the resolved tokens into `src/styles/tokens.generated.css` (never edit). Shared neutral ramp; per-brand accent, state colours, geometry and logo switch. New in v3: `color.product1Hover|product1Active|onProduct1Muted|chartAccent`, `color.tone.primary.cta|ctaFg`, `color.chart.{accent,series.income,series.expense}`, `typography.numeric.amountXl`, `letterSpacing.tighter`, components `hero` and `demoPanel`.

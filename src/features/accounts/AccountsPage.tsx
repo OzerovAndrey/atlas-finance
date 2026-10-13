@@ -1,6 +1,7 @@
+import { Amount } from "../../components/Amount";
 import { Tile } from "../../components/Tile";
 import { useDemo } from "../../data/store";
-import { formatDay, formatHidden, formatMoney } from "../../lib/format";
+import { formatDay, formatHidden } from "../../lib/format";
 
 export function AccountsPage() {
   const { state } = useDemo();
@@ -8,10 +9,12 @@ export function AccountsPage() {
     <div className="accounts">
       {state.accounts.map((a) => (
         <Tile key={a.id} title={a.name} subtitle={`${a.type} · •••• ${a.last4}`}>
-          <p className="balance ts-numeric-balance">
-            {state.prefs.hideBalances
-              ? formatHidden(a.currency)
-              : formatMoney(a.balanceMinor, a.currency)}
+          <p className="balance">
+            {state.prefs.hideBalances ? (
+              <span className="amt amt--xl">{formatHidden(a.currency)}</span>
+            ) : (
+              <Amount minor={a.balanceMinor} currency={a.currency} size="xl" />
+            )}
           </p>
           <dl className="details">
             <div>
@@ -33,7 +36,7 @@ export function AccountsPage() {
               </dd>
             </div>
           </dl>
-          <a className="button button--primary" href="#/transfers">
+          <a className="btn btn--primary" href="#/transfers">
             Transfer
           </a>
         </Tile>

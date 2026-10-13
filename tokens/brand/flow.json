@@ -1,24 +1,44 @@
 {
   "color": {
     "product1": {
-      "value": "#FF987E",
+      "value": "#087A6F",
       "type": "color",
       "description": "signature accent"
     },
     "product2": {
-      "value": "#3FC1B0",
+      "value": "#FF7A5C",
       "type": "color"
     },
     "product3": {
-      "value": "#F4C26B",
+      "value": "#F4B860",
       "type": "color"
+    },
+    "product1Hover": {
+      "value": "#076A60",
+      "type": "color",
+      "description": "primary fill, hover state (keeps text contrast)"
+    },
+    "product1Active": {
+      "value": "#055750",
+      "type": "color",
+      "description": "primary fill, pressed state"
+    },
+    "chartAccent": {
+      "value": "#087A6F",
+      "type": "color",
+      "description": "accent usable as a mark on white (>= 3:1); dark theme uses product1"
     },
     "onProduct1": {
-      "value": "{color.black}",
+      "value": "{color.white}",
       "type": "color"
     },
+    "onProduct1Muted": {
+      "value": "#F0FAF8",
+      "type": "color",
+      "description": "secondary text on the product1 surface"
+    },
     "onProduct2": {
-      "value": "{color.black}",
+      "value": "{color.neutral.900}",
       "type": "color"
     },
     "success": {
@@ -39,22 +59,22 @@
       "description": "informational blue — identical in every brand (never a brand colour, so it cannot read as warning)"
     },
     "ink": {
-      "value": "#143C3A",
+      "value": "#0B2E2B",
       "type": "color",
-      "description": "dark-theme page background; base of the neutral ramp"
+      "description": "bank card face (dark tone) and inverse surfaces; brand-tinted graphite"
     },
     "surface": {
-      "value": "#206E68",
+      "value": "#1B1F24",
       "type": "color",
-      "description": "dark-theme elevated surface"
+      "description": "dark-theme elevated surface (shared)"
     },
     "paper": {
-      "value": "#FFF0E8",
+      "value": "#F5F6F8",
       "type": "color",
-      "description": "light-theme page background"
+      "description": "light-theme page background (shared)"
     },
     "cardFace": {
-      "value": "#FFF0E8",
+      "value": "#F5F6F8",
       "type": "color",
       "description": "bank card face (light tone)"
     },
@@ -64,58 +84,58 @@
         "type": "color"
       },
       "50": {
-        "value": "#F6F7F7",
+        "value": "#F5F6F8",
         "type": "color"
       },
       "100": {
-        "value": "#EDF0F0",
+        "value": "#F0F2F5",
         "type": "color"
       },
       "200": {
-        "value": "#DBE1E1",
+        "value": "#E3E6EA",
         "type": "color"
       },
       "300": {
-        "value": "#C3CCCC",
+        "value": "#CBD0D6",
         "type": "color"
       },
       "400": {
-        "value": "#9CACAA",
+        "value": "#9AA1AB",
         "type": "color"
       },
       "500": {
-        "value": "#778C8B",
+        "value": "#646C77",
         "type": "color"
       },
       "600": {
-        "value": "#577270",
+        "value": "#4A525C",
         "type": "color"
       },
       "700": {
-        "value": "#415F5D",
+        "value": "#363D45",
         "type": "color"
       },
       "800": {
-        "value": "#2B4D4B",
+        "value": "#22262C",
         "type": "color"
       },
       "900": {
-        "value": "#143C3A",
+        "value": "#151719",
         "type": "color"
       },
       "950": {
-        "value": "#061D1C",
+        "value": "#0B0D0F",
         "type": "color"
       }
     }
   },
   "fontFamily": {
     "display": {
-      "value": "Nunito",
+      "value": "Inter",
       "type": "fontFamilies"
     },
     "base": {
-      "value": "DM Sans",
+      "value": "Inter",
       "type": "fontFamilies"
     }
   },
@@ -193,18 +213,18 @@
       "type": "borderRadius"
     },
     "surface": {
-      "value": "{borderRadius.20}",
+      "value": "{borderRadius.16}",
       "type": "borderRadius"
     },
     "tile": {
-      "value": "{borderRadius.28}",
+      "value": "{borderRadius.24}",
       "type": "borderRadius",
-      "description": "bento tile / large card"
+      "description": "bento tile / large card (20–24)"
     },
     "round": {
-      "value": "{borderRadius.999}",
+      "value": "{borderRadius.16}",
       "type": "borderRadius",
-      "description": "round controls (icon buttons, search): circle in PULSE/FLOW, restrained in VANTA/NORTH"
+      "description": "icon buttons: rounded square, shape differs per brand"
     },
     "full": {
       "value": "{borderRadius.999}",

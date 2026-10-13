@@ -1,122 +1,79 @@
-import { StatCard } from "../../components/StatCard";
+import { Amount } from "../../components/Amount";
+import { CategorySplit } from "../../components/CategorySplit";
+import { MoneyFlowChart, TrendChart } from "../../components/charts";
 import { Tile } from "../../components/Tile";
 import {
-  categoryBreakdown,
+  balanceTrend,
+  flowSeries,
   largestExpense,
-  monthSums,
-  monthlySeries,
   month,
+  monthSums,
+  overviewStats,
+  seed,
 } from "../../data/demo";
 import { useDemo } from "../../data/store";
-import { formatMoney, formatMonth, formatPercent } from "../../lib/format";
+import { formatMonth, formatPercent } from "../../lib/format";
 
-const shortMonth = (ym: string) =>
-  new Intl.DateTimeFormat("en-IE", { month: "short" }).format(new Date(`${ym}-01`));
+function Kpi(props: { label: string; caption: string; children: React.ReactNode }) {
+  return (
+    <article className="kpi">
+      <p className="kpi__label ts-label-md">{props.label}</p>
+      <div className="kpi__value">{props.children}</div>
+      <p className="kpi__foot ts-caption-regular">
+        <span className="muted">{props.caption}</span>
+      </p>
+    </article>
+  );
+}
 
 export function AnalyticsPage() {
   const { state } = useDemo();
-  const { income, expenses, tx } = monthSums(state.transactions);
-  const series = monthlySeries(state).slice(-6);
-  const max = Math.max(...series.map((s) => s.minor), 1);
-  const cats = categoryBreakdown(tx.filter((t) => t.amountMinor < 0));
+  const cur = seed.meta.currency;
+  const { income, expenses } = monthSums(state.transactions);
+  const s = overviewStats(state);
   const savings = income > 0 ? ((income - expenses) / income) * 100 : 0;
   const big = largestExpense(state);
-  const cur = "EUR";
-
-  const top = cats.slice(0, 5);
-  const ends = top.map((_, i) => top.slice(0, i + 1).reduce((sum, c) => sum + c.share * 100, 0));
-  const stops = top.map(
-    (_, i) => `var(--color-chart-category-${i + 1}) ${i === 0 ? 0 : ends[i - 1]}% ${ends[i]}%`,
-  );
-  const covered = ends[ends.length - 1] ?? 0;
-  if (covered < 99.99) stops.push(`var(--donut-track) ${covered}% 100%`);
+  const flow = flowSeries(state);
+  const trend = balanceTrend(state, 30);
 
   return (
-    <div className="analytics">
-      <div className="kpis kpis--4">
-        <StatCard
-          tone="primary"
-          icon="trendUp"
-          label="Income"
-          value={formatMoney(income, cur)}
-          footer={<span>{formatMonth(`${month}-01`)}</span>}
-        />
-        <StatCard
-          tone="inverse"
-          icon="wallet"
-          label="Expenses"
-          value={formatMoney(expenses, cur)}
-          footer={<span>Completed payments</span>}
-        />
-        <StatCard
-          tone="soft2"
-          icon="chart"
-          label="Savings rate"
-          value={formatPercent(savings)}
-          footer={<span>of income kept</span>}
-        />
-        <StatCard
-          tone="soft3"
-          icon="wallet"
-          label="Largest expense"
-          value={big ? formatMoney(-big.amountMinor, cur) : "—"}
-          footer={<span>{big?.merchant ?? ""}</span>}
-        />
+    <div className="bento bento--analytics">
+      <div className="b-kpis b-kpis--wide">
+        <Kpi label="Income" caption={formatMonth(`${month}-01`)}>
+          <Amount minor={income} currency={cur} size="xl" />
+        </Kpi>
+        <Kpi label="Expenses" caption="Completed payments">
+          <Amount minor={expenses} currency={cur} size="xl" />
+        </Kpi>
+        <Kpi label="Savings rate" caption="of income kept">
+          <span className="amt amt--xl">
+            <span className="amt__int">{formatPercent(savings)}</span>
+          </span>
+        </Kpi>
+        <Kpi label="Largest expense" caption={big?.merchant ?? "—"}>
+          {big ? (
+            <Amount minor={-big.amountMinor} currency={cur} size="xl" />
+          ) : (
+            <span className="amt amt--xl">—</span>
+          )}
+        </Kpi>
       </div>
-
-      <Tile title="Monthly spending" subtitle="Last 6 months" className="tile--chart">
-        <div
-          className="bars"
-          role="img"
-          aria-label={`Monthly spending: ${series.map((s) => `${shortMonth(s.ym)} ${formatMoney(s.minor, cur)}`).join(", ")}`}
-        >
-          {series.map((s) => (
-            <div key={s.ym} className="bars__col">
-              <span className="bars__value ts-caption-regular">
-                {formatMoney(s.minor, cur).replace(/\.\d\d$/, "")}
-              </span>
-              <div className="bars__track">
-                <div
-                  className={`bars__fill ${s.ym === month ? "bars__fill--now" : ""}`}
-                  style={{ height: `${(s.minor / max) * 100}%` }}
-                />
-              </div>
-              <span className="muted ts-caption-regular">{shortMonth(s.ym)}</span>
-            </div>
-          ))}
-        </div>
-      </Tile>
-
       <Tile
-        title="Spending by category"
-        subtitle={formatMonth(`${month}-01`)}
-        className="tile--split"
+        className="a-flow"
+        title="Money flow"
+        subtitle={`Income vs expenses · ${flow.length} months`}
       >
-        <div className="donut-wrap">
-          <div
-            className="donut"
-            style={{ background: `conic-gradient(${stops.join(", ")})` }}
-            role="img"
-            aria-label="Spending split by category"
-          >
-            <div className="donut__hole">
-              <span className="ts-numeric-amount-md">{formatMoney(expenses, cur)}</span>
-              <span className="muted ts-caption-regular">spent</span>
-            </div>
-          </div>
-          <ul className="legend">
-            {cats.slice(0, 5).map((c, i) => (
-              <li key={c.id} className="ts-body-sm-regular">
-                <i
-                  className="cat__swatch"
-                  style={{ background: `var(--color-chart-category-${i + 1})` }}
-                />
-                <span>{c.name}</span>
-                <span className="muted">{formatPercent(c.share * 100)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <MoneyFlowChart data={flow} currency={cur} />
+      </Tile>
+      <Tile className="a-cats" title="Spending by category" subtitle={formatMonth(`${month}-01`)}>
+        <CategorySplit expenseTx={s.expenseTx} />
+      </Tile>
+      <Tile
+        className="a-trend"
+        title="Balance trend"
+        subtitle="Last 30 days · derived from completed transactions"
+      >
+        <TrendChart data={trend} currency={cur} height={220} axes />
       </Tile>
     </div>
   );

@@ -34,7 +34,7 @@ export function SettingsPage() {
               className="radio-card"
               onClick={() => setBrand(b)}
             >
-              <i className="demo-bar__dot" data-brand={b} data-theme={mode} aria-hidden="true" />
+              <i className="dot-brand" data-brand={b} data-theme={mode} aria-hidden="true" />
               <span className="radio-card__text ts-body-md-strong">
                 {b.charAt(0).toUpperCase() + b.slice(1)}
               </span>
@@ -80,7 +80,7 @@ export function SettingsPage() {
         </p>
         <button
           type="button"
-          className="button button--secondary"
+          className="btn btn--secondary"
           onClick={() => dispatch({ type: "reset" })}
           data-event="demo_reset"
         >

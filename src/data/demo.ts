@@ -46,8 +46,9 @@ export function overviewStats(state: DemoState) {
   const pending = state.transactions.filter((t) => inMonth(t) && t.status === "pending");
   const pendingMinor = -pending.reduce((s, t) => s + t.amountMinor, 0);
   const balanceMinor = state.accounts.reduce((s, a) => s + toBase(a.balanceMinor, a.currency), 0);
-  const top = categoryBreakdown(tx.filter((t) => t.amountMinor < 0));
-  return { income, expenses, pending, pendingMinor, balanceMinor, top };
+  const expenseTx = tx.filter((t) => t.amountMinor < 0);
+  const top = categoryBreakdown(expenseTx);
+  return { income, expenses, pending, pendingMinor, balanceMinor, top, expenseTx };
 }
 
 export function categoryBreakdown(expenseTx: Transaction[]) {
@@ -83,4 +84,62 @@ export function cardUsedThisMonth(state: DemoState, cardId: string) {
 export function largestExpense(state: DemoState) {
   const { tx } = monthSums(state.transactions);
   return tx.filter((t) => t.amountMinor < 0).sort((a, b) => a.amountMinor - b.amountMinor)[0];
+}
+
+export interface FlowPoint {
+  ym: string;
+  income: number;
+  expenses: number;
+  partial: boolean;
+}
+
+/** Income vs expenses for every month that has transactions (older months in the seed only carry expenses and are skipped). */
+export function flowSeries(state: DemoState): FlowPoint[] {
+  const months = [...new Set(state.transactions.map((t) => t.date.slice(0, 7)))].sort();
+  return months.map((ym) => {
+    const { income, expenses } = monthSums(state.transactions, ym);
+    return { ym, income, expenses, partial: ym === month };
+  });
+}
+
+export interface TrendPoint {
+  date: string;
+  balanceMinor: number;
+}
+
+const isoDay = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+/** End-of-day total balance for the last `days` days, derived by rolling completed transactions back from today's balance. */
+export function balanceTrend(state: DemoState, days = 30): TrendPoint[] {
+  const end = new Date(`${seed.meta.today}T12:00:00`);
+  let balance = state.accounts.reduce((s, a) => s + toBase(a.balanceMinor, a.currency), 0);
+  const byDay = new Map<string, number>();
+  for (const t of state.transactions)
+    if (completed(t))
+      byDay.set(
+        t.date.slice(0, 10),
+        (byDay.get(t.date.slice(0, 10)) ?? 0) + toBase(t.amountMinor, t.currency),
+      );
+  const out: TrendPoint[] = [];
+  for (let i = 0; i < days; i++) {
+    const d = new Date(end);
+    d.setDate(end.getDate() - i);
+    const key = isoDay(d);
+    out.unshift({ date: key, balanceMinor: balance });
+    balance -= byDay.get(key) ?? 0;
+  }
+  return out;
+}
+
+/** Top `n` categories plus a combined "Other" remainder, so the split always adds up to the total. */
+export function categorySplit(expenseTx: Transaction[], n = 5) {
+  const all = categoryBreakdown(expenseTx);
+  const top = all.slice(0, n);
+  const rest = all.slice(n);
+  if (rest.length) {
+    const minor = rest.reduce((s, c) => s + c.minor, 0);
+    top.push({ id: "other", name: "Other", minor, share: rest.reduce((s, c) => s + c.share, 0) });
+  }
+  return top;
 }

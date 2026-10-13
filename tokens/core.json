@@ -292,6 +292,10 @@
       "value": "-1%",
       "type": "letterSpacing"
     },
+    "tighter": {
+      "value": "-2%",
+      "type": "letterSpacing"
+    },
     "wide": {
       "value": "8%",
       "type": "letterSpacing"
@@ -350,81 +354,81 @@
     "chart": {
       "blue": {
         "300": {
-          "value": "#91C1FF",
+          "value": "#86BAFE",
           "type": "color"
         },
         "600": {
-          "value": "#1F68BC",
+          "value": "#3D73B6",
           "type": "color"
         }
       },
       "teal": {
         "300": {
-          "value": "#2AD7D7",
+          "value": "#1AD1D1",
           "type": "color"
         },
         "600": {
-          "value": "#047879",
+          "value": "#008282",
           "type": "color"
         }
       },
       "green": {
         "300": {
-          "value": "#7CD591",
+          "value": "#76CF8A",
           "type": "color"
         },
         "600": {
-          "value": "#047E39",
+          "value": "#33854A",
           "type": "color"
         }
       },
       "lime": {
         "300": {
-          "value": "#BBC75F",
+          "value": "#B5C159",
           "type": "color"
         },
         "600": {
-          "value": "#677000",
+          "value": "#70790E",
           "type": "color"
         }
       },
       "amber": {
         "300": {
-          "value": "#E9B452",
+          "value": "#E3AD4B",
           "type": "color"
         },
         "600": {
-          "value": "#896100",
+          "value": "#946900",
           "type": "color"
         }
       },
       "orange": {
         "300": {
-          "value": "#FFA47A",
+          "value": "#FC9B6F",
           "type": "color"
         },
         "600": {
-          "value": "#AB4501",
+          "value": "#AA5830",
           "type": "color"
         }
       },
       "pink": {
         "300": {
-          "value": "#FC9AC9",
+          "value": "#F594C3",
           "type": "color"
         },
         "600": {
-          "value": "#A53C75",
+          "value": "#A4517B",
           "type": "color"
         }
       },
       "violet": {
         "300": {
-          "value": "#C9ACFF",
+          "value": "#C4A4FE",
           "type": "color"
         },
         "600": {
-          "value": "#7750B1",
+          "value": "#7D5FAD",
           "type": "color"
         }
       }

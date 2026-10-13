@@ -13,6 +13,12 @@ const PATHS = {
   check: "M5 12.5l4.5 4.5L19 7.5",
   snow: "M12 2v20M4.9 7l14.2 10M19.1 7 4.9 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5",
   wifi: "M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0M11 18.5a2 2 0 0 1 2 0",
+  clock: "M12 7v5l3 2M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z",
+  chevronDown: "M6 9l6 6 6-6",
+  chevronUp: "M6 15l6-6 6 6",
+  plus: "M12 5v14M5 12h14",
+  sliders: "M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6",
+  reset: "M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5",
   trendUp: "M3 17l6-6 4 4 8-8M15 7h6v6",
 } as const;
 

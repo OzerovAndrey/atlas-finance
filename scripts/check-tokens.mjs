@@ -134,6 +134,13 @@ const PAIRS = [
     [`color.tone.${n}.icon`, `color.tone.${n}.iconBg`, 3, `tone ${n} icon`],
   ]),
   ["color.chart.bar.fill", "color.bg.secondary", 3, "bar chart"],
+  ["color.chart.accent", "color.bg.secondary", 3, "chart accent"],
+  ["color.chart.accent", "color.bg.primary", 3, "chart accent"],
+  ["color.chart.accent", "color.fill.secondary.default", 3, "nav icon on selected"],
+  ["color.chart.series.income", "color.bg.secondary", 3, "money flow income"],
+  ["color.chart.series.expense", "color.bg.secondary", 3, "money flow expense"],
+  ["color.tone.primary.ctaFg", "color.tone.primary.cta", 4.5, "hero CTA"],
+  ["color.tone.primary.cta", "color.tone.primary.bg", 3, "hero CTA vs card"],
   ["color.chart.bar.highlight", "color.bg.secondary", 3, "bar chart highlight"],
   ["color.chart.bar.fill", "color.chart.bar.track", 1.5, "bar fill vs track"],
   ...[1, 2, 3, 4, 5, 6, 7, 8].map((i) => [

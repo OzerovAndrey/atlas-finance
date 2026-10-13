@@ -99,7 +99,7 @@ export function TransferPage() {
           </div>
           <button
             type="button"
-            className="button button--primary"
+            className="btn btn--primary"
             disabled={!recipientId}
             onClick={() => setStep(1)}
           >
@@ -155,10 +155,10 @@ export function TransferPage() {
             </label>
           </div>
           <div className="actions">
-            <button type="button" className="button button--secondary" onClick={() => setStep(0)}>
+            <button type="button" className="btn btn--secondary" onClick={() => setStep(0)}>
               Back
             </button>
-            <button type="button" className="button button--primary" onClick={toReview}>
+            <button type="button" className="btn btn--primary" onClick={toReview}>
               Review
             </button>
           </div>
@@ -198,12 +198,12 @@ export function TransferPage() {
             )}
           </dl>
           <div className="actions">
-            <button type="button" className="button button--secondary" onClick={() => setStep(1)}>
+            <button type="button" className="btn btn--secondary" onClick={() => setStep(1)}>
               Back
             </button>
             <button
               type="button"
-              className="button button--primary"
+              className="btn btn--primary"
               onClick={confirm}
               data-event="transfer_confirm"
             >
@@ -232,10 +232,10 @@ export function TransferPage() {
             </div>
           </dl>
           <div className="actions">
-            <button type="button" className="button button--secondary" onClick={reset}>
+            <button type="button" className="btn btn--secondary" onClick={reset}>
               New transfer
             </button>
-            <a className="button button--primary" href="#/transactions">
+            <a className="btn btn--primary" href="#/transactions">
               View transactions
             </a>
           </div>

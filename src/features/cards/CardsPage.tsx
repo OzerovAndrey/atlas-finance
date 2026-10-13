@@ -77,21 +77,21 @@ export function CardsPage() {
           />
         </div>
         <div>
-          <div className="cat__row ts-body-sm-regular">
+          <div className="progress__row ts-body-sm-regular">
             <span>Used this month</span>
             <span className="ts-numeric-amount-sm">
               {formatMoney(used, cur)} / {formatMoney(card.monthlyLimitMinor, cur)}
             </span>
           </div>
           <div
-            className="cat__track"
+            className="progress"
             role="progressbar"
             aria-label="Monthly limit used"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={Math.round(share * 100)}
           >
-            <div className="cat__fill cat__fill--accent" style={{ width: `${share * 100}%` }} />
+            <div className="progress__fill" style={{ width: `${share * 100}%` }} />
           </div>
           <p className="muted ts-body-sm-regular">{formatPercent(share * 100)} of limit</p>
         </div>

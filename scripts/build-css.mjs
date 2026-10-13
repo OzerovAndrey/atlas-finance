@@ -22,7 +22,11 @@ const PX = new Set([
   "lineHeights",
   "dimension",
 ]);
-const family = (f) => `"${f}", system-ui, sans-serif`;
+// Inter is self-hosted through @fontsource-variable/inter (registers "Inter Variable").
+const family = (f) =>
+  f === "Inter"
+    ? `"Inter Variable", "Inter", system-ui, sans-serif`
+    : `"${f}", system-ui, sans-serif`;
 const shadow = (s) =>
   [s.x, s.y, s.blur, s.spread].map((n) => (Number(n) === 0 ? "0" : `${n}px`)).join(" ") +
   ` ${s.color}`;

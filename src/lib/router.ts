@@ -27,3 +27,14 @@ export function useRoute(): RoutePath {
   }, []);
   return route;
 }
+
+/** Query string after "?" inside the hash, e.g. #/transactions?q=spotify&status=pending. */
+export function useRouteQuery(): URLSearchParams {
+  const [q, setQ] = useState(() => new URLSearchParams(location.hash.split("?")[1] ?? ""));
+  useEffect(() => {
+    const on = () => setQ(new URLSearchParams(location.hash.split("?")[1] ?? ""));
+    addEventListener("hashchange", on);
+    return () => removeEventListener("hashchange", on);
+  }, []);
+  return q;
+}

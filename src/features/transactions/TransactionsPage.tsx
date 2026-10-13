@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
+import { Amount } from "../../components/Amount";
 import { Tile } from "../../components/Tile";
 import { accountName, byDateDesc, categoryName, seed } from "../../data/demo";
 import { useDemo } from "../../data/store";
 import type { Transaction } from "../../data/types";
-import { formatDateTime, formatDay, formatMoney } from "../../lib/format";
+import { formatDateTime, formatDay } from "../../lib/format";
+import { useRouteQuery } from "../../lib/router";
 
 const TABS = [
   { id: "all", label: "All" },
@@ -32,13 +34,15 @@ function Detail({ tx, onClose }: { tx: Transaction; onClose: () => void }) {
         </span>
         <div>
           <h2 className="ts-title-t4">{tx.merchant}</h2>
-          <p
-            className={`ts-numeric-amount-md amount ${tx.amountMinor > 0 ? "amount--positive" : "amount--negative"}`}
-          >
-            {formatMoney(tx.amountMinor, tx.currency, true)}
-          </p>
+          <Amount
+            minor={tx.amountMinor}
+            currency={tx.currency}
+            signed
+            size="lg"
+            tone={tx.amountMinor > 0 ? "positive" : undefined}
+          />
         </div>
-        <button type="button" className="button button--text" onClick={onClose}>
+        <button type="button" className="btn btn--ghost" onClick={onClose}>
           Close
         </button>
       </header>
@@ -78,10 +82,16 @@ function Detail({ tx, onClose }: { tx: Transaction; onClose: () => void }) {
   );
 }
 
-export function TransactionsPage() {
+function TransactionsView({
+  initialTab,
+  initialQuery,
+}: {
+  initialTab: TabId;
+  initialQuery: string;
+}) {
   const { state } = useDemo();
-  const [tab, setTab] = useState<TabId>("all");
-  const [query, setQuery] = useState("");
+  const [tab, setTab] = useState<TabId>(initialTab);
+  const [query, setQuery] = useState(initialQuery);
   const [category, setCategory] = useState("all");
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -115,8 +125,9 @@ export function TransactionsPage() {
           ))}
         </div>
         <div className="filters">
-          <label className="search-bar search-bar--wide">
+          <label className="search-field">
             <input
+              className="input"
               type="search"
               placeholder="Search transactions"
               aria-label="Search transactions"
@@ -142,56 +153,76 @@ export function TransactionsPage() {
             <p className="muted ts-body-md-regular">Try another filter or clear the search.</p>
           </div>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Description</th>
-                <th scope="col">Category</th>
-                <th scope="col" className="num">
-                  Amount
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((t) => (
-                <tr key={t.id} aria-selected={t.id === selected}>
-                  <td className="muted">{formatDay(t.date)}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="table__merchant table__open"
-                      onClick={() => setSelected(t.id)}
-                      aria-label={`Open ${t.merchant}`}
-                    >
-                      <span className="avatar avatar--sm" aria-hidden="true">
-                        {initials(t.merchant)}
-                      </span>
-                      <span className="ts-body-md-strong">{t.merchant}</span>
-                      {t.status === "pending" && (
-                        <span className="badge badge--warning">Pending</span>
-                      )}
-                    </button>
-                  </td>
-                  <td>
-                    <span
-                      className={`badge ${t.categoryId === "income" ? "badge--success" : "badge--neutral"}`}
-                    >
-                      {categoryName(t.categoryId)}
-                    </span>
-                  </td>
-                  <td
-                    className={`num amount ts-numeric-amount-sm ${t.amountMinor > 0 ? "amount--positive" : "amount--negative"}`}
-                  >
-                    {formatMoney(t.amountMinor, t.currency, true)}
-                  </td>
+          <div className="table-wrap">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Category</th>
+                  <th scope="col" className="num">
+                    Amount
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rows.map((t) => (
+                  <tr key={t.id} aria-selected={t.id === selected}>
+                    <td className="muted">{formatDay(t.date)}</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="table__merchant table__open"
+                        onClick={() => setSelected(t.id)}
+                        aria-label={`Open ${t.merchant}`}
+                      >
+                        <span className="avatar avatar--sm" aria-hidden="true">
+                          {initials(t.merchant)}
+                        </span>
+                        <span className="ts-body-md-strong">{t.merchant}</span>
+                        {t.status === "pending" && (
+                          <span className="badge badge--warning">Pending</span>
+                        )}
+                      </button>
+                    </td>
+                    <td>
+                      <span
+                        className={`badge ${t.categoryId === "income" ? "badge--success" : "badge--neutral"}`}
+                      >
+                        {categoryName(t.categoryId)}
+                      </span>
+                    </td>
+                    <td className="num">
+                      <Amount
+                        minor={t.amountMinor}
+                        currency={t.currency}
+                        signed
+                        size="sm"
+                        tone={t.amountMinor > 0 ? "positive" : undefined}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </Tile>
       {open && <Detail tx={open} onClose={() => setSelected(null)} />}
     </div>
+  );
+}
+
+/** Filters come from the URL (#/transactions?q=…&status=pending); the view remounts when they change. */
+export function TransactionsPage() {
+  const params = useRouteQuery();
+  const st = params.get("status");
+  const tab: TabId = TABS.some((t) => t.id === st) ? (st as TabId) : "all";
+  return (
+    <TransactionsView
+      key={params.toString()}
+      initialTab={tab}
+      initialQuery={params.get("q") ?? ""}
+    />
   );
 }

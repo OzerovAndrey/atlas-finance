@@ -1,19 +1,33 @@
-# Visual direction (v2)
+# Visual direction (v3 — neutral base, one accent widget)
 
-v1 components were correct but plain. v2 borrows **patterns** (not layouts, brands or assets) from four dashboard references supplied by the owner and expresses them through tokens, so every brand × theme gets them for free.
+v3 replaces the colourful v2 look. Principles are taken from three owner-supplied dashboard references (composition and balance, financial KPIs and chips, bold sans-serif typography with round cards). Only principles are used — no layouts, names or content are copied.
 
-| Pattern seen in references                                                    | How it is built here                                                             | Tokens                                                                                      |
-| ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Bento grid of soft, generously rounded tiles                                  | `Tile`, `Stat Card`, chart cards; Overview / Analytics are bento layouts at 1440 | `borderRadius.tile` (brand-specific: VANTA 8 → PULSE 32), `tile.*`                          |
-| Tinted KPI cards (green / yellow / violet) and one inverted dark card         | `Stat Card` tones `primary`, `inverse`, `soft1–3`, `neutral`                     | `color.tone.<tone>.{bg,fg,muted,iconBg,icon}` — AA-checked in 8 configurations              |
-| Icon chip + label + delta pill + big number with lighter decimals + sparkline | `Stat Card`, `Balance Card`, `Delta Chip`                                        | `statCard.*`, `chip.*`                                                                      |
-| Pills and circular icon buttons, search pill with ⌘F hint                     | `Search Bar`, `Round Button`, `Avatar`, `Avatar Stack`                           | `borderRadius.round` (circle in PULSE/FLOW, restrained in VANTA/NORTH), `borderRadius.full` |
-| Capsule bar chart with a highlighted bar + tooltip                            | `Bar Chart`                                                                      | `chart.bar.{track,fill,highlight}`, `barChart.*`                                            |
-| Donut with legend + mini progress bars                                        | `Donut Chart`                                                                    | `donut.*`, `chart.category.*`                                                               |
-| Barcode / tick progress                                                       | `Tick Chart`                                                                     | `tickChart.*`                                                                               |
-| Stacked card with a peeking layer, chip, contactless                          | `Bank Card`                                                                      | `bankCard.layer`, `bankCard.pattern`, `bankCard.chip`                                       |
-| Halftone promo card with pill CTA                                             | `Promo Card`                                                                     | `promo.*`                                                                                   |
-| Sidebar with sections, active indicator, profile                              | `Sidebar`, `Nav Item`, `Profile`                                                 | `navItem.indicator`, `navItem.section`, `profile.*`                                         |
-| Rounded list rows with avatars                                                | `Transaction Row` (tinted pill row)                                              | `transactionRow.bg.default → bg.tertiary`                                                   |
+## Surfaces and colour
 
-Rules kept from v1: colours only via tokens, charts never rely on colour alone, brand identity comes from tokens (a tint is a ramp of the brand's own colour — nothing is hard-coded per brand in components).
+- **One neutral base for all brands** (`color.neutral.*` is identical in VANTA / PULSE / NORTH / FLOW). Light: page `#F5F6F8`, card `#FFFFFF`, subtle `#F0F2F5`, text `#151719`. Dark: graphite — page `#0B0D0F`, card `#151719`, subtle `#22262C`.
+- **Brand = accent only**: primary CTA, active navigation icon, chart marks, selected states, and **one hero widget** per screen (Total balance). Brands differ by accent, logo, bank-card tint and shape tokens.
+  - VANTA graphite + champagne, PULSE lime with dark text, NORTH electric blue, FLOW teal with coral secondary.
+- New brand tokens: `product1Hover`, `product1Active` (state colours that keep contrast), `onProduct1Muted`, `chartAccent` (accent usable as a mark on white, ≥ 3:1; dark theme uses `product1.300`).
+- Pending is a neutral block with an amber icon — no large coloured fills in lists or tables. Success / warning / danger keep their meaning in every brand.
+
+## Typography
+
+Inter (self-hosted via `@fontsource-variable/inter`, Cyrillic included) for every brand; no serif headings. Page title 32, widget title 18, body 14–16. Money: hero 48 (medium, −2 % tracking), KPI 28, tabular numerals, decimals rendered smaller and quieter (`Amount`). Amounts scale down inside their container for very long values.
+
+## Radii and borders
+
+Large cards 20–24 (`borderRadius.tile`), inner blocks 12–16 (`surface`), controls 8–12, pills only for chips / badges. 1 px hairline borders (`border.tertiary`) and minimal shadows.
+
+## Overview (bento)
+
+Hero Total balance with a 30-day balance line and the **Transfer** action · Money flow (income vs expenses per month, current month hatched and marked `*`) · three compact KPIs + a small Pending status block · Recent activity · Spending by category (top 5 + **Other**, always sums to the total).
+
+Charts are derived from data only: Money flow uses months that have transactions (older seed months only carry expenses and are skipped); the balance line is rolled back from today's balance through completed transactions, its axis is not forced to zero and min / max are labelled. Tooltips show the real amount and period; chart columns are keyboard-focusable.
+
+## Shell
+
+Light sidebar (icons collapse to a rail on tablet, to a top strip on mobile), toolbar with a working search (`#/transactions?q=…`) and "New transfer". The brand / theme / reset control is a compact, collapsible bottom-right panel that remembers its state.
+
+## Figma
+
+The Figma file still shows v2. v3 lives in code and in `tokens/` (regenerated by `scripts/gen-tokens.mjs`); redrawing Figma from the new tokens is a separate step.

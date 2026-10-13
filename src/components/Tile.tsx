@@ -16,8 +16,8 @@ export function Tile(props: {
           {props.subtitle && <p className="tile__subtitle">{props.subtitle}</p>}
         </div>
         {props.action && (
-          <a className="round-button" href={props.action.href} aria-label={props.action.label}>
-            <Icon name="arrowUpRight" />
+          <a className="icon-btn" href={props.action.href} aria-label={props.action.label}>
+            <Icon name="arrowUpRight" size="var(--icon-size-md)" />
           </a>
         )}
       </header>

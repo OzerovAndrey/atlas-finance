@@ -1,8 +1,19 @@
-import { StatCard } from "../../components/StatCard";
+import { Amount } from "../../components/Amount";
+import { CategorySplit } from "../../components/CategorySplit";
+import { MoneyFlowChart, TrendChart } from "../../components/charts";
+import { Icon } from "../../components/Icon";
 import { Tile } from "../../components/Tile";
-import { byDateDesc, categoryName, overviewStats, seed } from "../../data/demo";
+import {
+  balanceTrend,
+  byDateDesc,
+  categoryName,
+  flowSeries,
+  monthSums,
+  overviewStats,
+  seed,
+} from "../../data/demo";
 import { useDemo } from "../../data/store";
-import { formatDay, formatHidden, formatMoney, formatMonth, formatPercent } from "../../lib/format";
+import { formatDay, formatHidden, formatMonth, formatPercent } from "../../lib/format";
 
 const initials = (s: string) =>
   s
@@ -12,60 +23,165 @@ const initials = (s: string) =>
     .map((w) => w.charAt(0).toUpperCase())
     .join("");
 
+const prevMonth = (ym: string) => {
+  const d = new Date(`${ym}-01T12:00:00`);
+  d.setMonth(d.getMonth() - 1);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+};
+
+function Kpi(props: {
+  label: string;
+  children: React.ReactNode;
+  delta?: { text: string; tone: "positive" | "negative" | "neutral" };
+  caption: string;
+}) {
+  return (
+    <article className="kpi">
+      <p className="kpi__label ts-label-md">{props.label}</p>
+      <div className="kpi__value">{props.children}</div>
+      <p className="kpi__foot ts-caption-regular">
+        {props.delta && (
+          <span className={`chip chip--${props.delta.tone}`}>{props.delta.text}</span>
+        )}
+        <span className="muted">{props.caption}</span>
+      </p>
+    </article>
+  );
+}
+
 export function OverviewPage() {
   const { state } = useDemo();
   const s = overviewStats(state);
   const cur = seed.meta.currency;
-  const recent = byDateDesc(state.transactions).slice(0, 6);
-  const first = s.pending[0];
+  const hidden = state.prefs.hideBalances;
+  const recent = byDateDesc(state.transactions).slice(0, 5);
+  const trend = balanceTrend(state, 30);
+  const flow = flowSeries(state);
+  const month = seed.meta.today.slice(0, 7);
+  const prev = monthSums(state.transactions, prevMonth(month));
   const savings = s.income > 0 ? ((s.income - s.expenses) / s.income) * 100 : 0;
+  const prevSavings = prev.income > 0 ? ((prev.income - prev.expenses) / prev.income) * 100 : null;
+  const pct = (a: number, b: number) => (b > 0 ? ((a - b) / b) * 100 : null);
+  const incDelta = pct(s.income, prev.income);
+  const expDelta = pct(s.expenses, prev.expenses);
+  const mtd = `1–${new Date(`${seed.meta.today}T12:00:00`).getDate()} ${new Intl.DateTimeFormat(seed.meta.locale, { month: "short" }).format(new Date(`${seed.meta.today}T12:00:00`))}`;
+  const pend = s.pending[0];
+
   return (
-    <div className="overview">
-      <div className="kpis">
-        <StatCard
-          tone="primary"
-          icon="trendUp"
+    <div className="bento">
+      <section className="hero" aria-labelledby="hero-title">
+        <header className="hero__head">
+          <h2 id="hero-title" className="ts-label-md">
+            Total balance
+          </h2>
+          <span className="hero__chip ts-label-sm">
+            <Icon name="trendUp" size="var(--icon-size-sm)" />{" "}
+            {formatPercent(seed.meta.balanceChangePct, true)} vs last month
+          </span>
+        </header>
+        <p className="hero__value">
+          {hidden ? (
+            <span className="amt amt--hero">{formatHidden(cur)}</span>
+          ) : (
+            <Amount minor={s.balanceMinor} currency={cur} size="hero" />
+          )}
+        </p>
+        <p className="hero__sub ts-body-sm-regular">
+          {state.accounts.length} accounts · {cur} equivalent
+        </p>
+        {!hidden && (
+          <div className="hero__trend">
+            <TrendChart data={trend} currency={cur} height={88} />
+            <p className="ts-caption-regular hero__caption">
+              Last 30 days · derived from completed transactions
+            </p>
+          </div>
+        )}
+        <div className="hero__actions">
+          <a className="btn btn--cta" href="#/transfers" data-event="cta_transfer">
+            <Icon name="send" size="var(--icon-size-sm)" /> Transfer
+          </a>
+          <a className="btn btn--hero-ghost" href="#/accounts">
+            Accounts
+          </a>
+        </div>
+      </section>
+
+      <Tile
+        className="b-flow"
+        title="Money flow"
+        subtitle={`Income vs expenses · ${flow.length} months`}
+        action={{ href: "#/analytics", label: "Open analytics" }}
+      >
+        <MoneyFlowChart data={flow} currency={cur} />
+      </Tile>
+
+      <div className="b-kpis">
+        <Kpi
           label="Income"
-          value={formatMoney(s.income, cur)}
-          footer={<span>{formatPercent(savings)} saved this month</span>}
-        />
-        <StatCard
-          tone="inverse"
-          icon="wallet"
-          label="Expenses"
-          value={formatMoney(s.expenses, cur)}
-          footer={<span>{formatMonth(seed.meta.today)}</span>}
-        />
-        <StatCard
-          tone="soft1"
-          icon="wallet"
-          label="Pending"
-          value={formatMoney(s.pendingMinor, cur)}
-          footer={
-            <span>
-              {first ? `${first.merchant} · ` : ""}
-              {s.pending.length} {s.pending.length === 1 ? "item" : "items"}
-            </span>
+          caption={`${mtd} vs Sep`}
+          delta={
+            incDelta === null
+              ? undefined
+              : {
+                  text: formatPercent(incDelta, true),
+                  tone: incDelta >= 0 ? "positive" : "negative",
+                }
           }
-        />
+        >
+          <Amount minor={s.income} currency={cur} size="xl" />
+        </Kpi>
+        <Kpi
+          label="Expenses"
+          caption={`${mtd} vs Sep`}
+          delta={
+            expDelta === null
+              ? undefined
+              : {
+                  text: formatPercent(expDelta, true),
+                  tone: expDelta <= 0 ? "positive" : "negative",
+                }
+          }
+        >
+          <Amount minor={s.expenses} currency={cur} size="xl" />
+        </Kpi>
+        <Kpi
+          label="Savings rate"
+          caption="of income kept"
+          delta={
+            prevSavings === null
+              ? undefined
+              : {
+                  text: `${savings - prevSavings >= 0 ? "+" : ""}${(savings - prevSavings).toFixed(1)} pts`,
+                  tone: savings >= prevSavings ? "positive" : "negative",
+                }
+          }
+        >
+          <span className="amt amt--xl">
+            <span className="amt__int">{formatPercent(savings)}</span>
+          </span>
+        </Kpi>
+        <a
+          className="pending"
+          href="#/transactions?status=pending"
+          aria-label="Open pending transactions"
+        >
+          <span className="pending__icon">
+            <Icon name="clock" size="var(--icon-size-md)" />
+          </span>
+          <span className="pending__text">
+            <span className="ts-label-md">Pending</span>
+            <span className="ts-caption-regular">
+              {s.pending.length} {s.pending.length === 1 ? "payment" : "payments"}
+              {pend ? ` · ${pend.merchant}` : ""}
+            </span>
+          </span>
+          <Amount minor={s.pendingMinor} currency={cur} size="sm" />
+        </a>
       </div>
 
       <Tile
-        className="tile--balance"
-        title="Total balance"
-        subtitle={`${state.accounts.length} accounts`}
-        action={{ href: "#/accounts", label: "Open accounts" }}
-      >
-        <p className="balance ts-numeric-balance">
-          {state.prefs.hideBalances ? formatHidden(cur) : formatMoney(s.balanceMinor, cur)}
-        </p>
-        <p className="muted ts-body-sm-regular">
-          {formatPercent(seed.meta.balanceChangePct, true)} vs last month
-        </p>
-      </Tile>
-
-      <Tile
-        className="tile--recent"
+        className="b-recent"
         title="Recent activity"
         subtitle="Latest transactions"
         action={{ href: "#/transactions", label: "Open transactions" }}
@@ -79,53 +195,31 @@ export function OverviewPage() {
               <span className="tx-row__main">
                 <span className="tx-row__title ts-body-md-strong">
                   {t.merchant}
-                  {t.status === "pending" ? " · pending" : ""}
+                  {t.status === "pending" && <span className="badge badge--warning">Pending</span>}
                 </span>
                 <span className="tx-row__meta ts-body-sm-regular">
                   {formatDay(t.date)} · {categoryName(t.categoryId)}
                 </span>
               </span>
-              <span
-                className={`amount ts-numeric-amount-sm ${t.amountMinor > 0 ? "amount--positive" : "amount--negative"}`}
-              >
-                {formatMoney(t.amountMinor, t.currency, true)}
-              </span>
+              <Amount
+                minor={t.amountMinor}
+                currency={t.currency}
+                signed
+                size="sm"
+                tone={t.amountMinor > 0 ? "positive" : undefined}
+              />
             </li>
           ))}
         </ul>
       </Tile>
 
       <Tile
-        className="tile--categories"
-        title="Top categories"
-        subtitle={formatMonth(seed.meta.today)}
+        className="b-cats"
+        title="Spending by category"
+        subtitle={`${formatMonth(seed.meta.today)} · ${mtd}`}
         action={{ href: "#/analytics", label: "Open analytics" }}
       >
-        <ul className="cat-list">
-          {s.top.slice(0, 5).map((c, i) => (
-            <li key={c.id} className="cat">
-              <div className="cat__row ts-body-sm-regular">
-                <span>
-                  <i
-                    className="cat__swatch"
-                    style={{ background: `var(--color-chart-category-${i + 1})` }}
-                  />
-                  {c.name} · {formatPercent(c.share * 100)}
-                </span>
-                <span className="ts-numeric-amount-sm">{formatMoney(c.minor, cur)}</span>
-              </div>
-              <div className="cat__track" role="presentation">
-                <div
-                  className="cat__fill"
-                  style={{
-                    width: `${c.share * 100}%`,
-                    background: `var(--color-chart-category-${i + 1})`,
-                  }}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
+        <CategorySplit expenseTx={s.expenseTx} />
       </Tile>
     </div>
   );

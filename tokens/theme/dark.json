@@ -2,11 +2,11 @@
   "color": {
     "bg": {
       "primary": {
-        "value": "{color.neutral.900}",
+        "value": "{color.neutral.950}",
         "type": "color"
       },
       "secondary": {
-        "value": "{color.surface}",
+        "value": "{color.neutral.900}",
         "type": "color"
       },
       "tertiary": {
@@ -29,11 +29,11 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.product1.700}",
+          "value": "{color.product1Hover}",
           "type": "color"
         },
         "active": {
-          "value": "{color.product1.300}",
+          "value": "{color.product1Active}",
           "type": "color"
         },
         "disabled": {
@@ -150,19 +150,19 @@
     },
     "text": {
       "primary": {
-        "value": "{color.neutral.0}",
+        "value": "{color.neutral.50}",
         "type": "color"
       },
       "secondary": {
-        "value": "{color.neutral.100}",
+        "value": "{color.neutral.300}",
         "type": "color"
       },
       "tertiary": {
-        "value": "{color.neutral.200}",
+        "value": "{color.neutral.400}",
         "type": "color"
       },
       "quaternary": {
-        "value": "{color.neutral.400}",
+        "value": "{color.neutral.500}",
         "type": "color"
       },
       "onPrimary": {
@@ -212,15 +212,15 @@
         "type": "color"
       },
       "tertiary": {
-        "value": "{color.neutral.700}",
+        "value": "{color.neutral.800}",
         "type": "color"
       },
       "secondary": {
-        "value": "{color.neutral.600}",
+        "value": "{color.neutral.700}",
         "type": "color"
       },
       "primary": {
-        "value": "{color.neutral.300}",
+        "value": "{color.neutral.400}",
         "type": "color"
       },
       "accent": {
@@ -234,7 +234,7 @@
     },
     "outline": {
       "focus": {
-        "value": "{color.product1.200}",
+        "value": "{color.product1.300}",
         "type": "color"
       }
     },
@@ -312,15 +312,15 @@
     },
     "card": {
       "face": {
-        "value": "{color.cardFace}",
-        "type": "color"
-      },
-      "faceText": {
         "value": "{color.ink}",
         "type": "color"
       },
+      "faceText": {
+        "value": "{color.neutral.0}",
+        "type": "color"
+      },
       "faceMuted": {
-        "value": "{color.neutral.600}",
+        "value": "{color.neutral.300}",
         "type": "color"
       }
     },
@@ -335,7 +335,7 @@
           "type": "color"
         },
         "muted": {
-          "value": "{color.neutral.900}",
+          "value": "{color.onProduct1Muted}",
           "type": "color"
         },
         "iconBg": {
@@ -344,6 +344,14 @@
         },
         "icon": {
           "value": "{color.product1.500}",
+          "type": "color"
+        },
+        "cta": {
+          "value": "{color.neutral.900}",
+          "type": "color"
+        },
+        "ctaFg": {
+          "value": "{color.neutral.0}",
           "type": "color"
         }
       },
@@ -439,15 +447,29 @@
     "chart": {
       "bar": {
         "track": {
-          "value": "{color.neutral.950}",
+          "value": "{color.neutral.800}",
           "type": "color"
         },
         "fill": {
-          "value": "{color.neutral.200}",
+          "value": "{color.neutral.400}",
           "type": "color"
         },
         "highlight": {
           "value": "{color.product1.300}",
+          "type": "color"
+        }
+      },
+      "accent": {
+        "value": "{color.product1.300}",
+        "type": "color"
+      },
+      "series": {
+        "income": {
+          "value": "{color.product1.300}",
+          "type": "color"
+        },
+        "expense": {
+          "value": "{color.neutral.200}",
           "type": "color"
         }
       },
@@ -486,11 +508,11 @@
         }
       },
       "grid": {
-        "value": "{color.neutral.700}",
+        "value": "{color.neutral.800}",
         "type": "color"
       },
       "axis": {
-        "value": "{color.neutral.200}",
+        "value": "{color.neutral.400}",
         "type": "color"
       }
     }
@@ -502,7 +524,7 @@
         "y": "1",
         "blur": "2",
         "spread": "0",
-        "color": "rgba(0, 0, 0, 0.4)",
+        "color": "rgba(0, 0, 0, 0.3)",
         "type": "dropShadow"
       },
       "type": "boxShadow"
@@ -513,7 +535,7 @@
         "y": "4",
         "blur": "12",
         "spread": "0",
-        "color": "rgba(0, 0, 0, 0.5)",
+        "color": "rgba(0, 0, 0, 0.4)",
         "type": "dropShadow"
       },
       "type": "boxShadow"
@@ -524,7 +546,7 @@
         "y": "12",
         "blur": "32",
         "spread": "0",
-        "color": "rgba(0, 0, 0, 0.6)",
+        "color": "rgba(0, 0, 0, 0.5)",
         "type": "dropShadow"
       },
       "type": "boxShadow"

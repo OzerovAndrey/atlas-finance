@@ -160,3 +160,12 @@ These are reference projects for the quality bar and architectural experience, n
 - Keep changes small, auditable and token-driven.
 - Never invent client results, conversion metrics or real banking capabilities.
 - After each milestone, update this context file to reflect accepted changes and decisions.
+
+## 12. Accepted decisions — visual redesign v3
+
+- Neutral base shared by all brands; brand colour only for CTA, active navigation, charts, selected states and one hero widget.
+- Inter for all brands (no serif); money uses tabular numerals with a quieter decimal part.
+- Overview is a bento: hero Total balance + Transfer, Money flow, compact KPIs, Pending block, Recent activity, category split with Other.
+- Charts are derived from seed data only (no invented values); the incomplete current month is hatched and labelled.
+- Brand / theme / reset live in a compact collapsible demo panel (bottom right). Branch `redesign/v3`; nothing is deployed without an explicit command.
+- Figma is not yet redrawn for v3.
