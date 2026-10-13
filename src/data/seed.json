@@ -140,6 +140,11 @@
       "id": "entertainment",
       "name": "Entertainment",
       "group": "other"
+    },
+    {
+      "id": "transfers",
+      "name": "Transfers",
+      "group": "transfers"
     }
   ],
   "monthlySpendingMinor": {

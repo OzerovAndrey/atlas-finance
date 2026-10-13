@@ -10,6 +10,9 @@ const PATHS = {
   search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM21 21l-4.5-4.5",
   bell: "M6 17V11a6 6 0 1 1 12 0v6l2 2H4zM10 21h4",
   arrowUpRight: "M7 17 17 7M8 7h9v9",
+  check: "M5 12.5l4.5 4.5L19 7.5",
+  snow: "M12 2v20M4.9 7l14.2 10M19.1 7 4.9 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5",
+  wifi: "M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0M11 18.5a2 2 0 0 1 2 0",
   trendUp: "M3 17l6-6 4 4 8-8M15 7h6v6",
 } as const;
 
@@ -19,8 +22,6 @@ export function Icon({ name, size = "var(--icon-size-md)" }: { name: IconName; s
   return (
     <svg
       className="icon"
-      width={size}
-      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

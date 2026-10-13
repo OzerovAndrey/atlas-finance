@@ -1,13 +1,18 @@
 import { Tile } from "../../components/Tile";
-import { seed } from "../../data/demo";
-import { formatDay, formatMoney } from "../../lib/format";
+import { useDemo } from "../../data/store";
+import { formatDay, formatHidden, formatMoney } from "../../lib/format";
 
 export function AccountsPage() {
+  const { state } = useDemo();
   return (
     <div className="accounts">
-      {seed.accounts.map((a) => (
+      {state.accounts.map((a) => (
         <Tile key={a.id} title={a.name} subtitle={`${a.type} · •••• ${a.last4}`}>
-          <p className="balance ts-numeric-balance">{formatMoney(a.balanceMinor, a.currency)}</p>
+          <p className="balance ts-numeric-balance">
+            {state.prefs.hideBalances
+              ? formatHidden(a.currency)
+              : formatMoney(a.balanceMinor, a.currency)}
+          </p>
           <dl className="details">
             <div>
               <dt>Account number</dt>

@@ -434,11 +434,11 @@
   "input": {
     "bg": {
       "default": {
-        "value": "{color.bg.secondary}",
+        "value": "{color.bg.tertiary}",
         "type": "color"
       },
       "hover": {
-        "value": "{color.bg.secondary}",
+        "value": "{color.fill.secondary.default}",
         "type": "color"
       },
       "focus": {
@@ -1314,11 +1314,11 @@
   "select": {
     "bg": {
       "default": {
-        "value": "{color.bg.secondary}",
+        "value": "{color.bg.tertiary}",
         "type": "color"
       },
       "hover": {
-        "value": "{color.bg.secondary}",
+        "value": "{color.fill.secondary.default}",
         "type": "color"
       },
       "focus": {

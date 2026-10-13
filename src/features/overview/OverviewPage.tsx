@@ -1,7 +1,8 @@
 import { StatCard } from "../../components/StatCard";
 import { Tile } from "../../components/Tile";
-import { categoryName, overviewStats, seed, sortedTransactions } from "../../data/demo";
-import { formatDay, formatMoney, formatMonth, formatPercent } from "../../lib/format";
+import { byDateDesc, categoryName, overviewStats, seed } from "../../data/demo";
+import { useDemo } from "../../data/store";
+import { formatDay, formatHidden, formatMoney, formatMonth, formatPercent } from "../../lib/format";
 
 const initials = (s: string) =>
   s
@@ -12,9 +13,10 @@ const initials = (s: string) =>
     .join("");
 
 export function OverviewPage() {
-  const s = overviewStats();
+  const { state } = useDemo();
+  const s = overviewStats(state);
   const cur = seed.meta.currency;
-  const recent = sortedTransactions.slice(0, 6);
+  const recent = byDateDesc(state.transactions).slice(0, 6);
   const first = s.pending[0];
   const savings = s.income > 0 ? ((s.income - s.expenses) / s.income) * 100 : 0;
   return (
@@ -51,10 +53,12 @@ export function OverviewPage() {
       <Tile
         className="tile--balance"
         title="Total balance"
-        subtitle={`${seed.accounts.length} accounts`}
+        subtitle={`${state.accounts.length} accounts`}
         action={{ href: "#/accounts", label: "Open accounts" }}
       >
-        <p className="balance ts-numeric-balance">{formatMoney(s.balanceMinor, cur)}</p>
+        <p className="balance ts-numeric-balance">
+          {state.prefs.hideBalances ? formatHidden(cur) : formatMoney(s.balanceMinor, cur)}
+        </p>
         <p className="muted ts-body-sm-regular">
           {formatPercent(seed.meta.balanceChangePct, true)} vs last month
         </p>

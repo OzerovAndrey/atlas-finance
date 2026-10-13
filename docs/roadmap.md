@@ -13,10 +13,10 @@ Work proceeds one step at a time; each step is reviewed before the next. After e
 
 ## Phase 2 — Working product
 
-6. Banking application shell, navigation and Overview. **Done in first pass:** shell, hash routing, floating demo bar (brand + dark), logos, Overview on seed data. Remaining: polish.
-7. Accounts and Transactions.
-8. Transfers and Cards flows.
-9. Analytics, Settings and demo reset.
+6. Banking application shell, navigation and Overview. Done: shell, hash routing, floating demo bar (brand + dark + reset), logos, Overview on seed data.
+7. Accounts and Transactions (with detail panel). Done.
+8. Transfers (4 steps, validation) and Cards (freeze, limit). Done.
+9. Analytics, Settings and demo reset. Done.
 10. QA: accessibility, responsiveness, performance, token validation, interaction polish.
 
 ## Phase 3 — Portfolio
