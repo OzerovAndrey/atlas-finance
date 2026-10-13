@@ -173,6 +173,21 @@
     "surface": {
       "value": "{borderRadius.4}",
       "type": "borderRadius"
+    },
+    "tile": {
+      "value": "{borderRadius.8}",
+      "type": "borderRadius",
+      "description": "bento tile / large card"
+    },
+    "round": {
+      "value": "{borderRadius.4}",
+      "type": "borderRadius",
+      "description": "round controls (icon buttons, search): circle in PULSE/FLOW, restrained in VANTA/NORTH"
+    },
+    "full": {
+      "value": "{borderRadius.999}",
+      "type": "borderRadius",
+      "description": "pills, chips, avatars"
     }
   },
   "borderWidth": {

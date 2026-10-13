@@ -1,0 +1,19 @@
+# Visual direction (v2)
+
+v1 components were correct but plain. v2 borrows **patterns** (not layouts, brands or assets) from four dashboard references supplied by the owner and expresses them through tokens, so every brand × theme gets them for free.
+
+| Pattern seen in references                                                    | How it is built here                                                             | Tokens                                                                                      |
+| ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Bento grid of soft, generously rounded tiles                                  | `Tile`, `Stat Card`, chart cards; Overview / Analytics are bento layouts at 1440 | `borderRadius.tile` (brand-specific: VANTA 8 → PULSE 32), `tile.*`                          |
+| Tinted KPI cards (green / yellow / violet) and one inverted dark card         | `Stat Card` tones `primary`, `inverse`, `soft1–3`, `neutral`                     | `color.tone.<tone>.{bg,fg,muted,iconBg,icon}` — AA-checked in 8 configurations              |
+| Icon chip + label + delta pill + big number with lighter decimals + sparkline | `Stat Card`, `Balance Card`, `Delta Chip`                                        | `statCard.*`, `chip.*`                                                                      |
+| Pills and circular icon buttons, search pill with ⌘F hint                     | `Search Bar`, `Round Button`, `Avatar`, `Avatar Stack`                           | `borderRadius.round` (circle in PULSE/FLOW, restrained in VANTA/NORTH), `borderRadius.full` |
+| Capsule bar chart with a highlighted bar + tooltip                            | `Bar Chart`                                                                      | `chart.bar.{track,fill,highlight}`, `barChart.*`                                            |
+| Donut with legend + mini progress bars                                        | `Donut Chart`                                                                    | `donut.*`, `chart.category.*`                                                               |
+| Barcode / tick progress                                                       | `Tick Chart`                                                                     | `tickChart.*`                                                                               |
+| Stacked card with a peeking layer, chip, contactless                          | `Bank Card`                                                                      | `bankCard.layer`, `bankCard.pattern`, `bankCard.chip`                                       |
+| Halftone promo card with pill CTA                                             | `Promo Card`                                                                     | `promo.*`                                                                                   |
+| Sidebar with sections, active indicator, profile                              | `Sidebar`, `Nav Item`, `Profile`                                                 | `navItem.indicator`, `navItem.section`, `profile.*`                                         |
+| Rounded list rows with avatars                                                | `Transaction Row` (tinted pill row)                                              | `transactionRow.bg.default → bg.tertiary`                                                   |
+
+Rules kept from v1: colours only via tokens, charts never rely on colour alone, brand identity comes from tokens (a tint is a ramp of the brand's own colour — nothing is hard-coded per brand in components).

@@ -47,6 +47,12 @@ eq(
   spend("2026-10", (t) => t.cardId === "card-physical"),
   70890,
 );
+const big = Math.max(
+  ...month("2026-10")
+    .filter((t) => t.amountMinor < 0)
+    .map((t) => -t.amountMinor),
+);
+eq("Oct largest expense (133.50)", big, 13350);
 const pct = ((income("2026-10") - spend("2026-10")) / income("2026-10")) * 100;
 if (Math.abs(pct - 73.7) > 0.05) errors.push(`savings rate ${pct.toFixed(2)} != 73.7`);
 const sav = ((income("2026-09") - spend("2026-09")) / income("2026-09")) * 100;
