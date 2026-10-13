@@ -1,0 +1,96 @@
+[
+  {
+    "id": "base",
+    "name": "Default",
+    "group": "Base",
+    "selectedTokenSets": {
+      "core": "enabled"
+    }
+  },
+  {
+    "id": "brand-vanta",
+    "name": "VANTA",
+    "group": "Brand",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/vanta": "enabled",
+      "map": "enabled"
+    }
+  },
+  {
+    "id": "brand-pulse",
+    "name": "PULSE",
+    "group": "Brand",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/pulse": "enabled",
+      "map": "enabled"
+    }
+  },
+  {
+    "id": "brand-north",
+    "name": "NORTH",
+    "group": "Brand",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/north": "enabled",
+      "map": "enabled"
+    }
+  },
+  {
+    "id": "brand-flow",
+    "name": "FLOW",
+    "group": "Brand",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/flow": "enabled",
+      "map": "enabled"
+    }
+  },
+  {
+    "id": "theme-light",
+    "name": "Light",
+    "group": "Theme",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/vanta": "source",
+      "map": "source",
+      "theme/light": "enabled"
+    }
+  },
+  {
+    "id": "theme-dark",
+    "name": "Dark",
+    "group": "Theme",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/vanta": "source",
+      "map": "source",
+      "theme/dark": "enabled"
+    }
+  },
+  {
+    "id": "typography",
+    "name": "Default",
+    "group": "Typography",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/vanta": "source",
+      "typography": "enabled"
+    }
+  },
+  {
+    "id": "components",
+    "name": "Default",
+    "group": "Components",
+    "selectedTokenSets": {
+      "core": "source",
+      "brand/vanta": "source",
+      "map": "source",
+      "theme/light": "source",
+      "theme/dark": "source",
+      "typography": "source",
+      "components": "enabled"
+    }
+  }
+]

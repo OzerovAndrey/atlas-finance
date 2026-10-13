@@ -8,7 +8,7 @@ ATLAS Finance is a fictional, interactive, multi-brand digital banking web app a
 
 ## Status
 
-Phase 1, STEP 01: project scaffold and documentation only. No tokens, components, branding or screens yet. See [docs/roadmap.md](docs/roadmap.md).
+Phase 1 in progress: scaffold, token sets (core → 4 brands → map → light/dark → typography → components, validated for all 8 configurations) and the first Figma component library are done; code components and the playground are next. See [docs/roadmap.md](docs/roadmap.md), [docs/tokens.md](docs/tokens.md), [docs/figma.md](docs/figma.md).
 
 ## Commands
 
@@ -21,6 +21,8 @@ npm run typecheck  # tsc -b --noEmit (strict)
 npm run lint       # ESLint (typescript-eslint, jsx-a11y, react-hooks)
 npm run build      # typecheck + production build to dist/
 npm run format     # Prettier
+npm run tokens:check   # parity, layering, references and WCAG contrast for 4 brands x 2 themes
+npm run tokens:bundle  # tokens/ -> dist/tokens-studio.json (single file for Tokens Studio import)
 ```
 
 ## Structure

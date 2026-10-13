@@ -1,0 +1,14 @@
+{
+  "tokenSetOrder": [
+    "core",
+    "brand/vanta",
+    "brand/pulse",
+    "brand/north",
+    "brand/flow",
+    "map",
+    "theme/light",
+    "theme/dark",
+    "typography",
+    "components"
+  ]
+}

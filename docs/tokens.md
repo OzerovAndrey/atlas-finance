@@ -1,6 +1,6 @@
 # Token strategy
 
-Status: **proposal for review (STEP 01). No token files exist yet.** Nothing here is implemented; decisions marked **[DECISION]** need the owner's approval.
+Status: **token sets implemented and validated (`npm run tokens:check`)**; build pipeline (§6), sync scripts (§8) and CSS generation are still to be implemented. Set structure mirrors the owner's Portfolio / multibrand-design-system projects.
 
 ## 1. Sources and what is verified
 
@@ -20,29 +20,17 @@ Verification status is stated per claim. The official docs host (`docs.tokens.st
 
 Not invented: no syntax below goes beyond what the sources above show. Anything about the plugin's behavior that was not verified is labeled _to verify_.
 
-## 2. Format
+## 2. Format (decided)
 
-**[DECISION] Use the Legacy format (`value` / `type` / `description`) for the source files in `tokens/`,** the same as the owner's existing, working Portfolio and demo projects. Rationale: proven round trip with the plugin and with the existing `check-tokens` workflow; sd-transforms maps types to DTCG at build time anyway. Alternative: DTCG (`$value` / `$type`) — the plugin offers it as a setting, but its round trip with multi-file storage should be tested first (_to verify_). The format is a plugin setting and must not be mixed in one repo.
+**Legacy format (`value` / `type` / `description`)** for all files in `tokens/`, the same as the owner's Portfolio and multibrand-design-system projects (proven round trip with the plugin). sd-transforms maps Tokens Studio types to DTCG at build time. The format is a plugin setting and must not be mixed in one repo. Group names `value`, `type`, `description` are reserved → use `amount` / `detail`.
 
-Consequences (from the Tokens Studio constraints): group names `value`, `type`, `description` are reserved — use `amount` and `detail`. Use Tokens Studio types (`color`, `dimension`, `spacing`, `borderRadius`, `borderWidth`, `fontFamilies`, `fontWeights`, `lineHeights`, `fontSizes`, `letterSpacing`, `boxShadow`, `typography`, …); sd-transforms converts them.
+Types used: `color`, `sizing`, `spacing`, `borderRadius`, `borderWidth`, `fontSizes`, `lineHeights`, `fontWeights`, `fontFamilies`, `letterSpacing`, `textCase`, `duration`, `cubicBezier`, `boxShadow`, `typography`. Colour ramps in `map.json` use the Tokens Studio colour modifier (`$extensions["studio.tokens"].modify` with `lighten` / `darken`, `space: "hsl"`), exactly like the demo project. The `mix` modifier is deliberately **not** used (neutral ramps are explicit values in `brand/*`, see below).
 
 ## 3. Source of truth
 
-`tokens/` is the **single source of truth**, stored multi-file (one JSON per set) in Git. Everything else is derived: generated CSS, the single-file bundle for the plugin, validation reports. No parallel hand-maintained token system, no edits to generated files.
+`tokens/` is the **single source of truth**, stored multi-file in Git. Everything else is derived: generated CSS, the single-file bundle for the plugin (`npm run tokens:bundle` → `dist/tokens-studio.json`), validation reports, the Figma variables. Initial values were seeded once by a throw-away script (OKLab/OKLCH-based) that is **not** kept in the repo, so hand edits are never overwritten.
 
-```
-tokens/
-  core.json                     primitives: color scales, spacing, sizing, radius, type, motion
-  brand/vanta.json  pulse.json  north.json  flow.json     (identical keys, different values)
-  map.json                      aliases / semantic mappings (brand → roles)
-  theme/light.json  dark.json   (identical keys)  surfaces, text, borders, statuses, amount.*, chart.category.*
-  typography.json               text roles, families, weights, line heights, tracking, tabular numerals
-  components.json  (or components/*.json)
-  $themes.json
-  $metadata.json
-```
-
-## 4. Set composition and order
+## 4. Set composition and order — mirrors the Portfolio / demo project
 
 `$metadata.json → tokenSetOrder`:
 
@@ -51,35 +39,36 @@ core, brand/vanta, brand/pulse, brand/north, brand/flow, map,
 theme/light, theme/dark, typography, components
 ```
 
-Resolution order: `core → brand/* → map → theme/* → typography → components`. Rules (enforced by validation, §7):
-
-- `core` holds primitives only; nothing in `core` references another set.
-- `brand/*` have **identical key sets**; only values differ. Brand sets reference `core`.
-- `map` creates semantic aliases from the active brand (`color.action.primary` → brand accent, etc.).
-- `theme/light` and `theme/dark` have **identical key sets**; values differ.
-- `components` reference **only** theme/brand semantics — never `core.*` or `map.*`.
-
-### Required finance semantics
-
-`amount.positive|negative|neutral`, `focusRing`, `status.*` (success/warning/error/info + on-colors), `chart.category.1`–`8` (semantic, accessible series colors — not just the brand primary), card face per brand, numeric typography (`tabular-nums`) as a typography/component token.
+| Set                         | Holds                                                                                                                                                                                                                                                                                                                                         | Rules                                                                          |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `core`                      | `dimension`, `borderRadius`, `borderWidth`, `fontWeight`, `fontSize`, `lineHeight`, `letterSpacing`, `textCase`, `duration`, `curve`, `color.white/black/transparent`, `color.chart.<hue>.300/600`                                                                                                                                            | primitives only, no references                                                 |
+| `brand/<x>`                 | `color.product1/2/3` (+ `onProduct1/2`), `success/warning/danger`, `ink`, `surface`, `paper`, `cardFace`, **`color.neutral.0–950`** (explicit values, OKLab ramp from `ink`), `fontFamily.display/base`, `space.padding/gap.xs–xl`, `borderRadius.control/surface`, `borderWidth.none/control/strong`, `size.control.xs–xl`, `iconSize.xs–xl` | **identical keys in all four brands**; dimensions alias `core`                 |
+| `map`                       | ramps `100/200/300/500/700/900` for `product1/2/3`, `success`, `warning`, `danger` via colour modifiers                                                                                                                                                                                                                                       | brand-agnostic maths, brand-specific results                                   |
+| `theme/light`, `theme/dark` | `color.bg/fill/text/border/outline`, `color.amount.*`, `color.status.*`, `color.card.*`, `color.chart.category.1–8 / grid / axis`, `boxShadow.sm/md/lg`                                                                                                                                                                                       | **identical keys**; alias `brand` / `map` / `core` colours                     |
+| `typography`                | text styles `display d1–d3`, `title t1–t5`, `body lg/md/sm × regular/strong`, `label md/sm/overline`, `caption`, `numeric.*`                                                                                                                                                                                                                  | composite tokens; `numeric.*` need `font-variant-numeric: tabular-nums` in CSS |
+| `components`                | `button` (primary/secondary/text/danger), `iconButton`, `focus`, `input`, `card`, `balance`, `amount`, `bankCard`, `transactionRow`, `navItem`, `badge`, `alert`, `segmented`, `chart`                                                                                                                                                        | **only** theme / brand / typography references — never `core` or `map`         |
 
 ### Component token naming
 
-Token name = CSS property; path = `component.[part].[variant].property.[state|size]`, e.g. `button.primary.bg.hover`, `input.borderColor.error`, `button.paddingH.md`. States: `default|hover|active|focus|disabled` (+ `loading|error|success` where relevant). Sizes: `xs`–`xl`. Property names: `bg`, `color`, `br`, `borderRadius`, `borderWidth`, `paddingH`, `paddingV`, `gap`, `size`, `iconSize`, …
+Token name = CSS property; path = `component.[part].[variant].property.[state|size]`, e.g. `button.primary.bg.hover`, `input.br.error`, `button.paddingH.md`. States `default|hover|active|disabled` (+ `focus`, `error` for inputs). Sizes `xs`–`xl`.
+
+### Palette provenance and contrast decisions
+
+Dark-theme anchors (`ink`, `surface`, accent) come from the _ATLAS Finance Visual Reference Guide_; light themes are derived. The checker (§7) caught and drove these deviations from a naive derivation: neutral ramp is an explicit OKLab ramp (HSL lightening made mid-tone teal/violet surfaces too vivid for AA text); on the saturated dark surfaces of PULSE/FLOW semantic text uses the lighter `200` / `100` steps; light-theme accent text/borders/focus use `product*.900`; `onProduct2` is per-brand (black/white); PULSE display font is **Sora** (Space Grotesk has no SemiBold).
 
 ## 5. Themes: 4 brands × 2 modes = 8 configurations
 
-`$themes.json` defines **theme groups** so a configuration is one choice per group:
+`$themes.json` uses the **same group layout as the owner's Portfolio project** — one theme per group entry, no cross-product needed:
 
-| Group    | Themes                            | Enables (status)                                         |
-| -------- | --------------------------------- | -------------------------------------------------------- |
-| `Brand`  | `VANTA`, `PULSE`, `NORTH`, `FLOW` | `core` source, `brand/<x>` enabled, `map` enabled        |
-| `Mode`   | `Light`, `Dark`                   | `theme/<mode>` enabled (other sets `source`)             |
-| `Layers` | `Default`                         | `typography`, `components` enabled (other sets `source`) |
+| Group        | Themes                            | Enabled set(s)                                |
+| ------------ | --------------------------------- | --------------------------------------------- |
+| `Base`       | `Default`                         | `core`                                        |
+| `Brand`      | `VANTA`, `PULSE`, `NORTH`, `FLOW` | `brand/<x>` + `map` (core as `source`)        |
+| `Theme`      | `Light`, `Dark`                   | `theme/<mode>` (core, brand, map as `source`) |
+| `Typography` | `Default`                         | `typography`                                  |
+| `Components` | `Default`                         | `components`                                  |
 
-Permutation (sd-transforms `permutateThemes`) yields one output per combination: 4 × 2 × 1 = **8**, e.g. `vanta_light` … `flow_dark`. A single-theme group must not change the count; _to verify_ in STEP 02 with a small fixture. This mirrors how the owner's Portfolio project already structures `$themes.json` (groups `Base`, `Brand`, `Theme`, `Typography`, `Components`).
-
-**[DECISION]** whether to keep the owner's existing five-group layout (separate `Typography` and `Components` themes, as in Portfolio) or the three-group layout above; the latter is smaller, the former is already proven with the plugin.
+In Tokens Studio's _Export to Figma Variables_ each group becomes one variable collection and each theme one mode: `Base` (1 mode), `Brand` (4 modes), `Theme` (2 modes), `Typography`, `Components`. A frame selects its configuration by setting the explicit mode of the `Brand` and `Theme` collections — see [docs/figma.md](figma.md). In code the same eight configurations are produced by sd-transforms `permutateThemes` over `Brand × Theme` (to implement).
 
 ## 6. Build pipeline (described only — no dependencies installed yet)
 
@@ -119,9 +108,7 @@ Workflow: edit in code → `tokens-bundle` → import into the plugin to inspect
 
 ## 9. Open questions for the owner
 
-1. **Pro features:** are theme groups / multi-dimensional themes available in your Tokens Studio plan? If they require Pro and you are not on it, fall back to 8 flat themes (`vanta-light` … `flow-dark`), which only changes `$themes.json`. _(Unverified — the docs were not reachable.)_
-2. **Token format:** Legacy (`value`/`type`) as proposed, or W3C DTCG (`$value`/`$type`)?
-3. **`$themes.json` layout:** five groups like Portfolio, or three groups as proposed?
-4. **Figma:** Variables + Tokens Studio, or Tokens Studio styles only? Which Figma file will hold the library (to wire later)?
-5. **Typefaces:** per-brand font families need licensing/hosting decisions (self-hosted open-source fonts proposed).
-6. **Components in one file or split** (`components.json` vs `components/*.json`)? A split is proposed once there are more than ~10 components.
+1. **Tokens Studio import:** open the plugin → _Settings → Import / Load from file or JSON_ with `dist/tokens-studio.json`; confirm the `$extensions["studio.tokens"].modify` ramps (`lighten`/`darken`, `hsl`) show the same values as the Figma `Brand` collection. If anything differs, tell me and the JSON is corrected (not the Figma file).
+2. **Pro / theme groups:** the layout needs theme _groups_ (as in your existing projects). Unverified against the live docs (not reachable from the sandbox) — expected to work since the Portfolio project already uses it.
+3. **Typefaces:** VANTA Playfair Display + Inter, PULSE Sora + DM Sans, NORTH IBM Plex Sans, FLOW Nunito + DM Sans (all open-source; self-hosting to decide).
+4. **Light-theme palettes** are derived by me, not from the reference PDF (it shows dark only) — review the Figma `Overview` page.

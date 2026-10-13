@@ -13,7 +13,9 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "tokens:check": "node scripts/check-tokens.mjs",
+    "tokens:bundle": "node scripts/tokens-bundle.mjs"
   },
   "dependencies": {
     "react": "^19.3.0",

@@ -1,0 +1,233 @@
+{
+  "color": {
+    "product1": {
+      "value": "#74B4FF",
+      "type": "color",
+      "description": "signature accent"
+    },
+    "product2": {
+      "value": "#3B6FE0",
+      "type": "color"
+    },
+    "product3": {
+      "value": "#9AA9C4",
+      "type": "color"
+    },
+    "onProduct1": {
+      "value": "{color.black}",
+      "type": "color"
+    },
+    "onProduct2": {
+      "value": "{color.white}",
+      "type": "color"
+    },
+    "success": {
+      "value": "#1F9D5B",
+      "type": "color"
+    },
+    "warning": {
+      "value": "#E69A12",
+      "type": "color"
+    },
+    "danger": {
+      "value": "#D23B34",
+      "type": "color"
+    },
+    "ink": {
+      "value": "#102B55",
+      "type": "color",
+      "description": "dark-theme page background; base of the neutral ramp"
+    },
+    "surface": {
+      "value": "#194A9C",
+      "type": "color",
+      "description": "dark-theme elevated surface"
+    },
+    "paper": {
+      "value": "#EEF4FF",
+      "type": "color",
+      "description": "light-theme page background"
+    },
+    "cardFace": {
+      "value": "#EEF4FF",
+      "type": "color",
+      "description": "bank card face (light tone)"
+    },
+    "neutral": {
+      "0": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "50": {
+        "value": "#F6F7F9",
+        "type": "color"
+      },
+      "100": {
+        "value": "#ECEFF3",
+        "type": "color"
+      },
+      "200": {
+        "value": "#DADFE6",
+        "type": "color"
+      },
+      "300": {
+        "value": "#C0C8D5",
+        "type": "color"
+      },
+      "400": {
+        "value": "#98A5B9",
+        "type": "color"
+      },
+      "500": {
+        "value": "#71839E",
+        "type": "color"
+      },
+      "600": {
+        "value": "#516686",
+        "type": "color"
+      },
+      "700": {
+        "value": "#3B5276",
+        "type": "color"
+      },
+      "800": {
+        "value": "#253E65",
+        "type": "color"
+      },
+      "900": {
+        "value": "#102B55",
+        "type": "color"
+      },
+      "950": {
+        "value": "#05132C",
+        "type": "color"
+      }
+    }
+  },
+  "fontFamily": {
+    "display": {
+      "value": "IBM Plex Sans",
+      "type": "fontFamilies"
+    },
+    "base": {
+      "value": "IBM Plex Sans",
+      "type": "fontFamilies"
+    }
+  },
+  "space": {
+    "padding": {
+      "xs": {
+        "value": "{dimension.8}",
+        "type": "spacing"
+      },
+      "sm": {
+        "value": "{dimension.12}",
+        "type": "spacing"
+      },
+      "md": {
+        "value": "{dimension.16}",
+        "type": "spacing"
+      },
+      "lg": {
+        "value": "{dimension.20}",
+        "type": "spacing"
+      },
+      "xl": {
+        "value": "{dimension.24}",
+        "type": "spacing"
+      }
+    },
+    "gap": {
+      "xs": {
+        "value": "{dimension.4}",
+        "type": "spacing"
+      },
+      "sm": {
+        "value": "{dimension.6}",
+        "type": "spacing"
+      },
+      "md": {
+        "value": "{dimension.8}",
+        "type": "spacing"
+      },
+      "lg": {
+        "value": "{dimension.10}",
+        "type": "spacing"
+      },
+      "xl": {
+        "value": "{dimension.12}",
+        "type": "spacing"
+      }
+    }
+  },
+  "borderRadius": {
+    "control": {
+      "value": "{borderRadius.6}",
+      "type": "borderRadius"
+    },
+    "surface": {
+      "value": "{borderRadius.8}",
+      "type": "borderRadius"
+    }
+  },
+  "borderWidth": {
+    "none": {
+      "value": "{borderWidth.0}",
+      "type": "borderWidth"
+    },
+    "control": {
+      "value": "{borderWidth.1}",
+      "type": "borderWidth"
+    },
+    "strong": {
+      "value": "{borderWidth.2}",
+      "type": "borderWidth"
+    }
+  },
+  "size": {
+    "control": {
+      "xs": {
+        "value": "{dimension.24}",
+        "type": "sizing"
+      },
+      "sm": {
+        "value": "{dimension.32}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{dimension.40}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{dimension.48}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{dimension.56}",
+        "type": "sizing"
+      }
+    }
+  },
+  "iconSize": {
+    "xs": {
+      "value": "{dimension.12}",
+      "type": "sizing"
+    },
+    "sm": {
+      "value": "{dimension.16}",
+      "type": "sizing"
+    },
+    "md": {
+      "value": "{dimension.20}",
+      "type": "sizing"
+    },
+    "lg": {
+      "value": "{dimension.24}",
+      "type": "sizing"
+    },
+    "xl": {
+      "value": "{dimension.32}",
+      "type": "sizing"
+    }
+  }
+}
