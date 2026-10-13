@@ -54,4 +54,4 @@ These tokens currently exist in Figma only; adding them to `tokens/` (Theme + Co
 
 ## No decorative borders (visual refresh v3)
 
-Component and screen frames no longer use border strokes: surfaces are separated by fills, gradients and the Tile shadow (the `statCard/soft/br` border from the first v3 pass is no longer applied). Strokes remain only where they carry meaning: focus rings, error state, and the unchecked outline of Checkbox / Radio / Switch.
+Component and screen frames no longer use border strokes: surfaces are separated by fills, gradients and the Tile shadow (the `statCard/soft/br` border from the first v3 pass is no longer applied; light soft tones use the 200 ramp step as background and 300 as gradient end so they read against the page). Strokes remain only where they carry meaning: focus rings, error state, and the unchecked outline of Checkbox / Radio / Switch.

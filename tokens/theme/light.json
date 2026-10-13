@@ -371,7 +371,7 @@
       },
       "soft1": {
         "bg": {
-          "value": "{color.product1.100}",
+          "value": "{color.product1.200}",
           "type": "color"
         },
         "fg": {
@@ -393,7 +393,7 @@
       },
       "soft2": {
         "bg": {
-          "value": "{color.product2.100}",
+          "value": "{color.product2.200}",
           "type": "color"
         },
         "fg": {
@@ -415,7 +415,7 @@
       },
       "soft3": {
         "bg": {
-          "value": "{color.product3.100}",
+          "value": "{color.product3.200}",
           "type": "color"
         },
         "fg": {
