@@ -270,6 +270,7 @@ const PAIRS = [
   ["color.chart.bar.fill", "color.bg.secondary", 3, "bar chart"],
   ["color.chart.bar.highlight", "color.bg.secondary", 3, "bar chart highlight"],
   ["color.chart.bar.fill", "color.chart.bar.track", 1.5, "bar fill vs track"],
+  ...[1, 2, 3, 4, 5, 6, 7, 8].map((i) => [`color.chart.category.${i}`, "color.chart.bar.track", 3, `category ${i} vs track`]),
   ...["positive", "negative"].map((a) => [
     `color.amount.${a}`,
     "color.bg.tertiary",

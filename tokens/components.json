@@ -2081,7 +2081,7 @@
       "type": "color"
     },
     "track": {
-      "value": "{color.chart.grid}",
+      "value": "{color.chart.bar.track}",
       "type": "color"
     },
     "gap": {
@@ -2671,7 +2671,7 @@
   },
   "donut": {
     "track": {
-      "value": "{color.chart.grid}",
+      "value": "{color.chart.bar.track}",
       "type": "color"
     },
     "label": {

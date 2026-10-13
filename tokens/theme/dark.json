@@ -439,7 +439,7 @@
     "chart": {
       "bar": {
         "track": {
-          "value": "{color.neutral.700}",
+          "value": "{color.neutral.950}",
           "type": "color"
         },
         "fill": {
