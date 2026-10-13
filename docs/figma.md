@@ -45,3 +45,9 @@ Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows,
 ## Logo component
 
 `Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks: VANTA circle + serif "V", PULSE rounded square + pulse line, NORTH square + arrow, FLOW squircle + waves. Colors from `Brand:color/product1/500` and `onProduct1`; wordmark uses `Brand:fontFamily/display`. Used in Sidebar and Top Bar.
+
+## Gradients (visual refresh v3)
+
+Primary buttons (default/hover/active) and all Stat Card tones use a soft 135° two-stop gradient: start = the existing component background token, end = `*/bgTo` component tokens (`button/primary/bgTo`, `statCard/<tone>/bgTo`) aliasing Theme `color/gradient/<primary|soft1|soft2|soft3|neutral|inverse>/to`. Soft and neutral Stat Cards also get a 1px `statCard/soft/br` border (Theme `color/border/secondary`) and the Tile shadow so they stay visible on the page background. The decorative sparkline was removed from Stat Card.
+
+These tokens currently exist in Figma only; adding them to `tokens/` (Theme + Components sets, gradient stops via `linear-gradient({from}, {to})`) is a follow-up before the coded demo.
