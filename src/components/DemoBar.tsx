@@ -14,12 +14,13 @@ export function DemoBar() {
           <button
             key={b}
             type="button"
+            aria-label={b.charAt(0).toUpperCase() + b.slice(1)}
             aria-pressed={b === brand}
             onClick={() => setBrand(b)}
             data-event={`brand_${b}`}
           >
             <i className="demo-bar__dot" data-brand={b} data-theme={mode} aria-hidden="true" />
-            {b.charAt(0).toUpperCase() + b.slice(1)}
+            <span className="demo-bar__label">{b.charAt(0).toUpperCase() + b.slice(1)}</span>
           </button>
         ))}
       </div>
