@@ -13,7 +13,7 @@ Work proceeds one step at a time; each step is reviewed before the next. After e
 
 ## Phase 2 — Working product
 
-6. Banking application shell, navigation and Overview.
+6. Banking application shell, navigation and Overview. **Done in first pass:** shell, hash routing, brand/theme switching, logos, Overview on seed data. Remaining: gradients, polish.
 7. Accounts and Transactions.
 8. Transfers and Cards flows.
 9. Analytics, Settings and demo reset.
