@@ -1,3 +1,15 @@
+# Visual direction (v4 — airy, colourful, soft depth)
+
+v4 (2026-10-14) builds on v3 after a new set of owner-supplied fintech dashboard references. Only principles are taken — no layouts, names or content are copied.
+
+- **Canvas and surfaces.** Light theme page = `color.paper`, now lightly brand-tinted (VANTA warm sand, PULSE lilac, NORTH cool blue, FLOW mint) with two soft radial glows from `product1` / `product3`. Tiles are white with an almost invisible hairline (`color.border.surface`) and layered soft shadows (`boxShadow.sm|md|lg` are two-layer). The sidebar sits on the canvas without a border; the selected item is a white pill with a shadow and an accent indicator.
+- **More colour, still semantic.** Money flow uses two brand series: income = `chartAccent`, expenses = new `chartAccent2` (light) / `chartAccent2Dark` (dark), both ≥ 3:1 on the card. Category palette is brighter (OKLCH L .58 / C .17 light, L .80 / C .14 dark) and ordered warm/cool so neighbours differ. Each category has a **stable** colour and icon everywhere (`CategoryAvatar`, category split, table badges).
+- **Details.** Round icon badges in tile headers, tinted KPI icons (`statCard.soft1–3`), outlined round action buttons, pill search with a working `/` shortcut, column tracks behind bars, decorative rings and a soft gradient on the hero, sidebar sections (Menu / System) and a demo profile card.
+- **Shape per brand.** VANTA tile 24 / control 12; PULSE tile 28 / pill controls; NORTH tile 20 / control 10 (the most structured); FLOW tile 28 / control 16. Icon buttons are circles except NORTH.
+- Dark themes keep the graphite base; tiles keep a visible border because shadows do not read on dark.
+
+---
+
 # Visual direction (v3 — neutral base, one accent widget)
 
 v3 replaces the colourful v2 look. Principles are taken from three owner-supplied dashboard references (composition and balance, financial KPIs and chips, bold sans-serif typography with round cards). Only principles are used — no layouts, names or content are copied.

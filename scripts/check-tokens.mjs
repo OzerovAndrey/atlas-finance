@@ -128,6 +128,9 @@ const PAIRS = [
     "chart series",
   ]),
   ["color.chart.axis", "color.bg.secondary", 4.5, "chart text"],
+  ["color.chart.series.income", "color.bg.secondary", 3, "chart series"],
+  ["color.chart.series.expense", "color.bg.secondary", 3, "chart series"],
+  ["color.text.tertiary", "color.bg.tertiary", 4.5, "text"],
   ...["primary", "inverse", "soft1", "soft2", "soft3"].flatMap((n) => [
     [`color.tone.${n}.fg`, `color.tone.${n}.bg`, 4.5, `tone ${n}`],
     [`color.tone.${n}.muted`, `color.tone.${n}.bg`, 4.5, `tone ${n} muted`],

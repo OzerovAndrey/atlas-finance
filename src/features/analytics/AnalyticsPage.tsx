@@ -1,6 +1,7 @@
 import { Amount } from "../../components/Amount";
 import { CategorySplit } from "../../components/CategorySplit";
 import { MoneyFlowChart, TrendChart } from "../../components/charts";
+import { Kpi } from "../../components/Kpi";
 import { Tile } from "../../components/Tile";
 import {
   balanceTrend,
@@ -13,18 +14,6 @@ import {
 } from "../../data/demo";
 import { useDemo } from "../../data/store";
 import { formatMonth, formatPercent } from "../../lib/format";
-
-function Kpi(props: { label: string; caption: string; children: React.ReactNode }) {
-  return (
-    <article className="kpi">
-      <p className="kpi__label ts-label-md">{props.label}</p>
-      <div className="kpi__value">{props.children}</div>
-      <p className="kpi__foot ts-caption-regular">
-        <span className="muted">{props.caption}</span>
-      </p>
-    </article>
-  );
-}
 
 export function AnalyticsPage() {
   const { state } = useDemo();
@@ -39,18 +28,18 @@ export function AnalyticsPage() {
   return (
     <div className="bento bento--analytics">
       <div className="b-kpis b-kpis--wide">
-        <Kpi label="Income" caption={formatMonth(`${month}-01`)}>
+        <Kpi label="Income" icon="arrowDownLeft" tone="soft1" caption={formatMonth(`${month}-01`)}>
           <Amount minor={income} currency={cur} size="xl" />
         </Kpi>
-        <Kpi label="Expenses" caption="Completed payments">
+        <Kpi label="Expenses" icon="arrowUpRight" tone="soft2" caption="Completed payments">
           <Amount minor={expenses} currency={cur} size="xl" />
         </Kpi>
-        <Kpi label="Savings rate" caption="of income kept">
+        <Kpi label="Savings rate" icon="percent" tone="soft3" caption="of income kept">
           <span className="amt amt--xl">
             <span className="amt__int">{formatPercent(savings)}</span>
           </span>
         </Kpi>
-        <Kpi label="Largest expense" caption={big?.merchant ?? "—"}>
+        <Kpi label="Largest expense" icon="bag" tone="neutral" caption={big?.merchant ?? "—"}>
           {big ? (
             <Amount minor={-big.amountMinor} currency={cur} size="xl" />
           ) : (
@@ -60,16 +49,23 @@ export function AnalyticsPage() {
       </div>
       <Tile
         className="a-flow"
+        icon="chart"
         title="Money flow"
         subtitle={`Income vs expenses · ${flow.length} months`}
       >
         <MoneyFlowChart data={flow} currency={cur} />
       </Tile>
-      <Tile className="a-cats" title="Spending by category" subtitle={formatMonth(`${month}-01`)}>
+      <Tile
+        className="a-cats"
+        icon="sparkle"
+        title="Spending by category"
+        subtitle={formatMonth(`${month}-01`)}
+      >
         <CategorySplit expenseTx={s.expenseTx} />
       </Tile>
       <Tile
         className="a-trend"
+        icon="trendUp"
         title="Balance trend"
         subtitle="Last 30 days · derived from completed transactions"
       >

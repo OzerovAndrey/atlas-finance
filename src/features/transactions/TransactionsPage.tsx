@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Amount } from "../../components/Amount";
+import { CategoryAvatar, categoryColor } from "../../components/CategoryAvatar";
 import { Tile } from "../../components/Tile";
 import { accountName, byDateDesc, categoryName, seed } from "../../data/demo";
 import { useDemo } from "../../data/store";
@@ -29,9 +30,7 @@ function Detail({ tx, onClose }: { tx: Transaction; onClose: () => void }) {
   return (
     <aside className="drawer" aria-label="Transaction details">
       <header className="drawer__head">
-        <span className="avatar" aria-hidden="true">
-          {initials(tx.merchant)}
-        </span>
+        <CategoryAvatar categoryId={tx.categoryId} />
         <div>
           <h2 className="ts-title-t4">{tx.merchant}</h2>
           <Amount
@@ -110,7 +109,7 @@ function TransactionsView({
 
   return (
     <div className={`split ${open ? "split--open" : ""}`}>
-      <Tile title="All transactions" subtitle={`${rows.length} entries`}>
+      <Tile icon="list" title="All transactions" subtitle={`${rows.length} entries`}>
         <div className="tabs" role="tablist" aria-label="Transaction type">
           {TABS.map((t) => (
             <button
@@ -180,9 +179,7 @@ function TransactionsView({
                         onClick={() => setSelected(t.id)}
                         aria-label={`Open ${t.merchant}`}
                       >
-                        <span className="avatar avatar--sm" aria-hidden="true">
-                          {initials(t.merchant)}
-                        </span>
+                        <CategoryAvatar categoryId={t.categoryId} size="sm" />
                         <span className="table__name">
                           <span className="ts-body-md-strong">{t.merchant}</span>
                           <span className="table__sub ts-caption-regular">
@@ -198,6 +195,11 @@ function TransactionsView({
                       <span
                         className={`badge ${t.categoryId === "income" ? "badge--success" : "badge--neutral"}`}
                       >
+                        <i
+                          className="dot"
+                          style={{ background: categoryColor(t.categoryId) }}
+                          aria-hidden="true"
+                        />
                         {categoryName(t.categoryId)}
                       </span>
                     </td>

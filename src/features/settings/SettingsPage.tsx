@@ -23,7 +23,7 @@ export function SettingsPage() {
   const { state, dispatch } = useDemo();
   return (
     <div className="settings">
-      <Tile title="Appearance" subtitle="Brand and theme of this demo">
+      <Tile icon="sparkle" title="Appearance" subtitle="Brand and theme of this demo">
         <div className="brand-grid" role="radiogroup" aria-label="Brand">
           {BRANDS.map((b) => (
             <button
@@ -55,7 +55,7 @@ export function SettingsPage() {
         </div>
       </Tile>
 
-      <Tile title="Preferences" subtitle="Saved for this visit only">
+      <Tile icon="sliders" title="Preferences" subtitle="Saved for this visit only">
         <ul className="pref-list">
           {PREFS.map((p) => (
             <li key={p.key} className="row">
@@ -73,7 +73,7 @@ export function SettingsPage() {
         </ul>
       </Tile>
 
-      <Tile title="Demo data" subtitle="Everything here is fictional">
+      <Tile icon="reset" title="Demo data" subtitle="Everything here is fictional">
         <p className="muted ts-body-md-regular">
           Transfers, frozen cards and limits change only this browser session. Brand and theme
           changes never reset your data.

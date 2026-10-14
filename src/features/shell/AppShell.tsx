@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { DemoPanel } from "../../components/DemoPanel";
 import { Icon } from "../../components/Icon";
 import { Logo } from "../../components/Logo";
@@ -24,6 +24,24 @@ export function AppShell({
 }) {
   const { brand } = useTheme();
   const [q, setQ] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
+  // "/" focuses search (skipped while typing in a field)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      const typing =
+        el instanceof HTMLInputElement ||
+        el instanceof HTMLTextAreaElement ||
+        el instanceof HTMLSelectElement ||
+        el?.isContentEditable;
+      if (e.key === "/" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
   const search = (e: FormEvent) => {
     e.preventDefault();
     const v = q.trim();
@@ -36,9 +54,30 @@ export function AppShell({
         <a href="#/overview" className="sidebar__logo" aria-label="Overview">
           <Logo brand={brand} />
         </a>
-        <nav aria-label="Main">
+        <nav aria-label="Main" className="sidebar__nav">
+          <p className="sidebar__section" aria-hidden="true">
+            Menu
+          </p>
           <ul className="sidebar__list">
-            {ROUTES.map((r) => (
+            {ROUTES.filter((r) => r.path !== "/settings").map((r) => (
+              <li key={r.path}>
+                <a
+                  className="nav-item"
+                  href={`#${r.path}`}
+                  aria-current={r.path === route ? "page" : undefined}
+                  title={r.label}
+                >
+                  <Icon name={r.icon} size="var(--nav-item-icon-size)" />
+                  <span className="nav-item__label">{r.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="sidebar__section" aria-hidden="true">
+            System
+          </p>
+          <ul className="sidebar__list">
+            {ROUTES.filter((r) => r.path === "/settings").map((r) => (
               <li key={r.path}>
                 <a
                   className="nav-item"
@@ -53,6 +92,15 @@ export function AppShell({
             ))}
           </ul>
         </nav>
+        <div className="profile">
+          <span className="profile__avatar" aria-hidden="true">
+            AM
+          </span>
+          <span className="profile__text">
+            <span className="ts-body-sm-strong">Alex Morgan</span>
+            <span className="ts-caption-regular muted">Personal · demo</span>
+          </span>
+        </div>
         <p className="sidebar__note ts-caption-regular">
           <strong>ATLAS Finance</strong> · one product, four brands. Demo only, all data is
           fictional.
@@ -68,12 +116,16 @@ export function AppShell({
             <form className="search" role="search" onSubmit={search}>
               <Icon name="search" size="var(--icon-size-md)" />
               <input
+                ref={searchRef}
                 type="search"
                 placeholder="Search transactions"
                 aria-label="Search transactions"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
               />
+              <kbd className="search__kbd" title="Press / to search">
+                /
+              </kbd>
             </form>
           )}
           {route !== "/transfers" && route !== "/overview" && (

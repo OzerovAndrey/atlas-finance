@@ -99,11 +99,19 @@ export function MoneyFlowChart({ data, currency }: { data: FlowPoint[]; currency
             >
               <rect x={m.l + band * i} y={m.t} width={band} height={ih} className="chart__hit" />
               <rect
+                x={cx - bw - 3 - 6}
+                y={m.t}
+                width={bw * 2 + 6 + 12}
+                height={ih}
+                rx={Math.min(14, bw / 2 + 6)}
+                className="chart__track"
+              />
+              <rect
                 x={cx - bw - 3}
                 y={y(d.income)}
                 width={bw}
                 height={Math.max(0, m.t + ih - y(d.income))}
-                rx={Math.min(8, bw / 2)}
+                rx={bw / 2}
                 className="chart__bar chart__bar--income"
                 style={d.partial ? { fill: `url(#${uid}-income)` } : undefined}
               />
@@ -112,7 +120,7 @@ export function MoneyFlowChart({ data, currency }: { data: FlowPoint[]; currency
                 y={y(d.expenses)}
                 width={bw}
                 height={Math.max(0, m.t + ih - y(d.expenses))}
-                rx={Math.min(8, bw / 2)}
+                rx={bw / 2}
                 className="chart__bar chart__bar--expense"
                 style={d.partial ? { fill: `url(#${uid}-expense)` } : undefined}
               />

@@ -8,7 +8,7 @@ export function AccountsPage() {
   return (
     <div className="accounts">
       {state.accounts.map((a) => (
-        <Tile key={a.id} title={a.name} subtitle={`${a.type} · •••• ${a.last4}`}>
+        <Tile key={a.id} icon="wallet" title={a.name} subtitle={`${a.type} · •••• ${a.last4}`}>
           <p className="balance">
             {state.prefs.hideBalances ? (
               <span className="amt amt--xl">{formatHidden(a.currency)}</span>

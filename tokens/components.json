@@ -926,7 +926,7 @@
     },
     "selected": {
       "bg": {
-        "value": "{color.fill.secondary.default}",
+        "value": "{color.bg.secondary}",
         "type": "color"
       },
       "color": {
@@ -944,7 +944,7 @@
         "type": "color"
       },
       "br": {
-        "value": "{color.border.tertiary}",
+        "value": "{color.border.none}",
         "type": "color"
       }
     },
@@ -2567,7 +2567,7 @@
       "type": "color"
     },
     "br": {
-      "value": "{color.border.tertiary}",
+      "value": "{color.border.surface}",
       "type": "color"
     },
     "title": {

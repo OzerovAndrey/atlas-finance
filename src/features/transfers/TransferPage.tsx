@@ -80,6 +80,7 @@ export function TransferPage() {
         <div className="transfer__main">
           {step === 0 && (
             <Tile
+              icon="user"
               title="Who are you sending to?"
               subtitle="Pick a recipient from your demo contacts"
             >
@@ -116,7 +117,11 @@ export function TransferPage() {
           )}
 
           {step === 1 && (
-            <Tile title="How much?" subtitle={recipient ? `To ${recipient.name}` : undefined}>
+            <Tile
+              icon="wallet"
+              title="How much?"
+              subtitle={recipient ? `To ${recipient.name}` : undefined}
+            >
               <div className="form">
                 <label className="field">
                   <span className="field__label ts-label-md">From</span>
@@ -178,7 +183,7 @@ export function TransferPage() {
           )}
 
           {step === 2 && account && recipient && minor !== null && (
-            <Tile title="Review transfer" subtitle="Nothing is sent until you confirm">
+            <Tile icon="check" title="Review transfer" subtitle="Nothing is sent until you confirm">
               <dl className="details">
                 <div>
                   <dt>To</dt>
@@ -226,7 +231,7 @@ export function TransferPage() {
           )}
 
           {step === 3 && result && recipient && (
-            <Tile title="Transfer sent" subtitle="Simulated — no real money moved">
+            <Tile icon="send" title="Transfer sent" subtitle="Simulated — no real money moved">
               <div className="alert alert--success" role="status">
                 <Icon name="check" />
                 <span>
@@ -256,7 +261,12 @@ export function TransferPage() {
         </div>
 
         {step < 3 && (
-          <Tile className="transfer-summary" title="Summary" subtitle="Updates as you go">
+          <Tile
+            className="transfer-summary"
+            icon="receipt"
+            title="Summary"
+            subtitle="Updates as you go"
+          >
             <dl className="details">
               <div>
                 <dt>To</dt>

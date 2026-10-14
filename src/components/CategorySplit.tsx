@@ -1,5 +1,6 @@
 import { categorySplit, seed, type DemoState } from "../data/demo";
 import { formatMoney, formatPercent } from "../lib/format";
+import { categoryColor } from "./CategoryAvatar";
 
 /** Stacked share bar + full legend (top categories and an "Other" remainder). */
 export function CategorySplit({
@@ -12,8 +13,7 @@ export function CategorySplit({
   void state;
   const cur = seed.meta.currency;
   const rows = categorySplit(expenseTx, 5);
-  const color = (i: number, id: string) =>
-    id === "other" ? "var(--bar-chart-fill)" : `var(--color-chart-category-${i + 1})`;
+  const color = (_i: number, id: string) => categoryColor(id);
   return (
     <div className="split-cats">
       <div

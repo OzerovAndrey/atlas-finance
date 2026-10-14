@@ -1,7 +1,9 @@
 import { Amount } from "../../components/Amount";
 import { CategorySplit } from "../../components/CategorySplit";
 import { MoneyFlowChart, TrendChart } from "../../components/charts";
+import { CategoryAvatar } from "../../components/CategoryAvatar";
 import { Icon } from "../../components/Icon";
+import { Kpi } from "../../components/Kpi";
 import { Tile } from "../../components/Tile";
 import {
   balanceTrend,
@@ -15,39 +17,11 @@ import {
 import { useDemo } from "../../data/store";
 import { formatDay, formatHidden, formatMonth, formatPercent } from "../../lib/format";
 
-const initials = (s: string) =>
-  s
-    .split(/[\s&·]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w.charAt(0).toUpperCase())
-    .join("");
-
 const prevMonth = (ym: string) => {
   const d = new Date(`${ym}-01T12:00:00`);
   d.setMonth(d.getMonth() - 1);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 };
-
-function Kpi(props: {
-  label: string;
-  children: React.ReactNode;
-  delta?: { text: string; tone: "positive" | "negative" | "neutral" };
-  caption: string;
-}) {
-  return (
-    <article className="kpi">
-      <p className="kpi__label ts-label-md">{props.label}</p>
-      <div className="kpi__value">{props.children}</div>
-      <p className="kpi__foot ts-caption-regular">
-        {props.delta && (
-          <span className={`chip chip--${props.delta.tone}`}>{props.delta.text}</span>
-        )}
-        <span className="muted">{props.caption}</span>
-      </p>
-    </article>
-  );
-}
 
 export function OverviewPage() {
   const { state } = useDemo();
@@ -66,12 +40,19 @@ export function OverviewPage() {
   const expDelta = pct(s.expenses, prev.expenses);
   const mtd = `1–${new Date(`${seed.meta.today}T12:00:00`).getDate()} ${new Intl.DateTimeFormat(seed.meta.locale, { month: "short" }).format(new Date(`${seed.meta.today}T12:00:00`))}`;
   const pend = s.pending[0];
+  const prevShort = new Intl.DateTimeFormat(seed.meta.locale, { month: "short" }).format(
+    new Date(`${prevMonth(month)}-01T12:00:00`),
+  );
 
   return (
     <div className="bento">
       <section className="hero" aria-labelledby="hero-title">
+        <span className="hero__deco" aria-hidden="true" />
         <header className="hero__head">
-          <h2 id="hero-title" className="ts-label-md">
+          <h2 id="hero-title" className="hero__title ts-label-md">
+            <span className="hero__badge" aria-hidden="true">
+              <Icon name="wallet" size="var(--icon-size-sm)" />
+            </span>
             Total balance
           </h2>
           <span className="hero__chip ts-label-sm">
@@ -109,6 +90,7 @@ export function OverviewPage() {
 
       <Tile
         className="b-flow"
+        icon="chart"
         title="Money flow"
         subtitle={`Income vs expenses · ${flow.length} months`}
         action={{ href: "#/analytics", label: "Open analytics" }}
@@ -119,7 +101,9 @@ export function OverviewPage() {
       <div className="b-kpis">
         <Kpi
           label="Income"
-          caption={`${mtd} vs Sep`}
+          icon="arrowDownLeft"
+          tone="soft1"
+          caption={`${mtd} vs ${prevShort}`}
           delta={
             incDelta === null
               ? undefined
@@ -133,7 +117,9 @@ export function OverviewPage() {
         </Kpi>
         <Kpi
           label="Expenses"
-          caption={`${mtd} vs Sep`}
+          icon="arrowUpRight"
+          tone="soft2"
+          caption={`${mtd} vs ${prevShort}`}
           delta={
             expDelta === null
               ? undefined
@@ -147,6 +133,8 @@ export function OverviewPage() {
         </Kpi>
         <Kpi
           label="Savings rate"
+          icon="percent"
+          tone="soft3"
           caption="of income kept"
           delta={
             prevSavings === null
@@ -182,6 +170,7 @@ export function OverviewPage() {
 
       <Tile
         className="b-recent"
+        icon="list"
         title="Recent activity"
         subtitle="Latest transactions"
         action={{ href: "#/transactions", label: "Open transactions" }}
@@ -189,9 +178,7 @@ export function OverviewPage() {
         <ul className="tx-list">
           {recent.map((t) => (
             <li key={t.id} className="tx-row">
-              <span className="avatar" aria-hidden="true">
-                {initials(t.merchant)}
-              </span>
+              <CategoryAvatar categoryId={t.categoryId} />
               <span className="tx-row__main">
                 <span className="tx-row__title ts-body-md-strong">
                   {t.merchant}
@@ -215,6 +202,7 @@ export function OverviewPage() {
 
       <Tile
         className="b-cats"
+        icon="sparkle"
         title="Spending by category"
         subtitle={`${formatMonth(seed.meta.today)} · ${mtd}`}
         action={{ href: "#/analytics", label: "Open analytics" }}

@@ -61,7 +61,11 @@ export function CardsPage() {
         ))}
       </div>
 
-      <Tile title={card.name} subtitle={`${accountName(card.accountId)} · •••• ${card.last4}`}>
+      <Tile
+        icon="card"
+        title={card.name}
+        subtitle={`${accountName(card.accountId)} · •••• ${card.last4}`}
+      >
         <div className="row">
           <div>
             <p className="ts-body-md-strong">Freeze card</p>

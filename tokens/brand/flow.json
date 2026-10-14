@@ -28,6 +28,16 @@
       "type": "color",
       "description": "accent usable as a mark on white (>= 3:1); dark theme uses product1"
     },
+    "chartAccent2": {
+      "value": "#D9573A",
+      "type": "color",
+      "description": "second series colour (expenses) usable as a mark on white (>= 3:1)"
+    },
+    "chartAccent2Dark": {
+      "value": "#FF9E85",
+      "type": "color",
+      "description": "second series colour on dark surfaces"
+    },
     "onProduct1": {
       "value": "{color.white}",
       "type": "color"
@@ -69,9 +79,9 @@
       "description": "dark-theme elevated surface (shared)"
     },
     "paper": {
-      "value": "#F5F6F8",
+      "value": "#EDF4F2",
       "type": "color",
-      "description": "light-theme page background (shared)"
+      "description": "light-theme page canvas, lightly brand-tinted"
     },
     "cardFace": {
       "value": "#F5F6F8",
@@ -209,22 +219,22 @@
   },
   "borderRadius": {
     "control": {
-      "value": "{borderRadius.12}",
+      "value": "{borderRadius.16}",
       "type": "borderRadius"
     },
     "surface": {
-      "value": "{borderRadius.16}",
+      "value": "{borderRadius.20}",
       "type": "borderRadius"
     },
     "tile": {
-      "value": "{borderRadius.24}",
+      "value": "{borderRadius.28}",
       "type": "borderRadius",
-      "description": "bento tile / large card (20–24)"
+      "description": "bento tile / large card (20–28)"
     },
     "round": {
-      "value": "{borderRadius.16}",
+      "value": "{borderRadius.999}",
       "type": "borderRadius",
-      "description": "icon buttons: rounded square, shape differs per brand"
+      "description": "icon buttons: circle or rounded square, shape differs per brand"
     },
     "full": {
       "value": "{borderRadius.999}",

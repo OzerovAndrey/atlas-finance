@@ -88,20 +88,21 @@ function oklch2hex(L, C, H) {
       .toUpperCase()
   );
 }
+// order = category slot 1–8; neighbours alternate warm / cool so adjacent segments stay distinct
 const hues = [
-  ["blue", 255],
-  ["teal", 195],
-  ["green", 150],
-  ["lime", 115],
-  ["amber", 80],
+  ["blue", 258],
+  ["teal", 190],
+  ["violet", 295],
   ["orange", 45],
-  ["pink", 350],
-  ["violet", 300],
+  ["pink", 355],
+  ["green", 150],
+  ["amber", 78],
+  ["lime", 125],
 ];
 for (const [name, h] of hues)
   core.color.chart[name] = {
-    300: t(oklch2hex(0.78, 0.13, h), "color"),
-    600: t(oklch2hex(0.55, 0.12, h), "color"),
+    300: t(oklch2hex(0.8, 0.14, h), "color"),
+    600: t(oklch2hex(0.58, 0.17, h), "color"),
   };
 W("core.json", core);
 
@@ -123,6 +124,15 @@ const NEUTRAL = {
 const neutralRamp = () =>
   Object.fromEntries(Object.entries(NEUTRAL).map(([k, v]) => [k, t(v, "color")]));
 
+const sh = (x, y, blur, spread, color) => ({
+  x: String(x),
+  y: String(y),
+  blur: String(blur),
+  spread: String(spread),
+  color,
+  type: "dropShadow",
+});
+
 // ---------- brands ----------
 const B = {
   vanta: {
@@ -135,11 +145,14 @@ const B = {
     p2: "#3A3F46",
     p3: "#8B96A5",
     chart: "#A8843C",
+    chart2: "#2E3238",
+    chart2d: "#8E99A8",
+    paper: "#F3F1EC",
     ink: "#17181B",
-    ctl: 10,
-    srf: 12,
-    tile: 20,
-    rnd: 12,
+    ctl: 12,
+    srf: 16,
+    tile: 24,
+    rnd: 999,
     pad: [8, 12, 16, 20, 24],
     gap: [4, 6, 8, 12, 16],
   },
@@ -152,12 +165,15 @@ const B = {
     p1a: "#B2DD1C",
     p2: "#6E56F0",
     p3: "#4DB6E8",
-    chart: "#5F8300",
+    chart: "#6E56F0",
+    chart2: "#1E2210",
+    chart2d: "#B3A6FF",
+    paper: "#F1F0F7",
     ink: "#171C0B",
-    ctl: 12,
-    srf: 16,
-    tile: 24,
-    rnd: 16,
+    ctl: 999,
+    srf: 20,
+    tile: 28,
+    rnd: 999,
     pad: [12, 16, 20, 24, 32],
     gap: [6, 8, 10, 12, 16],
   },
@@ -171,11 +187,14 @@ const B = {
     p2: "#0F2A66",
     p3: "#7FA8FF",
     chart: "#2A5FEA",
+    chart2: "#0F2A66",
+    chart2d: "#4F6FD8",
+    paper: "#EDF2FA",
     ink: "#0E1D3F",
-    ctl: 8,
+    ctl: 10,
     srf: 12,
     tile: 20,
-    rnd: 10,
+    rnd: 12,
     pad: [8, 12, 16, 20, 24],
     gap: [4, 6, 8, 12, 16],
   },
@@ -189,11 +208,14 @@ const B = {
     p2: "#FF7A5C",
     p3: "#F4B860",
     chart: "#087A6F",
+    chart2: "#D9573A",
+    chart2d: "#FF9E85",
+    paper: "#EDF4F2",
     ink: "#0B2E2B",
-    ctl: 12,
-    srf: 16,
-    tile: 24,
-    rnd: 16,
+    ctl: 16,
+    srf: 20,
+    tile: 28,
+    rnd: 999,
     pad: [12, 16, 20, 24, 28],
     gap: [6, 8, 10, 12, 16],
   },
@@ -212,6 +234,12 @@ for (const [k, b] of Object.entries(B)) {
         "color",
         "accent usable as a mark on white (>= 3:1); dark theme uses product1",
       ),
+      chartAccent2: t(
+        b.chart2,
+        "color",
+        "second series colour (expenses) usable as a mark on white (>= 3:1)",
+      ),
+      chartAccent2Dark: t(b.chart2d, "color", "second series colour on dark surfaces"),
       onProduct1: t(ref(b.on1), "color"),
       onProduct1Muted: t(b.on1m, "color", "secondary text on the product1 surface"),
       onProduct2: t(ref(b.on2), "color"),
@@ -229,7 +257,7 @@ for (const [k, b] of Object.entries(B)) {
         "bank card face (dark tone) and inverse surfaces; brand-tinted graphite",
       ),
       surface: t("#1B1F24", "color", "dark-theme elevated surface (shared)"),
-      paper: t(NEUTRAL[50], "color", "light-theme page background (shared)"),
+      paper: t(b.paper, "color", "light-theme page canvas, lightly brand-tinted"),
       cardFace: t(NEUTRAL[50], "color", "bank card face (light tone)"),
       neutral: neutralRamp(),
     },
@@ -253,11 +281,11 @@ for (const [k, b] of Object.entries(B)) {
     borderRadius: {
       control: t(ref(`borderRadius.${b.ctl}`), "borderRadius"),
       surface: t(ref(`borderRadius.${b.srf}`), "borderRadius"),
-      tile: t(ref(`borderRadius.${b.tile}`), "borderRadius", "bento tile / large card (20–24)"),
+      tile: t(ref(`borderRadius.${b.tile}`), "borderRadius", "bento tile / large card (20–28)"),
       round: t(
         ref(`borderRadius.${b.rnd}`),
         "borderRadius",
-        "icon buttons: rounded square, shape differs per brand",
+        "icon buttons: circle or rounded square, shape differs per brand",
       ),
       full: t(ref("borderRadius.999"), "borderRadius", "pills, chips, avatars"),
     },
@@ -443,10 +471,10 @@ function theme(m) {
   return {
     color: {
       bg: {
-        primary: c(L ? "color.neutral.50" : "color.neutral.950"),
+        primary: c(L ? "color.paper" : "color.neutral.950"),
         secondary: c(L ? "color.neutral.0" : "color.neutral.900"),
         tertiary: c(L ? "color.neutral.100" : "color.neutral.800"),
-        sidebar: c(L ? "color.neutral.0" : "color.neutral.950"),
+        sidebar: c(L ? "color.paper" : "color.neutral.950"),
         overlay: rgba(L ? "rgba(21, 23, 25, 0.5)" : "rgba(0, 0, 0, 0.6)"),
       },
       fill: grp(fills),
@@ -460,7 +488,7 @@ function theme(m) {
         accent: L ? "color.product1.900" : "color.product1.200",
         success: sem("success", 700, 200),
         warning: sem("warning", 900, 200),
-        danger: sem("danger", 700, 100),
+        danger: sem("danger", 700, 300),
         info: sem("info", 900, 100),
         onDanger: "color.white",
         onSuccess: "color.white",
@@ -468,11 +496,12 @@ function theme(m) {
       }),
       border: grp({
         none: "color.transparent",
+        surface: L ? "color.neutral.100" : "color.neutral.800",
         tertiary: L ? "color.neutral.200" : "color.neutral.800",
         secondary: L ? "color.neutral.300" : "color.neutral.700",
         primary: L ? "color.neutral.500" : "color.neutral.400",
         accent: L ? "color.chartAccent" : "color.product1.300",
-        danger: L ? "color.danger.700" : "color.danger.100",
+        danger: L ? "color.danger.700" : "color.danger.300",
       }),
       outline: grp({ focus: L ? "color.chartAccent" : "color.product1.300" }),
       amount: grp({
@@ -517,7 +546,7 @@ function theme(m) {
         accent: c(L ? "color.chartAccent" : "color.product1.300"),
         series: {
           income: c(L ? "color.chartAccent" : "color.product1.300"),
-          expense: c(L ? "color.neutral.900" : "color.neutral.200"),
+          expense: c(L ? "color.chartAccent2" : "color.chartAccent2Dark"),
         },
         category: cat,
         grid: c(L ? "color.neutral.200" : "color.neutral.800"),
@@ -526,36 +555,21 @@ function theme(m) {
     },
     boxShadow: {
       sm: t(
-        {
-          x: "0",
-          y: "1",
-          blur: "2",
-          spread: "0",
-          color: L ? "rgba(21, 23, 25, 0.04)" : "rgba(0, 0, 0, 0.3)",
-          type: "dropShadow",
-        },
+        L
+          ? [sh(0, 1, 2, 0, "rgba(16, 24, 40, 0.03)"), sh(0, 4, 16, 0, "rgba(16, 24, 40, 0.04)")]
+          : [sh(0, 1, 2, 0, "rgba(0, 0, 0, 0.3)")],
         "boxShadow",
       ),
       md: t(
-        {
-          x: "0",
-          y: "4",
-          blur: "12",
-          spread: "0",
-          color: L ? "rgba(21, 23, 25, 0.06)" : "rgba(0, 0, 0, 0.4)",
-          type: "dropShadow",
-        },
+        L
+          ? [sh(0, 2, 4, 0, "rgba(16, 24, 40, 0.04)"), sh(0, 12, 32, 0, "rgba(16, 24, 40, 0.06)")]
+          : [sh(0, 4, 12, 0, "rgba(0, 0, 0, 0.4)")],
         "boxShadow",
       ),
       lg: t(
-        {
-          x: "0",
-          y: "12",
-          blur: "32",
-          spread: "0",
-          color: L ? "rgba(21, 23, 25, 0.10)" : "rgba(0, 0, 0, 0.5)",
-          type: "dropShadow",
-        },
+        L
+          ? [sh(0, 4, 8, 0, "rgba(16, 24, 40, 0.04)"), sh(0, 24, 48, -8, "rgba(16, 24, 40, 0.14)")]
+          : [sh(0, 12, 32, 0, "rgba(0, 0, 0, 0.5)")],
         "boxShadow",
       ),
     },
@@ -799,11 +813,11 @@ comp.navItem = {
   bg: stateMap((s) => `color.fill.ghost.${s}`),
   color: stateMap((s) => (s === "disabled" ? "color.text.tertiary" : "color.text.secondary")),
   selected: {
-    bg: col("color.fill.secondary.default"),
+    bg: col("color.bg.secondary"),
     color: col("color.text.primary"),
     icon: col("color.chart.accent"),
   },
-  sidebar: { bg: col("color.bg.sidebar"), br: col("color.border.tertiary") },
+  sidebar: { bg: col("color.bg.sidebar"), br: col("color.border.none") },
   paddingH: sp("space.padding.md"),
   paddingV: sp("space.padding.sm"),
   gap: sp("space.gap.md"),
@@ -1243,7 +1257,7 @@ comp.roundButton = {
 };
 comp.tile = {
   bg: col("color.bg.secondary"),
-  br: col("color.border.tertiary"),
+  br: col("color.border.surface"),
   title: col("color.text.primary"),
   subtitle: col("color.text.secondary"),
   icon: { bg: col("color.fill.secondary.default"), color: col("color.text.primary") },
