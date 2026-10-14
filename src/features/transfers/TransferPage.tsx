@@ -72,7 +72,7 @@ export function TransferPage() {
             <span className="steps__num">
               {i < step ? <Icon name="check" size="var(--icon-size-sm)" /> : i + 1}
             </span>
-            <span>{s}</span>
+            <span className="steps__label">{s}</span>
           </li>
         ))}
       </ol>

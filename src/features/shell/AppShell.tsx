@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { DemoPanel } from "../../components/DemoPanel";
 import { Icon } from "../../components/Icon";
-import { Logo } from "../../components/Logo";
+import { Logo, LogoMark } from "../../components/Logo";
+import { MobileTabBar } from "./MobileTabBar";
 import { PersonAvatar } from "../../components/PersonAvatar";
 import { DEMO_USER } from "../../data/avatars";
 import { seed } from "../../data/demo";
@@ -29,6 +30,8 @@ export function AppShell({
   const searchRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const { mode } = useTheme();
   // the frame is fixed and only the content area scrolls, so a new page starts at the top
   useEffect(() => {
     // scrolling back fires onScroll, which also clears the toolbar shadow
@@ -115,9 +118,40 @@ export function AppShell({
       </aside>
       <div className={`main${scrolled ? " is-scrolled" : ""}`}>
         <header className="toolbar">
+          <a href="#/overview" className="toolbar__mark" aria-label="Overview">
+            <LogoMark brand={brand} size={28} />
+          </a>
           <div className="toolbar__title">
             <h1 className="ts-title-t1">{title}</h1>
             <p className="muted ts-body-sm-regular">{demoDate}</p>
+          </div>
+          {/* mobile-only quick actions; on desktop the search field and sidebar profile cover these */}
+          <div className="toolbar__mobile">
+            <button
+              type="button"
+              className="icon-btn icon-btn--outline"
+              onClick={() => setMoreOpen(true)}
+              aria-label="Switch brand or theme"
+              data-event="demo_open_mobile"
+            >
+              <i className="dot-brand" data-brand={brand} data-theme={mode} aria-hidden="true" />
+            </button>
+            {route !== "/transactions" && (
+              <a
+                className="icon-btn icon-btn--outline"
+                href="#/transactions"
+                aria-label="Search transactions"
+              >
+                <Icon name="search" size="var(--icon-size-md)" />
+              </a>
+            )}
+            <a
+              className="toolbar__avatar"
+              href="#/settings"
+              aria-label={`${DEMO_USER.name}, settings`}
+            >
+              <PersonAvatar name={DEMO_USER.name} src={DEMO_USER.avatar} size="sm" />
+            </a>
           </div>
           {route !== "/transactions" && (
             <form className="search" role="search" onSubmit={search}>
@@ -153,6 +187,7 @@ export function AppShell({
         >
           {children}
         </main>
+        <MobileTabBar route={route} open={moreOpen} setOpen={setMoreOpen} />
       </div>
       <DemoPanel />
     </div>
