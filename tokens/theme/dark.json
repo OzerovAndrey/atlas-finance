@@ -1,6 +1,10 @@
 {
   "color": {
     "bg": {
+      "backdrop": {
+        "value": "{color.black}",
+        "type": "color"
+      },
       "primary": {
         "value": "{color.neutral.950}",
         "type": "color"

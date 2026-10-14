@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 html {
-  background: var(--color-bg-primary);
+  background: var(--app-frame-backdrop);
   color: var(--color-text-primary);
   font-family: var(--font-family-base);
   -webkit-font-smoothing: antialiased;
@@ -15,6 +15,17 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  background: var(--app-frame-backdrop);
+}
+/* the whole app sits in one rounded, softly shadowed frame (max 1440 wide) */
+.shell {
+  width: min(90rem, calc(100% - var(--app-frame-margin) * 2));
+  min-height: calc(100vh - var(--app-frame-margin) * 2);
+  margin: var(--app-frame-margin) auto;
+  border: var(--app-frame-border-width) solid var(--app-frame-br);
+  border-radius: var(--app-frame-border-radius);
+  box-shadow: var(--app-frame-shadow);
+  overflow: clip;
   background:
     radial-gradient(
       60rem 28rem at 90% -8rem,
@@ -26,7 +37,7 @@ body {
       color-mix(in srgb, var(--color-product3) 7%, transparent),
       transparent 70%
     ),
-    var(--color-bg-primary);
+    var(--app-frame-bg);
 }
 h1,
 h2,
@@ -235,12 +246,11 @@ select {
 .shell {
   display: grid;
   grid-template-columns: 15rem minmax(0, 1fr);
-  min-height: 100vh;
 }
 .sidebar {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--app-frame-margin);
+  height: calc(100vh - var(--app-frame-margin) * 2);
   display: flex;
   flex-direction: column;
   gap: var(--space-padding-lg);
@@ -1449,7 +1459,10 @@ select {
 }
 .demo-panel {
   position: fixed;
-  right: var(--space-padding-lg);
+  right: max(
+    calc(var(--app-frame-margin) + var(--space-padding-lg)),
+    calc((100vw - 90rem) / 2 + var(--space-padding-lg))
+  );
   bottom: var(--space-padding-lg);
   z-index: 20;
   display: flex;
@@ -1541,7 +1554,10 @@ select {
 }
 .demo-pill {
   position: fixed;
-  right: var(--space-padding-lg);
+  right: max(
+    calc(var(--app-frame-margin) + var(--space-padding-lg)),
+    calc((100vw - 90rem) / 2 + var(--space-padding-lg))
+  );
   bottom: var(--space-padding-lg);
   z-index: 20;
   display: inline-flex;
@@ -1563,6 +1579,13 @@ select {
 @media (max-width: 1100px) {
   .shell {
     grid-template-columns: 4.75rem minmax(0, 1fr);
+    width: calc(100% - var(--space-padding-sm) * 2);
+    margin: var(--space-padding-sm) auto;
+    min-height: calc(100vh - var(--space-padding-sm) * 2);
+  }
+  .sidebar {
+    top: var(--space-padding-sm);
+    height: calc(100vh - var(--space-padding-sm) * 2);
   }
   .sidebar {
     padding-inline: var(--space-gap-md);
@@ -1606,6 +1629,12 @@ select {
 @media (max-width: 720px) {
   .shell {
     grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    margin: 0;
+    min-height: 100vh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
   .sidebar {
     position: static;

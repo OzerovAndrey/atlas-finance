@@ -148,6 +148,8 @@ const B = {
     chart2: "#2E3238",
     chart2d: "#8E99A8",
     paper: "#F3F1EC",
+    backdrop: "#E2DDD2",
+    frame: 32,
     ink: "#17181B",
     ctl: 12,
     srf: 16,
@@ -169,6 +171,8 @@ const B = {
     chart2: "#1E2210",
     chart2d: "#B3A6FF",
     paper: "#F1F0F7",
+    backdrop: "#DDDAEC",
+    frame: 32,
     ink: "#171C0B",
     ctl: 999,
     srf: 20,
@@ -190,6 +194,8 @@ const B = {
     chart2: "#0F2A66",
     chart2d: "#4F6FD8",
     paper: "#EDF2FA",
+    backdrop: "#D5E0F0",
+    frame: 24,
     ink: "#0E1D3F",
     ctl: 10,
     srf: 12,
@@ -211,6 +217,8 @@ const B = {
     chart2: "#D9573A",
     chart2d: "#FF9E85",
     paper: "#EDF4F2",
+    backdrop: "#D3E4DE",
+    frame: 32,
     ink: "#0B2E2B",
     ctl: 16,
     srf: 20,
@@ -258,6 +266,7 @@ for (const [k, b] of Object.entries(B)) {
       ),
       surface: t("#1B1F24", "color", "dark-theme elevated surface (shared)"),
       paper: t(b.paper, "color", "light-theme page canvas, lightly brand-tinted"),
+      backdrop: t(b.backdrop, "color", "light-theme area around the app frame"),
       cardFace: t(NEUTRAL[50], "color", "bank card face (light tone)"),
       neutral: neutralRamp(),
     },
@@ -287,6 +296,7 @@ for (const [k, b] of Object.entries(B)) {
         "borderRadius",
         "icon buttons: circle or rounded square, shape differs per brand",
       ),
+      frame: t(ref(`borderRadius.${b.frame}`), "borderRadius", "outer app frame"),
       full: t(ref("borderRadius.999"), "borderRadius", "pills, chips, avatars"),
     },
     borderWidth: {
@@ -471,6 +481,7 @@ function theme(m) {
   return {
     color: {
       bg: {
+        backdrop: c(L ? "color.backdrop" : "color.black"),
         primary: c(L ? "color.paper" : "color.neutral.950"),
         secondary: c(L ? "color.neutral.0" : "color.neutral.900"),
         tertiary: c(L ? "color.neutral.100" : "color.neutral.800"),
@@ -1254,6 +1265,15 @@ comp.roundButton = {
   iconSize: sizeMap("sizing", (s) => `iconSize.${s}`),
   borderRadius: t(ref("borderRadius.round"), "borderRadius"),
   borderWidth: t(ref("borderWidth.control"), "borderWidth"),
+};
+comp.appFrame = {
+  bg: col("color.bg.primary"),
+  backdrop: col("color.bg.backdrop"),
+  br: col("color.border.surface"),
+  borderRadius: t(ref("borderRadius.frame"), "borderRadius"),
+  borderWidth: t(ref("borderWidth.control"), "borderWidth"),
+  shadow: t(ref("boxShadow.lg"), "boxShadow"),
+  margin: sp("space.padding.lg"),
 };
 comp.tile = {
   bg: col("color.bg.secondary"),

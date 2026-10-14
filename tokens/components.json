@@ -2561,6 +2561,36 @@
       "type": "borderWidth"
     }
   },
+  "appFrame": {
+    "bg": {
+      "value": "{color.bg.primary}",
+      "type": "color"
+    },
+    "backdrop": {
+      "value": "{color.bg.backdrop}",
+      "type": "color"
+    },
+    "br": {
+      "value": "{color.border.surface}",
+      "type": "color"
+    },
+    "borderRadius": {
+      "value": "{borderRadius.frame}",
+      "type": "borderRadius"
+    },
+    "borderWidth": {
+      "value": "{borderWidth.control}",
+      "type": "borderWidth"
+    },
+    "shadow": {
+      "value": "{boxShadow.lg}",
+      "type": "boxShadow"
+    },
+    "margin": {
+      "value": "{space.padding.lg}",
+      "type": "spacing"
+    }
+  },
   "tile": {
     "bg": {
       "value": "{color.bg.secondary}",

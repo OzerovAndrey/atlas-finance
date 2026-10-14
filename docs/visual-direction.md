@@ -7,6 +7,7 @@ v4 (2026-10-14) builds on v3 after a new set of owner-supplied fintech dashboard
 - **Details.** Round icon badges in tile headers, tinted KPI icons (`statCard.soft1–3`), outlined round action buttons, pill search with a working `/` shortcut, column tracks behind bars, decorative rings and a soft gradient on the hero, sidebar sections (Menu / System) and a demo profile card.
 - **Shape per brand.** VANTA tile 24 / control 12; PULSE tile 28 / pill controls; NORTH tile 20 / control 10 (the most structured); FLOW tile 28 / control 16. Icon buttons are circles except NORTH.
 - Dark themes keep the graphite base; tiles keep a visible border because shadows do not read on dark.
+- **App frame.** The whole app sits in one rounded frame (`appFrame`: max width 1440, radius `borderRadius.frame` 32 / NORTH 24, soft `boxShadow.lg`) on a darker brand-tinted `color.bg.backdrop` — the "app on a rounded screen" look of the references. Tablet keeps a narrow margin; ≤ 720 px the frame goes full-bleed.
 
 ---
 

@@ -1,6 +1,10 @@
 {
   "color": {
     "bg": {
+      "backdrop": {
+        "value": "{color.backdrop}",
+        "type": "color"
+      },
       "primary": {
         "value": "{color.paper}",
         "type": "color"

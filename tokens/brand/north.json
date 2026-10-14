@@ -83,6 +83,11 @@
       "type": "color",
       "description": "light-theme page canvas, lightly brand-tinted"
     },
+    "backdrop": {
+      "value": "#D5E0F0",
+      "type": "color",
+      "description": "light-theme area around the app frame"
+    },
     "cardFace": {
       "value": "#F5F6F8",
       "type": "color",
@@ -235,6 +240,11 @@
       "value": "{borderRadius.12}",
       "type": "borderRadius",
       "description": "icon buttons: circle or rounded square, shape differs per brand"
+    },
+    "frame": {
+      "value": "{borderRadius.24}",
+      "type": "borderRadius",
+      "description": "outer app frame"
     },
     "full": {
       "value": "{borderRadius.999}",

@@ -128,10 +128,13 @@ export function config(sets, brand, mode) {
     const tk = all.get(name);
     if (!tk) throw new Error("unresolved reference: " + name);
     let out;
-    if (typeof tk.value === "object")
-      out = Object.fromEntries(
-        Object.entries(tk.value).map(([k, v]) => [k, isRef(v) ? res(refName(v), d + 1) : v]),
+    const resolveObj = (o) =>
+      Object.fromEntries(
+        Object.entries(o).map(([k, v]) => [k, isRef(v) ? res(refName(v), d + 1) : v]),
       );
+    // arrays = multi-layer composites (e.g. layered boxShadow)
+    if (Array.isArray(tk.value)) out = tk.value.map(resolveObj);
+    else if (typeof tk.value === "object") out = resolveObj(tk.value);
     else if (isRef(tk.value)) {
       out = res(refName(tk.value), d + 1);
       if (tk.mod && tk.type === "color") out = modify(out, tk.mod);
