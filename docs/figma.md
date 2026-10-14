@@ -31,7 +31,20 @@ Every screen page holds 8 frames: row 1 Light, row 2 Dark; columns VANTA · PULS
 
 `Components` sections: **Icons**, **Actions** (Button, Icon Button, Link), **Forms** (Input, Select, Checkbox, Radio, Switch), **Navigation** (Nav Item, Tab Item, Breadcrumbs, Segmented Item), **Data** (Table Header, Table Row, Badge, Transaction Row, Section Header, Skeleton), **Finance** (Account Card, Bank Card, Balance Card), **Feedback** (Alert, Toast, Dialog), **Visualization** (Spending Chart, Category Chart, Bar Chart, Donut Chart, Tick Chart), **Shell** (Sidebar, Switchers, Page Header, Bottom Nav, Top Bar).
 
+## v4 · Site parity (October 2026)
+
+The Figma file was brought in line with the live site (visual direction v4, app frame, mobile shell).
+
+- **Variables / styles** re-synced from `tokens/`: new brand tokens (`chartAccent`, `chartAccent2(Dark)`, `backdrop`, `borderRadius/frame`, `onProduct1Muted`, `product1Hover/Active`), theme `bg/backdrop`, `border/surface`, `chart/series/*`, component groups `appFrame/*`, `hero/*`, `demoPanel/*`, `barChart/series/*`. Effect styles use the layered v4 shadows (+ `appFrame/shadow`); new text styles `numeric/amountXl`, `statCard/value`, `hero/*`, `demoPanel/text`.
+- **Icons**: 20 icons added to `Icon` (grid, send, arrow-up-right, arrow-down-left, percent, receipt, bus, dining, bag, heart, ticket, swap, vault, globe, alert, snow, clock, reset, sliders, dots).
+- **Components page → section `v4 · Site parity`**: Person Avatar (6 demo people × sm/md/lg, 3D avatars from Fluent UI Emoji, MIT), Category Avatar (9 categories × md/sm), Delta Chip, Round Action, Search Pill, Nav Item v4, Tile Header, KPI (soft1/soft2/soft3/neutral), Pending Tile, Transaction Row v4, Hero Balance, Chart / Money Flow, Chart / Category Split, Account Card v4 (active / quiet), Bank Card v4 (physical / virtual × active / frozen), Sidebar v4 (`Page=` variant per route, accent edge indicator), Page Header v4 (CTA on/off), Mobile Top Bar, Mobile Tab Bar (persistent, FAB), More Sheet, Recipient Option, Stepper. Every fill, stroke, radius, padding and gap is bound to a variable; text uses text styles.
+- **Layouts redrawn** in the app-frame style (rounded frame on `appFrame/backdrop`): Overview, Accounts, Cards, Transfer 1 Recipient (1440 wide) and Mobile Overview (390). Each page has 8 frames (VANTA · PULSE · NORTH · FLOW × Light / Dark) with explicit `Brand` + `Theme` modes. The previous v2 frames are kept below in a `Legacy · v2 (before site parity)` section on each page; other pages are still v2.
+- Demo numbers in frames are copied from the fictional seed in `src/data/demo.ts` (today = 12 Oct 2026).
+
 ## Known rules / gotchas
+
+- **Never put opacity on a variable-bound paint** (`{ opacity: 0.14 }` on a SOLID bound to a colour variable): the main component renders it, but instances render it at 100%. Use layer opacity (a `BG tint` child or `node.opacity`) instead.
+- Tint layers inside v4 components are named `BG tint` (absolute, stretched).
 
 - Do not override paints on a _nested_ swapped icon or on an instance property that equals the base value: Figma renders the placeholder colour. Use variants / instance-swap properties instead.
 - Chart series use `chart.category.*` (semantic, AA-checked), not the brand primary; every series also has a text label.
@@ -40,7 +53,7 @@ Every screen page holds 8 frames: row 1 Light, row 2 Dark; columns VANTA · PULS
 
 ## Not yet built
 
-Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows, component descriptions for Code Connect, interaction prototypes.
+Foundations specimen page, 768 / 1024 frames, v4 redraw of Transactions / Analytics / Settings / transfer steps 2–4 / other mobile screens, add-recipient / add-account flows, component descriptions for Code Connect, interaction prototypes.
 
 ## Logo component
 
@@ -50,7 +63,9 @@ Foundations specimen page, 768 / 1024 frames, add-recipient / add-account flows,
 
 Gradients were tried on primary buttons and Stat Cards and removed: all fills are solid, bound to component tokens. The temporary `color/gradient/*` and `*/bgTo` variables no longer exist.
 
-## No decorative borders (visual refresh v3)
+## No decorative borders (visual refresh v3) — superseded in v4
+
+v4 brings back a hairline `tile/br` = `border/surface` on tiles and the app frame; the rest of this section still applies.
 
 Component and screen frames no longer use border strokes: surfaces are separated by fills and the Tile shadow (light soft tones use the 200 ramp step as background so they read against the page). Strokes remain only where they carry meaning: focus rings, error state, and the unchecked outline of Checkbox / Radio / Switch.
 
