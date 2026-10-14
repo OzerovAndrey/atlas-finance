@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
+import { avatarForName } from "../data/avatars";
 import { Icon, type IconName } from "./Icon";
+import { PersonAvatar } from "./PersonAvatar";
 
 /** Stable colour slot and icon per category, so a category looks the same in every list and chart. */
 const CATS: Record<string, { slot: number; icon: IconName }> = {
@@ -36,5 +38,23 @@ export function CategoryAvatar({
     >
       <Icon name={icon} size={size === "sm" ? "var(--icon-size-sm)" : "var(--icon-size-md)"} />
     </span>
+  );
+}
+
+/** Transaction avatar: the contact's face for transfers to a demo contact, otherwise the category icon. */
+export function TxAvatar({
+  categoryId,
+  merchant,
+  size = "md",
+}: {
+  categoryId: string;
+  merchant: string;
+  size?: "sm" | "md";
+}) {
+  const face = categoryId === "transfers" ? avatarForName(merchant) : undefined;
+  return face ? (
+    <PersonAvatar name={merchant} src={face} size={size} />
+  ) : (
+    <CategoryAvatar categoryId={categoryId} size={size} />
   );
 }

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Amount } from "../../components/Amount";
 import { Icon } from "../../components/Icon";
-import { CategoryAvatar, categoryColor } from "../../components/CategoryAvatar";
+import { TxAvatar, categoryColor } from "../../components/CategoryAvatar";
 import { Tile } from "../../components/Tile";
 import { accountName, byDateDesc, categoryName, seed } from "../../data/demo";
 import { useDemo } from "../../data/store";
@@ -17,21 +17,13 @@ const TABS = [
 ] as const;
 type TabId = (typeof TABS)[number]["id"];
 
-export const initials = (s: string) =>
-  s
-    .split(/[\s&·]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w.charAt(0).toUpperCase())
-    .join("");
-
 function Detail({ tx, onClose }: { tx: Transaction; onClose: () => void }) {
   const { state } = useDemo();
   const card = state.cards.find((c) => c.id === tx.cardId);
   return (
     <aside className="drawer" aria-label="Transaction details">
       <header className="drawer__head">
-        <CategoryAvatar categoryId={tx.categoryId} />
+        <TxAvatar categoryId={tx.categoryId} merchant={tx.merchant} />
         <div>
           <h2 className="ts-title-t4">{tx.merchant}</h2>
           <Amount
@@ -196,7 +188,7 @@ function TransactionsView({
                         onClick={() => setSelected(t.id)}
                         aria-label={`Open ${t.merchant}`}
                       >
-                        <CategoryAvatar categoryId={t.categoryId} size="sm" />
+                        <TxAvatar categoryId={t.categoryId} merchant={t.merchant} size="sm" />
                         <span className="table__name">
                           <span className="ts-body-md-strong">{t.merchant}</span>
                           <span className="table__sub ts-caption-regular">

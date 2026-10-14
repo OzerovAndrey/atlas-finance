@@ -47,3 +47,7 @@ src/data/          Fictional demo data
 - [ATLAS_FINANCE_PROJECT_CONTEXT.md](ATLAS_FINANCE_PROJECT_CONTEXT.md) — original agreed context
 
 Deployment target: GitHub Pages at `/atlas-finance/` (configured in `vite.config.ts`, not deployed yet).
+
+## Credits
+
+- 3D avatars of the fictional demo contacts and demo user: [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) (3D style), MIT License — see `src/assets/avatars/LICENSE-fluentui-emoji.txt`. Cartoon characters, not photos of real people; resized to 128 px WebP.

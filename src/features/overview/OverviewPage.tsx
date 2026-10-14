@@ -1,7 +1,7 @@
 import { Amount } from "../../components/Amount";
 import { CategorySplit } from "../../components/CategorySplit";
 import { MoneyFlowChart, TrendChart } from "../../components/charts";
-import { CategoryAvatar } from "../../components/CategoryAvatar";
+import { TxAvatar } from "../../components/CategoryAvatar";
 import { Icon } from "../../components/Icon";
 import { Kpi } from "../../components/Kpi";
 import { Tile } from "../../components/Tile";
@@ -178,7 +178,7 @@ export function OverviewPage() {
         <ul className="tx-list">
           {recent.map((t) => (
             <li key={t.id} className="tx-row">
-              <CategoryAvatar categoryId={t.categoryId} />
+              <TxAvatar categoryId={t.categoryId} merchant={t.merchant} />
               <span className="tx-row__main">
                 <span className="tx-row__title ts-body-md-strong">
                   {t.merchant}

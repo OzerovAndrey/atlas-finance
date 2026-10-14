@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "rea
 import { DemoPanel } from "../../components/DemoPanel";
 import { Icon } from "../../components/Icon";
 import { Logo } from "../../components/Logo";
+import { PersonAvatar } from "../../components/PersonAvatar";
+import { DEMO_USER } from "../../data/avatars";
 import { seed } from "../../data/demo";
 import { ROUTES, type RoutePath } from "../../lib/router";
 import { useTheme } from "../../lib/theme";
@@ -100,11 +102,9 @@ export function AppShell({
           </ul>
         </nav>
         <div className="profile">
-          <span className="profile__avatar" aria-hidden="true">
-            AM
-          </span>
+          <PersonAvatar name={DEMO_USER.name} src={DEMO_USER.avatar} size="md" />
           <span className="profile__text">
-            <span className="ts-body-sm-strong">Alex Morgan</span>
+            <span className="ts-body-sm-strong">{DEMO_USER.name}</span>
             <span className="ts-caption-regular muted">Personal · demo</span>
           </span>
         </div>

@@ -4,7 +4,8 @@ import { Tile } from "../../components/Tile";
 import { seed } from "../../data/demo";
 import { useDemo } from "../../data/store";
 import { formatMoney, parseAmountMinor } from "../../lib/format";
-import { initials } from "../transactions/TransactionsPage";
+import { PersonAvatar } from "../../components/PersonAvatar";
+import { recipientAvatar } from "../../data/avatars";
 
 const STEPS = ["Recipient", "Amount", "Review", "Result"] as const;
 
@@ -94,9 +95,7 @@ export function TransferPage() {
                     onClick={() => setRecipientId(r.id)}
                     className="radio-card"
                   >
-                    <span className="avatar" aria-hidden="true">
-                      {initials(r.name)}
-                    </span>
+                    <PersonAvatar name={r.name} src={recipientAvatar(r.id)} size="lg" />
                     <span className="radio-card__text">
                       <span className="ts-body-md-strong">{r.name}</span>
                       <span className="muted ts-body-sm-regular">•••• {r.last4}</span>
@@ -187,7 +186,12 @@ export function TransferPage() {
               <dl className="details">
                 <div>
                   <dt>To</dt>
-                  <dd>
+                  <dd className="person-inline">
+                    <PersonAvatar
+                      name={recipient.name}
+                      src={recipientAvatar(recipient.id)}
+                      size="sm"
+                    />
                     {recipient.name} •••• {recipient.last4}
                   </dd>
                 </div>
@@ -267,13 +271,28 @@ export function TransferPage() {
             title="Summary"
             subtitle="Updates as you go"
           >
+            <div className={`summary-person${recipient ? "" : " is-empty"}`}>
+              {recipient ? (
+                <PersonAvatar name={recipient.name} src={recipientAvatar(recipient.id)} size="lg" />
+              ) : (
+                <span
+                  className="person-avatar person-avatar--lg person-avatar--empty"
+                  aria-hidden="true"
+                >
+                  <Icon name="user" size="var(--icon-size-md)" />
+                </span>
+              )}
+              <span className="summary-person__text">
+                <span className="ts-caption-regular muted">To</span>
+                <span className="ts-body-md-strong">
+                  {recipient ? recipient.name : "Not selected"}
+                </span>
+                {recipient && (
+                  <span className="ts-caption-regular muted">•••• {recipient.last4}</span>
+                )}
+              </span>
+            </div>
             <dl className="details">
-              <div>
-                <dt>To</dt>
-                <dd className={recipient ? undefined : "muted"}>
-                  {recipient ? `${recipient.name} •••• ${recipient.last4}` : "Not selected"}
-                </dd>
-              </div>
               <div>
                 <dt>From</dt>
                 <dd>{account?.name ?? "—"}</dd>
