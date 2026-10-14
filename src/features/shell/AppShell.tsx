@@ -53,7 +53,10 @@ export function AppShell({
             ))}
           </ul>
         </nav>
-        <p className="sidebar__note ts-caption-regular">Demo only. All data is fictional.</p>
+        <p className="sidebar__note ts-caption-regular">
+          <strong>ATLAS Finance</strong> · one product, four brands. Demo only, all data is
+          fictional.
+        </p>
       </aside>
       <div className="main">
         <header className="toolbar">
@@ -73,7 +76,7 @@ export function AppShell({
               />
             </form>
           )}
-          {route !== "/transfers" && (
+          {route !== "/transfers" && route !== "/overview" && (
             <a
               className="btn btn--primary toolbar__cta"
               href="#/transfers"

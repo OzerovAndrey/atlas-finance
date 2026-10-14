@@ -5,9 +5,19 @@ import { Icon } from "./Icon";
 import { Switch } from "./Switch";
 
 const KEY = "atlas.panel";
+const HINT_KEY = "atlas.brandHint";
+
+function hintSeen() {
+  try {
+    return localStorage.getItem(HINT_KEY) === "seen";
+  } catch {
+    return false;
+  }
+}
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-/** Compact, collapsible demo control (bottom right): brand dots, dark theme, reset. Collapsed it is a small pill. */
+/** Collapsible demo control (bottom right): labelled brand switcher, dark theme, reset.
+ * On the first visit a dismissible hint explains that the brands share one product. Collapsed it is a small pill. */
 export function DemoPanel() {
   const { brand, mode, setBrand, setMode } = useTheme();
   const { dispatch } = useDemo();
@@ -20,6 +30,19 @@ export function DemoPanel() {
     }
     return matchMedia("(min-width: 1101px)").matches;
   });
+  const [hint, setHint] = useState(() => !hintSeen());
+  const dismissHint = () => {
+    setHint(false);
+    try {
+      localStorage.setItem(HINT_KEY, "seen");
+    } catch {
+      /* ignore */
+    }
+  };
+  const pickBrand = (b: (typeof BRANDS)[number]) => {
+    setBrand(b);
+    if (hint) dismissHint();
+  };
   useEffect(() => {
     try {
       sessionStorage.setItem(KEY, open ? "open" : "closed");
@@ -39,13 +62,32 @@ export function DemoPanel() {
         data-event="demo_open"
       >
         <i className="dot-brand" data-brand={brand} data-theme={mode} aria-hidden="true" />
-        <span>Demo</span>
+        <span>Switch brand</span>
         <Icon name="chevronUp" size="var(--icon-size-sm)" />
       </button>
     );
 
   return (
     <section id="demo-panel" className="demo-panel" aria-label="Demo controls">
+      {hint && (
+        <div className="demo-hint" role="note">
+          <p className="ts-body-sm-regular">
+            <strong>One banking product, four brands.</strong> Switch the brand or theme — the page,
+            your data and any half-finished transfer stay as they are.
+          </p>
+          <button
+            type="button"
+            className="icon-btn demo-hint__close"
+            onClick={dismissHint}
+            aria-label="Dismiss hint"
+          >
+            <Icon name="close" size="var(--icon-size-sm)" />
+          </button>
+        </div>
+      )}
+      <span className="demo-panel__caption ts-label-sm">
+        ATLAS demo · <span className="demo-panel__caption-strong">Brand</span>
+      </span>
       <div className="demo-panel__brands" role="group" aria-label="Brand">
         {BRANDS.map((b) => (
           <button
@@ -54,7 +96,7 @@ export function DemoPanel() {
             aria-pressed={b === brand}
             aria-label={cap(b)}
             title={cap(b)}
-            onClick={() => setBrand(b)}
+            onClick={() => pickBrand(b)}
             data-event={`brand_${b}`}
           >
             <i className="dot-brand" data-brand={b} data-theme={mode} aria-hidden="true" />

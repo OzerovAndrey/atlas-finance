@@ -169,3 +169,13 @@ These are reference projects for the quality bar and architectural experience, n
 - Charts are derived from seed data only (no invented values); the incomplete current month is hatched and labelled.
 - Brand / theme / reset live in a compact collapsible demo panel (bottom right). Branch `redesign/v3`; nothing is deployed without an explicit command.
 - Figma is not yet redrawn for v3.
+
+## 13. Accepted decisions — UX review fixes (2026-10-14)
+
+- ATLAS Finance is the product/system name; VANTA / PULSE / NORTH / FLOW are its brands. The sidebar note and demo panel say so explicitly.
+- Demo panel is labelled ("ATLAS demo · Brand"; collapsed pill "Switch brand") and shows a one-time, dismissible hint on first visit (localStorage `atlas.brandHint`), closed automatically on the first brand switch.
+- Dark-theme `color.text.danger` and `color.border.danger` use `danger.300` instead of `danger.100`, so input errors read as errors (AA still passes). Field errors carry an alert icon; an invalid focused input keeps a danger outline.
+- Overview has one transfer CTA (hero); the toolbar "New transfer" is hidden there. Hero secondary action is an outlined button.
+- Pending block matches KPI tiles (tile surface, warning border) instead of a grey disabled-looking fill.
+- Transfers has a live Summary panel beside the wizard (stacked below ≤1024 px).
+- `chart.category.*` stays theme-level and shared by all brands on purpose (semantic, contrast-validated series colours).
