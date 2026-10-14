@@ -381,7 +381,8 @@ select {
   gap: var(--space-gap-md);
   flex: 0 1 22rem;
   height: var(--search-bar-size);
-  padding: 0 var(--search-bar-padding-h);
+  /* the kbd hint sits as far from the right edge as it is from top/bottom */
+  padding: 0 var(--space-gap-md) 0 var(--search-bar-padding-h);
   border-radius: var(--border-radius-full);
   background: var(--search-bar-bg);
   color: var(--search-bar-icon);
@@ -393,8 +394,9 @@ select {
   min-width: var(--size-control-xs);
   height: var(--size-control-xs);
   padding: 0 var(--space-gap-sm);
-  border-radius: var(--border-radius-control);
+  border-radius: var(--border-radius-full);
   background: var(--search-bar-kbd-bg);
+  line-height: 1;
   color: var(--search-bar-kbd-color);
   font-family: inherit;
   font-size: var(--typography-caption-regular-font-size);
@@ -402,11 +404,23 @@ select {
 .search input {
   flex: 1;
   min-width: 0;
+  height: 100%;
+  padding: 0;
   border: 0;
   outline: 0;
   background: transparent;
   color: var(--search-bar-color);
-  font-size: var(--search-bar-text-font-size);
+  /* same text size as the toolbar button next to it */
+  font-size: var(--button-label-md-font-size);
+  line-height: var(--button-label-md-line-height);
+}
+.search input::-webkit-search-decoration,
+.search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+.toolbar__cta {
+  align-self: center;
+  height: var(--search-bar-size);
 }
 .search input::placeholder {
   color: var(--search-bar-placeholder);
