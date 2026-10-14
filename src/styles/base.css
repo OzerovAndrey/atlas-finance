@@ -978,6 +978,8 @@ select {
 }
 .segmented {
   display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   gap: var(--segmented-gap);
   padding: var(--segmented-gap);
   border-radius: var(--border-radius-surface);
@@ -1128,14 +1130,21 @@ select {
 .cards-page {
   display: grid;
   gap: var(--space-padding-lg);
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
 }
 .cards-page__list {
+  min-width: 0;
   display: grid;
   gap: var(--space-padding-lg);
   align-content: start;
 }
 .card-pick {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   display: grid;
   gap: var(--space-gap-md);
   padding: 0;
@@ -1155,7 +1164,11 @@ select {
   flex-direction: column;
   justify-content: space-between;
   gap: var(--bank-card-gap);
-  aspect-ratio: 1.7;
+  /* a card keeps its real-world size (ID-1, 85.6 × 54 mm ratio); it does not scale with breakpoints */
+  width: 21.5rem;
+  max-width: 100%;
+  aspect-ratio: 1.586;
+  flex: none;
   padding: var(--bank-card-padding-v) var(--bank-card-padding-h);
   border-radius: var(--bank-card-border-radius);
   background: var(--bank-card-bg);
