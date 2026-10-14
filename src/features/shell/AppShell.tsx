@@ -26,8 +26,10 @@ export function AppShell({
   const [q, setQ] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
   // the frame is fixed and only the content area scrolls, so a new page starts at the top
   useEffect(() => {
+    // scrolling back fires onScroll, which also clears the toolbar shadow
     contentRef.current?.scrollTo({ top: 0 });
   }, [route]);
   // "/" focuses search (skipped while typing in a field)
@@ -111,7 +113,7 @@ export function AppShell({
           fictional.
         </p>
       </aside>
-      <div className="main">
+      <div className={`main${scrolled ? " is-scrolled" : ""}`}>
         <header className="toolbar">
           <div className="toolbar__title">
             <h1 className="ts-title-t1">{title}</h1>
@@ -143,7 +145,12 @@ export function AppShell({
             </a>
           )}
         </header>
-        <main className="content" id="content" ref={contentRef}>
+        <main
+          className="content"
+          id="content"
+          ref={contentRef}
+          onScroll={(e) => setScrolled(e.currentTarget.scrollTop > 0)}
+        >
           {children}
         </main>
       </div>

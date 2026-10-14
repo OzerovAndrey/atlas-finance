@@ -189,3 +189,4 @@ These are reference projects for the quality bar and architectural experience, n
 - Figma is not yet updated for v4 — next step.
 - App frame (2026-10-14): content in a rounded, shadowed frame, max 1440 px, on a brand-tinted backdrop; new tokens `color.backdrop` (brand), `color.bg.backdrop` (theme), `borderRadius.frame`, component `appFrame`. Token resolver now resolves layered (array) shadows — before this fix the v4 shadows rendered as `undefined`; `build-css` now fails on unresolved values.
 - Fixed frame (2026-10-14): only `.content` scrolls inside the frame; sidebar and toolbar are static; scroll resets on route change; ≤ 720 px falls back to normal page scroll.
+- Toolbar edge (2026-10-14): no fade — content is hard-cut under the toolbar, with a hairline divider and a soft downward shadow while the content is scrolled.

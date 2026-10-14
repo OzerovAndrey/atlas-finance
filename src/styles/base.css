@@ -364,15 +364,24 @@ select {
   display: flex;
   flex-direction: column;
 }
+/* fixed toolbar: hard edge + divider; a soft shadow appears once the content below is scrolled */
 .toolbar {
   flex: none;
+  position: relative;
+  z-index: 2;
+  border-bottom: var(--border-width-control) solid var(--color-border-tertiary);
+  transition: box-shadow 0.2s;
+}
+.main.is-scrolled .toolbar {
+  box-shadow: var(--box-shadow-md);
+  clip-path: inset(0 0 -3rem 0); /* shadow only below the toolbar, not over the sidebar */
 }
 .toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-padding-md) var(--space-padding-lg);
-  padding: var(--space-padding-lg) var(--space-padding-xl) var(--space-padding-sm);
+  padding: var(--space-padding-lg) var(--space-padding-xl) var(--space-padding-md);
 }
 .toolbar__title {
   flex: 1 1 14rem;
@@ -426,9 +435,7 @@ select {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border-secondary) transparent;
   scrollbar-gutter: stable;
-  padding: var(--space-padding-md) var(--space-padding-xl) 7rem;
-  /* content fades out under the fixed toolbar instead of being cut by a hard line */
-  mask-image: linear-gradient(to bottom, transparent, black var(--space-padding-md));
+  padding: var(--space-padding-lg) var(--space-padding-xl) 7rem;
 }
 
 /* ---------- bento ---------- */
@@ -1679,7 +1686,6 @@ select {
   }
   .content {
     overflow: visible;
-    mask-image: none;
     scrollbar-gutter: auto;
   }
   .profile {
