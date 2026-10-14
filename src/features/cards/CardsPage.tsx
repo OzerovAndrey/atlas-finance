@@ -1,39 +1,12 @@
 import { useState } from "react";
-import { Icon } from "../../components/Icon";
+import { BankCard } from "../../components/BankCard";
 import { Switch } from "../../components/Switch";
 import { Tile } from "../../components/Tile";
 import { accountName, cardUsedThisMonth } from "../../data/demo";
 import { useDemo } from "../../data/store";
-import type { Card } from "../../data/types";
 import { formatMoney, formatPercent } from "../../lib/format";
-import { useTheme } from "../../lib/theme";
 
 const LIMITS = [50000, 100000, 200000, 500000];
-
-function BankCard({ card }: { card: Card }) {
-  const { brand } = useTheme();
-  const frozen = card.status === "frozen";
-  return (
-    <div
-      className={`bank-card ${frozen ? "bank-card--frozen" : ""}`}
-      role="img"
-      aria-label={`${card.name} ending ${card.last4}${frozen ? ", frozen" : ""}`}
-    >
-      <div className="bank-card__top">
-        <span className="ts-label-overline">
-          {card.kind === "virtual" ? "Virtual card" : "Your card"}
-        </span>
-        {frozen ? <Icon name="snow" /> : card.contactless && <Icon name="wifi" />}
-      </div>
-      <span className="bank-card__chip" />
-      <p className="bank-card__number ts-numeric-amount-lg">•••• •••• •••• {card.last4}</p>
-      <div className="bank-card__bottom ts-body-sm-strong">
-        <span>ATLAS / {brand.toUpperCase()}</span>
-        <span>{card.expires}</span>
-      </div>
-    </div>
-  );
-}
 
 export function CardsPage() {
   const { state, dispatch } = useDemo();
@@ -56,7 +29,14 @@ export function CardsPage() {
             onClick={() => setSelectedId(c.id)}
           >
             <BankCard card={c} />
-            <span className="card-pick__name ts-body-md-strong">{c.name}</span>
+            <span className="card-pick__name">
+              <span className="ts-body-md-strong">{c.name}</span>
+              <span
+                className={`badge ${c.status === "frozen" ? "badge--neutral" : "badge--success"}`}
+              >
+                {c.status === "frozen" ? "Frozen" : "Active"}
+              </span>
+            </span>
           </button>
         ))}
       </div>

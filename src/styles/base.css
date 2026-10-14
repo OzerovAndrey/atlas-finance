@@ -95,7 +95,7 @@ select {
 }
 .amt__dec {
   color: var(--color-text-tertiary);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--typography-caption-regular-font-weight);
   font-size: 0.62em;
   margin-left: 0.04em;
 }
@@ -1420,74 +1420,296 @@ select {
 }
 .card-pick {
   display: grid;
-  gap: var(--space-gap-md);
+  gap: var(--space-gap-lg);
+  width: 100%;
+  max-width: 27rem;
   padding: 0;
   border: 0;
   background: transparent;
   text-align: left;
   cursor: pointer;
-  opacity: 0.6;
+  border-radius: var(--bank-card-border-radius);
+  opacity: 0.55;
+  transform: scale(0.96);
+  transform-origin: left center;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+}
+.card-pick:hover {
+  opacity: 0.85;
 }
 .card-pick[aria-pressed="true"] {
   opacity: 1;
+  transform: none;
+}
+.card-pick__name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-gap-md);
+  padding-left: var(--space-gap-md);
+}
+
+/* ---------- bank card (3D) ---------- */
+.bank-card-3d {
+  perspective: 62rem;
 }
 .bank-card {
+  --face: var(--bank-card-bg);
+  --ink: var(--bank-card-color);
   position: relative;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--bank-card-gap);
-  aspect-ratio: 1.7;
-  padding: var(--bank-card-padding-v) var(--bank-card-padding-h);
-  border-radius: var(--bank-card-border-radius);
-  background: var(--bank-card-bg);
-  color: var(--bank-card-color);
-  border: var(--border-width-control) solid var(--color-border-tertiary);
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: var(--space-gap-md);
+  aspect-ratio: 1.586;
+  padding: var(--space-padding-xl);
+  border-radius: max(var(--border-radius-surface), 1.1rem);
+  color: var(--ink);
+  background:
+    radial-gradient(
+      120% 90% at 100% 0%,
+      color-mix(in oklab, var(--color-product1) 70%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 80% at 0% 100%,
+      color-mix(in oklab, var(--color-product2) 55%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(
+      150deg,
+      color-mix(in oklab, var(--face) 85%, var(--color-product1)),
+      var(--face) 60%
+    );
+  /* edge highlight + layered depth + brand-coloured cast shadow */
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--ink) 35%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--face) 60%, transparent),
+    0 2px 4px color-mix(in srgb, var(--face) 25%, transparent),
+    0 18px 40px -12px color-mix(in srgb, var(--face) 55%, transparent),
+    0 30px 60px -24px color-mix(in srgb, var(--color-product1) 55%, transparent);
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.3s;
+  will-change: transform;
 }
-.bank-card::before,
-.bank-card::after {
+.bank-card[data-active="true"] {
+  transition: transform 0.08s linear;
+}
+.bank-card--virtual {
+  background:
+    conic-gradient(
+      from 210deg at 70% 30%,
+      color-mix(in oklab, var(--color-product2) 70%, transparent),
+      color-mix(in oklab, var(--color-product3) 60%, transparent),
+      color-mix(in oklab, var(--color-product1) 60%, transparent),
+      color-mix(in oklab, var(--color-product2) 70%, transparent)
+    ),
+    var(--face);
+}
+.bank-card--virtual::before {
+  /* frosted glass layer keeps text readable over the holographic base */
   content: "";
   position: absolute;
-  border-radius: var(--border-radius-full);
-  background: var(--bank-card-layer-bg);
-  opacity: 0.22;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--face) 62%, transparent),
+    color-mix(in srgb, var(--face) 88%, transparent)
+  );
 }
-.bank-card::before {
-  right: -15%;
-  top: -35%;
-  width: 60%;
-  aspect-ratio: 1;
-}
-.bank-card::after {
-  right: -5%;
-  bottom: -55%;
-  width: 70%;
-  aspect-ratio: 1;
-}
-.bank-card > * {
+.bank-card > :not(.bank-card__guilloche, .bank-card__glow, .bank-card__glare, .bank-card__frost) {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
-.bank-card--frozen {
-  background: var(--bank-card-frozen-bg);
-  color: var(--bank-card-frozen-color);
+.bank-card__guilloche {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.6;
+  opacity: 0.1;
 }
-.bank-card__top,
-.bank-card__bottom {
+.bank-card__glow {
+  position: absolute;
+  right: -18%;
+  top: -40%;
+  z-index: 0;
+  width: 65%;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-full);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ink) 18%, transparent),
+    transparent 65%
+  );
+}
+.bank-card__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    40% 55% at var(--mx) var(--my),
+    color-mix(in srgb, var(--ink) 30%, transparent),
+    transparent 70%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.bank-card[data-active="true"] .bank-card__glare {
+  opacity: 1;
+}
+.bank-card__top {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  color: var(--bank-card-muted);
 }
-.bank-card__bottom {
-  color: inherit;
+.bank-card__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-gap-md);
+}
+.bank-card__wordmark {
+  font-family: var(--font-family-display);
+  font-weight: var(--typography-title-t5-font-weight);
+  letter-spacing: 0.14em;
+}
+.bank-card__kind {
+  padding: var(--space-gap-xs) var(--space-gap-lg);
+  border-radius: var(--border-radius-full);
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: inset 0 0 0 var(--border-width-control)
+    color-mix(in srgb, var(--ink) 22%, transparent);
+  font-size: var(--typography-label-sm-font-size);
+  font-weight: var(--typography-label-sm-font-weight);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+.bank-card__middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .bank-card__chip {
-  width: var(--size-control-lg);
-  height: var(--size-control-sm);
-  border-radius: var(--border-radius-control);
-  background: var(--bank-card-chip);
-  opacity: 0.8;
+  width: 3.25rem;
+  filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--face) 60%, transparent));
+}
+.chip__body {
+  fill: color-mix(in oklab, var(--color-chart-category-7) 55%, var(--ink));
+  stroke: color-mix(in oklab, var(--color-chart-category-7) 40%, var(--face));
+  stroke-width: 1;
+}
+.chip__pad {
+  fill: color-mix(in oklab, var(--color-chart-category-7) 35%, var(--ink));
+}
+.chip__lines {
+  fill: none;
+  stroke: color-mix(in oklab, var(--color-chart-category-7) 60%, var(--face));
+  stroke-width: 1.2;
+}
+.bank-card__contactless {
+  display: inline-grid;
+  transform: rotate(90deg);
+  opacity: 0.85;
+}
+.bank-card__virtual-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-gap-sm);
+  padding: var(--space-gap-sm) var(--space-gap-lg);
+  border-radius: var(--border-radius-full);
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+  font-size: var(--typography-label-sm-font-size);
+  font-weight: var(--typography-label-sm-font-weight);
+}
+.bank-card__number {
+  display: flex;
+  gap: 0.9em;
+  font-family: var(--typography-numeric-amount-lg-font-family);
+  font-size: clamp(1rem, 5.2cqw, var(--typography-numeric-amount-lg-font-size));
+  font-weight: var(--typography-numeric-amount-lg-font-weight);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  /* embossed print */
+  text-shadow:
+    0 1px 0 color-mix(in srgb, var(--face) 70%, transparent),
+    0 -1px 0 color-mix(in srgb, var(--ink) 25%, transparent);
+}
+.bank-card-3d {
+  container-type: inline-size;
+}
+.bank-card__bottom {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-padding-lg);
+  font-size: var(--typography-body-sm-strong-font-size);
+  font-weight: var(--typography-body-sm-strong-font-weight);
+  letter-spacing: 0.06em;
+}
+.bank-card__field {
+  display: grid;
+  gap: var(--space-gap-xs);
+  min-width: 0;
+  white-space: nowrap;
+}
+.bank-card__label {
+  color: var(--bank-card-muted);
+  font-size: var(--typography-caption-regular-font-size);
+  font-weight: var(--typography-caption-regular-font-weight);
+  letter-spacing: 0.04em;
+}
+.bank-card__network {
+  display: grid;
+  margin-left: auto;
+  font-family: var(--font-family-display);
+  font-size: var(--typography-title-t5-font-size);
+  font-weight: var(--typography-title-t4-font-weight);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-align: right;
+}
+.bank-card__network small {
+  color: var(--bank-card-muted);
+  font-size: var(--typography-caption-regular-font-size);
+  font-weight: var(--typography-caption-regular-font-weight);
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.bank-card--frozen {
+  filter: grayscale(0.85);
+}
+.bank-card__frost {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-gap-md);
+  background: color-mix(in srgb, var(--face) 35%, transparent);
+  backdrop-filter: blur(3px);
+  font-size: var(--typography-label-md-font-size);
+  font-weight: var(--typography-label-md-font-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bank-card {
+    transform: none;
+  }
 }
 
 /* ---------- settings, accounts ---------- */
