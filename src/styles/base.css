@@ -1457,10 +1457,183 @@ select {
   display: grid;
   gap: var(--space-padding-lg);
 }
+.accounts-page {
+  display: grid;
+  gap: var(--space-padding-lg);
+}
 .accounts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr));
   gap: var(--space-padding-lg);
+  align-items: stretch;
+}
+.accounts-summary__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-padding-md) var(--space-padding-xl);
+}
+.accounts-summary__split {
+  display: grid;
+  flex: 1 1 22rem;
+  gap: var(--space-gap-lg);
+}
+.accounts-summary__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-gap-md) var(--space-padding-lg);
+}
+.accounts-summary__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-gap-sm);
+}
+.account-card {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-padding-md);
+  min-width: 0;
+  padding: var(--tile-padding-v) var(--tile-padding-h);
+  border-radius: var(--tile-border-radius);
+  background: var(--tile-bg);
+  border: var(--border-width-control) solid var(--tile-br);
+  box-shadow: var(--tile-shadow);
+}
+.account-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-gap-lg);
+}
+.account-card__title {
+  flex: 1;
+  min-width: 0;
+}
+.account-card__title .tile__subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.account-card__balance {
+  display: grid;
+  gap: var(--space-gap-md);
+}
+.account-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-gap-sm);
+}
+.account-card__trend {
+  color: var(--bar-chart-accent);
+}
+.account-card__month {
+  display: grid;
+  gap: var(--space-gap-lg);
+  padding: var(--space-padding-md);
+  border-radius: var(--border-radius-surface);
+  background: var(--color-bg-tertiary);
+}
+.account-card__month-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-gap-md);
+}
+.account-card__flows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-gap-lg);
+}
+.flow-stat {
+  display: grid;
+  gap: var(--space-gap-xs);
+  padding-left: var(--space-gap-lg);
+  border-left: var(--border-width-strong) solid var(--bar-chart-series-income);
+}
+.flow-stat--out {
+  border-left-color: var(--bar-chart-series-expense);
+}
+.account-card__details > div {
+  align-items: center;
+}
+.account-card__number-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-gap-lg);
+  padding: var(--space-gap-lg) var(--space-padding-md);
+  border-radius: var(--border-radius-surface);
+  border: var(--border-width-control) dashed var(--color-border-secondary);
+}
+.account-card__number {
+  display: grid;
+  min-width: 0;
+}
+.account-card__number-value {
+  font-variant-numeric: tabular-nums;
+  font-size: var(--typography-body-sm-strong-font-size);
+  font-weight: var(--typography-body-sm-strong-font-weight);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* narrow card: the copy button keeps only its icon (label stays for screen readers via aria-label) */
+@container (max-width: 22rem) {
+  .account-card .copy-btn span {
+    display: none;
+  }
+  .account-card .copy-btn {
+    width: var(--size-control-xs);
+    padding: 0;
+    justify-content: center;
+  }
+}
+.account-card__cards {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-gap-xs);
+}
+.account-card__cards .chip {
+  gap: var(--space-gap-xs);
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-gap-xs);
+  height: var(--size-control-xs);
+  padding: 0 var(--space-gap-md);
+  border: 0;
+  border-radius: var(--border-radius-full);
+  background: var(--color-fill-secondary-default);
+  color: var(--color-text-secondary);
+  font-size: var(--typography-caption-regular-font-size);
+  cursor: pointer;
+}
+.copy-btn:hover {
+  background: var(--color-fill-secondary-hover);
+  color: var(--color-text-primary);
+}
+.copy-btn.is-done {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-fg);
+}
+.account-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-gap-md);
+  margin-top: auto;
+}
+.account-card__actions .btn {
+  flex: 1 1 8rem;
+}
+.filter-chip {
+  gap: var(--space-gap-sm);
+  white-space: nowrap;
+}
+.filter-chip:hover {
+  background: var(--color-fill-secondary-hover);
 }
 .bento--analytics .a-flow {
   grid-column: span 7;

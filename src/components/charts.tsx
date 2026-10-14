@@ -182,7 +182,8 @@ export function TrendChart({
   const hi = Math.max(...vals);
   const span = hi - lo || 1;
   const x = (i: number) => m.l + (iw * i) / Math.max(data.length - 1, 1);
-  const y = (v: number) => m.t + ih - ((v - lo) / span) * ih;
+  // a flat series (no movement) sits in the middle instead of on the floor
+  const y = (v: number) => (hi === lo ? m.t + ih / 2 : m.t + ih - ((v - lo) / span) * ih);
   const line = data
     .map((d, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(d.balanceMinor).toFixed(1)}`)
     .join(" ");

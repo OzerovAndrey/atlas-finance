@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Amount } from "../../components/Amount";
+import { Icon } from "../../components/Icon";
 import { CategoryAvatar, categoryColor } from "../../components/CategoryAvatar";
 import { Tile } from "../../components/Tile";
 import { accountName, byDateDesc, categoryName, seed } from "../../data/demo";
@@ -84,9 +85,11 @@ function Detail({ tx, onClose }: { tx: Transaction; onClose: () => void }) {
 function TransactionsView({
   initialTab,
   initialQuery,
+  accountId,
 }: {
   initialTab: TabId;
   initialQuery: string;
+  accountId: string | null;
 }) {
   const { state } = useDemo();
   const [tab, setTab] = useState<TabId>(initialTab);
@@ -101,15 +104,29 @@ function TransactionsView({
       if (tab === "expenses" && t.amountMinor >= 0) return false;
       if (tab === "pending" && t.status !== "pending") return false;
       if (category !== "all" && t.categoryId !== category) return false;
+      if (accountId && t.accountId !== accountId) return false;
       return !q || t.merchant.toLowerCase().includes(q) || t.reference.toLowerCase().includes(q);
     });
-  }, [state.transactions, tab, query, category]);
+  }, [state.transactions, tab, query, category, accountId]);
 
   const open = state.transactions.find((t) => t.id === selected);
 
   return (
     <div className={`split ${open ? "split--open" : ""}`}>
-      <Tile icon="list" title="All transactions" subtitle={`${rows.length} entries`}>
+      <Tile
+        icon="list"
+        title={accountId ? accountName(accountId) : "All transactions"}
+        subtitle={`${rows.length} entries`}
+        extra={
+          accountId ? (
+            <a className="chip chip--neutral filter-chip" href="#/transactions">
+              Account: {accountName(accountId)}
+              <Icon name="close" size="var(--icon-size-xs)" />
+              <span className="sr-only">Show all accounts</span>
+            </a>
+          ) : undefined
+        }
+      >
         <div className="tabs" role="tablist" aria-label="Transaction type">
           {TABS.map((t) => (
             <button
@@ -224,7 +241,7 @@ function TransactionsView({
   );
 }
 
-/** Filters come from the URL (#/transactions?q=…&status=pending); the view remounts when they change. */
+/** Filters come from the URL (#/transactions?q=…&status=pending&account=…); the view remounts when they change. */
 export function TransactionsPage() {
   const params = useRouteQuery();
   const st = params.get("status");
@@ -234,6 +251,9 @@ export function TransactionsPage() {
       key={params.toString()}
       initialTab={tab}
       initialQuery={params.get("q") ?? ""}
+      accountId={
+        seed.accounts.some((a) => a.id === params.get("account")) ? params.get("account") : null
+      }
     />
   );
 }

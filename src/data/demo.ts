@@ -110,16 +110,21 @@ export interface TrendPoint {
 const isoDay = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-/** End-of-day total balance for the last `days` days, derived by rolling completed transactions back from today's balance. */
-export function balanceTrend(state: DemoState, days = 30): TrendPoint[] {
+/** End-of-day balance for the last `days` days, derived by rolling completed transactions back from today's balance.
+ * Without `accountId`: total of all accounts in the base currency; with it: that account in its own currency. */
+export function balanceTrend(state: DemoState, days = 30, accountId?: string): TrendPoint[] {
   const end = new Date(`${seed.meta.today}T12:00:00`);
-  let balance = state.accounts.reduce((s, a) => s + toBase(a.balanceMinor, a.currency), 0);
+  const acc = accountId ? state.accounts.find((a) => a.id === accountId) : undefined;
+  let balance = acc
+    ? acc.balanceMinor
+    : state.accounts.reduce((s, a) => s + toBase(a.balanceMinor, a.currency), 0);
   const byDay = new Map<string, number>();
   for (const t of state.transactions)
-    if (completed(t))
+    if (completed(t) && (!accountId || t.accountId === accountId))
       byDay.set(
         t.date.slice(0, 10),
-        (byDay.get(t.date.slice(0, 10)) ?? 0) + toBase(t.amountMinor, t.currency),
+        (byDay.get(t.date.slice(0, 10)) ?? 0) +
+          (accountId ? t.amountMinor : toBase(t.amountMinor, t.currency)),
       );
   const out: TrendPoint[] = [];
   for (let i = 0; i < days; i++) {
@@ -142,4 +147,17 @@ export function categorySplit(expenseTx: Transaction[], n = 5) {
     top.push({ id: "other", name: "Other", minor, share: rest.reduce((s, c) => s + c.share, 0) });
   }
   return top;
+}
+
+/** This month's activity of one account, in the account's own currency (completed payments only). */
+export function accountActivity(state: DemoState, accountId: string, ym = month) {
+  const list = state.transactions.filter((t) => t.accountId === accountId && t.date.startsWith(ym));
+  const done = list.filter(completed);
+  return {
+    count: list.length,
+    pending: list.length - done.length,
+    income: done.filter((t) => t.amountMinor > 0).reduce((s, t) => s + t.amountMinor, 0),
+    expenses: done.filter((t) => t.amountMinor < 0).reduce((s, t) => s - t.amountMinor, 0),
+    lastDate: byDateDesc(list)[0]?.date ?? null,
+  };
 }
