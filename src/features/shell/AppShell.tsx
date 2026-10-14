@@ -25,6 +25,11 @@ export function AppShell({
   const { brand } = useTheme();
   const [q, setQ] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLElement>(null);
+  // the frame is fixed and only the content area scrolls, so a new page starts at the top
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0 });
+  }, [route]);
   // "/" focuses search (skipped while typing in a field)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -138,7 +143,7 @@ export function AppShell({
             </a>
           )}
         </header>
-        <main className="content" id="content">
+        <main className="content" id="content" ref={contentRef}>
           {children}
         </main>
       </div>

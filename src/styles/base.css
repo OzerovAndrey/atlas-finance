@@ -15,17 +15,21 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  /* frame offset lives in body padding (not shell margin) so it cannot collapse into extra page height */
+  padding: var(--app-frame-margin) 0;
   background: var(--app-frame-backdrop);
 }
 /* the whole app sits in one rounded, softly shadowed frame (max 1440 wide) */
 .shell {
   width: min(90rem, calc(100% - var(--app-frame-margin) * 2));
-  min-height: calc(100vh - var(--app-frame-margin) * 2);
-  margin: var(--app-frame-margin) auto;
+  /* fixed frame: the page itself never scrolls, only .content inside it */
+  height: calc(100vh - var(--app-frame-margin) * 2);
+  height: calc(100dvh - var(--app-frame-margin) * 2);
+  margin: 0 auto;
   border: var(--app-frame-border-width) solid var(--app-frame-br);
   border-radius: var(--app-frame-border-radius);
   box-shadow: var(--app-frame-shadow);
-  overflow: clip;
+  overflow: hidden;
   background:
     radial-gradient(
       60rem 28rem at 90% -8rem,
@@ -248,9 +252,9 @@ select {
   grid-template-columns: 15rem minmax(0, 1fr);
 }
 .sidebar {
-  position: sticky;
-  top: var(--app-frame-margin);
-  height: calc(100vh - var(--app-frame-margin) * 2);
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
   display: flex;
   flex-direction: column;
   gap: var(--space-padding-lg);
@@ -356,8 +360,12 @@ select {
 }
 .main {
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+}
+.toolbar {
+  flex: none;
 }
 .toolbar {
   display: flex;
@@ -411,7 +419,16 @@ select {
   outline-offset: var(--focus-offset);
 }
 .content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-secondary) transparent;
+  scrollbar-gutter: stable;
   padding: var(--space-padding-md) var(--space-padding-xl) 7rem;
+  /* content fades out under the fixed toolbar instead of being cut by a hard line */
+  mask-image: linear-gradient(to bottom, transparent, black var(--space-padding-md));
 }
 
 /* ---------- bento ---------- */
@@ -1577,15 +1594,15 @@ select {
 
 /* ---------- responsive ---------- */
 @media (max-width: 1100px) {
+  body {
+    padding: var(--space-padding-sm) 0;
+  }
   .shell {
     grid-template-columns: 4.75rem minmax(0, 1fr);
     width: calc(100% - var(--space-padding-sm) * 2);
-    margin: var(--space-padding-sm) auto;
-    min-height: calc(100vh - var(--space-padding-sm) * 2);
-  }
-  .sidebar {
-    top: var(--space-padding-sm);
+    margin: 0 auto;
     height: calc(100vh - var(--space-padding-sm) * 2);
+    height: calc(100dvh - var(--space-padding-sm) * 2);
   }
   .sidebar {
     padding-inline: var(--space-gap-md);
@@ -1627,11 +1644,16 @@ select {
   }
 }
 @media (max-width: 720px) {
+  body {
+    padding: 0;
+  }
   .shell {
     grid-template-columns: minmax(0, 1fr);
     width: 100%;
+    height: auto;
     margin: 0;
     min-height: 100vh;
+    overflow: visible;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -1651,6 +1673,14 @@ select {
   .sidebar__nav {
     flex-direction: row;
     gap: var(--space-gap-xs);
+  }
+  .sidebar {
+    overflow: visible;
+  }
+  .content {
+    overflow: visible;
+    mask-image: none;
+    scrollbar-gutter: auto;
   }
   .profile {
     display: none;
