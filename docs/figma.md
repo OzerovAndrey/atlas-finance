@@ -23,13 +23,22 @@ Hierarchy `Components → Theme → Brand → Base`. WEB code syntax on every va
 
 ## Pages (in order)
 
-`Foundations` (empty, reserved) · `Components` · `Overview` · `Accounts` · `Transactions` · `Transaction detail` · `Transactions loading` · `Transactions empty` · `Transfer 1 Recipient` · `Transfer 2 Amount` · `Transfer 2 Amount (error)` · `Transfer 3 Review` · `Transfer 4 Result` · `Cards` · `Cards (frozen)` · `Analytics` · `Settings` · `Mobile Overview` · `Mobile Overview 320` · `Mobile Transactions` · `Mobile Transfer` · `Mobile Cards`.
+`Foundations` (empty, reserved) · `Components` · `Overview` · `Accounts` · `Transfer 1 Recipient` · `Cards` · `Mobile Overview`.
 
-v2 additions (see [visual-direction.md](visual-direction.md)): Stat Card, Delta Chip, Avatar, Avatar Stack, Round Button, Search Bar, Tile, Bar / Donut / Tick charts, Promo Card, Profile; Balance Card, Bank Card, Account Card, Sidebar, Nav Item and Page Header were rebuilt. Desktop frames are 1440 wide. Overview, Analytics and Transactions are full bento compositions; the other desktop pages keep their v1 composition but inherit the new shell, radii, rows and cards through shared components.
+Cleanup on 2026-10-15: the v2-only pages (Transactions, Transaction detail / loading / empty, Transfer 2–4, Cards (frozen), Analytics, Settings, Mobile Overview 320, Mobile Transactions / Transfer / Cards) and the `Legacy · v2` sections were deleted. The five remaining screen pages are the example layouts; every one holds 8 frames — row 1 Light, row 2 Dark; columns VANTA · PULSE · NORTH · FLOW; explicit `Brand` + `Theme` modes per frame. Desktop frames are 1440 wide, mobile 390. Routes, flows and states of the full app are described in [layouts.md](layouts.md).
 
-Every screen page holds 8 frames: row 1 Light, row 2 Dark; columns VANTA · PULSE · NORTH · FLOW; explicit `Brand` + `Theme` modes per frame. Routes, flows and states are described in [layouts.md](layouts.md).
+`Components` sections (top to bottom) — only what the live site uses:
 
-`Components` sections: **Icons**, **Actions** (Button, Icon Button, Link), **Forms** (Input, Select, Checkbox, Radio, Switch), **Navigation** (Nav Item, Tab Item, Breadcrumbs, Segmented Item), **Data** (Table Header, Table Row, Badge, Transaction Row, Section Header, Skeleton), **Finance** (Account Card, Bank Card, Balance Card), **Feedback** (Alert, Toast, Dialog), **Visualization** (Spending Chart, Category Chart, Bar Chart, Donut Chart, Tick Chart), **Shell** (Sidebar, Switchers, Page Header, Bottom Nav, Top Bar).
+- **Icons** — Icon.
+- **Brand & Demo** — Logo, Demo Bar (the floating demo control).
+- **Actions** — Button, Icon Button.
+- **Forms** — Input, Select, Switch.
+- **Navigation** — Tab Item, Segmented Item.
+- **Data** — Table Header, Table Row (uses Category Avatar), Badge.
+- **Feedback** — Alert.
+- **v4 · Site parity** — everything listed in the next section.
+
+Removed as unused by the site: Link, Checkbox, Radio, Nav Item, Breadcrumbs, Transaction Row, Section Header, Skeleton, Account Card, Bank Card, Balance Card, Toast, Dialog, Spending / Category / Bar / Donut / Tick charts, Sidebar, Switchers, Page Header, Bottom Nav, Top Bar, Avatar, Avatar Stack, Round Button, Search Bar, Tile, Stat Card, Promo Card, Profile, the old Delta Chip.
 
 ## v4 · Site parity (October 2026)
 
@@ -38,7 +47,7 @@ The Figma file was brought in line with the live site (visual direction v4, app 
 - **Variables / styles** re-synced from `tokens/`: new brand tokens (`chartAccent`, `chartAccent2(Dark)`, `backdrop`, `borderRadius/frame`, `onProduct1Muted`, `product1Hover/Active`), theme `bg/backdrop`, `border/surface`, `chart/series/*`, component groups `appFrame/*`, `hero/*`, `demoPanel/*`, `barChart/series/*`. Effect styles use the layered v4 shadows (+ `appFrame/shadow`); new text styles `numeric/amountXl`, `statCard/value`, `hero/*`, `demoPanel/text`.
 - **Icons**: 20 icons added to `Icon` (grid, send, arrow-up-right, arrow-down-left, percent, receipt, bus, dining, bag, heart, ticket, swap, vault, globe, alert, snow, clock, reset, sliders, dots).
 - **Components page → section `v4 · Site parity`**: Person Avatar (6 demo people × sm/md/lg, 3D avatars from Fluent UI Emoji, MIT), Category Avatar (9 categories × md/sm), Delta Chip, Round Action, Search Pill, Nav Item v4, Tile Header, KPI (soft1/soft2/soft3/neutral), Pending Tile, Transaction Row v4, Hero Balance, Chart / Money Flow, Chart / Category Split, Account Card v4 (active / quiet), Bank Card v4 (physical / virtual × active / frozen), Sidebar v4 (`Page=` variant per route, accent edge indicator), Page Header v4 (CTA on/off), Mobile Top Bar, Mobile Tab Bar (persistent, FAB), More Sheet, Recipient Option, Stepper. Every fill, stroke, radius, padding and gap is bound to a variable; text uses text styles.
-- **Layouts redrawn** in the app-frame style (rounded frame on `appFrame/backdrop`): Overview, Accounts, Cards, Transfer 1 Recipient (1440 wide) and Mobile Overview (390). Each page has 8 frames (VANTA · PULSE · NORTH · FLOW × Light / Dark) with explicit `Brand` + `Theme` modes. The previous v2 frames are kept below in a `Legacy · v2 (before site parity)` section on each page; other pages are still v2.
+- **Layouts redrawn** in the app-frame style (rounded frame on `appFrame/backdrop`): Overview, Accounts, Cards, Transfer 1 Recipient (1440 wide) and Mobile Overview (390). Each page has 8 frames (VANTA · PULSE · NORTH · FLOW × Light / Dark) with explicit `Brand` + `Theme` modes. The old v2 frames and pages were deleted on 2026-10-15.
 - Demo numbers in frames are copied from the fictional seed in `src/data/demo.ts` (today = 12 Oct 2026).
 
 ## Known rules / gotchas
@@ -49,15 +58,14 @@ The Figma file was brought in line with the live site (visual direction v4, app 
 - Do not override paints on a _nested_ swapped icon or on an instance property that equals the base value: Figma renders the placeholder colour. Use variants / instance-swap properties instead.
 - Chart series use `chart.category.*` (semantic, AA-checked), not the brand primary; every series also has a text label.
 - `info` is one shared blue in all brands so it can never be mistaken for `warning` (FLOW's third brand colour is amber).
-- Shadows on Toast / Dialog are plain effects (no variable for shadow colour yet).
 
 ## Not yet built
 
-Foundations specimen page, 768 / 1024 frames, v4 redraw of Transactions / Analytics / Settings / transfer steps 2–4 / other mobile screens, add-recipient / add-account flows, component descriptions for Code Connect, interaction prototypes.
+Foundations specimen page, 768 / 1024 frames, layouts for Transactions / Analytics / Settings / transfer steps 2–4 / other mobile screens (the site has them; Figma keeps five example pages), add-recipient / add-account flows, component descriptions for Code Connect, interaction prototypes.
 
 ## Logo component
 
-`Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks are bold two-tone geometric symbols without a container, filled with `Brand:color/product1/500` and `product2/500`: VANTA faceted "V" (two legs), PULSE three rising slanted bars, NORTH two-tone north arrow, FLOW two overlapping wave ribbons. Wordmark uses `Brand:fontFamily/display`. Used in Sidebar and Top Bar.
+`Logo` (Components page): `Style=full|mark` × `Size=sm|md|lg`. Marks are bold two-tone geometric symbols without a container, filled with `Brand:color/product1/500` and `product2/500`: VANTA faceted "V" (two legs), PULSE three rising slanted bars, NORTH two-tone north arrow, FLOW two overlapping wave ribbons. Wordmark uses `Brand:fontFamily/display`. Used in Sidebar v4, Mobile Top Bar and Bank Card v4.
 
 ## No gradients (visual refresh v3)
 
@@ -71,4 +79,4 @@ Component and screen frames no longer use border strokes: surfaces are separated
 
 ## Demo Bar
 
-`Demo Bar` (Components page): the floating bottom control of the coded demo, replacing brand/theme switchers in page headers. Variants: `Brand` (active pill) × `Theme` (switch state) × `Size=desktop|mobile` (mobile shows only the active label). Colors come from Theme variables; each brand dot pins its own Brand mode so it always shows that brand's colors. One instance sits absolutely positioned at the bottom centre of every screen frame (mobile frames: above the bottom nav). Settings → Appearance keeps its own switchers.
+`Demo Bar` (Components page): the floating bottom control of the coded demo, replacing brand/theme switchers in page headers. Variants: `Brand` (active pill) × `Theme` (switch state) × `Size=desktop|mobile` (mobile shows only the active label). Colors come from Theme variables; each brand dot pins its own Brand mode so it always shows that brand's colors. The v4 example frames do not place it (on the site it floats over the content on desktop and lives in the More sheet on mobile).
