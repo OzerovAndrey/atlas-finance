@@ -114,6 +114,16 @@ export function AppShell({
         <p className="sidebar__note ts-caption-regular">
           <strong>ATLAS Finance</strong> · one product, four brands. Demo only, all data is
           fictional.
+          <br />
+          Designed by{" "}
+          <a
+            className="author-credit"
+            href="https://ozerovandrey.github.io/portfolio/en/cases/atlas-finance/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Andriy Ozerov
+          </a>
         </p>
       </aside>
       <div className={`main${scrolled ? " is-scrolled" : ""}`}>

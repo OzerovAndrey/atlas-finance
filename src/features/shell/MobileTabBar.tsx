@@ -115,6 +115,17 @@ export function MobileTabBar({
               </span>
             </span>
           </div>
+          <p className="ts-caption-regular muted">
+            Designed by{" "}
+            <a
+              className="author-credit"
+              href="https://ozerovandrey.github.io/portfolio/en/cases/atlas-finance/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Andriy Ozerov
+            </a>
+          </p>
         </div>
       )}
       <nav className="tabbar" aria-label="Main">
